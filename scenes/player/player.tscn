@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://ci28x63s0dr5g"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
+[ext_resource type="Texture2D" uid="uid://jks20w3lpvav" path="res://assets/sprite_sheets/slime_idle1.png" id="2_ajtux"]
+[ext_resource type="PackedScene" uid="uid://dm3hixl5xabpo" path="res://scenes/player/player_state_machine.tscn" id="3_yqh4w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d64aa"]
+radius = 11.6358
+
+[sub_resource type="Animation" id="Animation_tobp0"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ebgs6"]
+_data = {
+"idle": SubResource("Animation_tobp0")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_6bvhh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("2_ajtux")
+offset = Vector2(6, 0)
+hframes = 2
+vframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+scale = Vector2(0.601594, 0.571746)
+shape = SubResource("CircleShape2D_d64aa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ebgs6")
+}
+
+[node name="PlayerStateMachine" parent="." instance=ExtResource("3_yqh4w")]
