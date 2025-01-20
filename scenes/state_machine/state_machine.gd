@@ -10,7 +10,6 @@ var states = {}
 @onready var parent = get_parent()
 
 func _physics_process(delta):
-	print(parent.velocity)
 	if state != null:
 		_state_logic(delta)
 		var transition = _get_transition(delta)

@@ -1,5 +1,6 @@
 extends StateMachine
 
+
 func _ready():
 	add_state("idle")
 	add_state("run")
@@ -11,6 +12,10 @@ func _state_logic(delta):
 	parent._handle_move_input()
 	parent._apply_gravity(delta)
 	parent._apply_movement(delta)
+	
+	var move_sign = sign(parent.velocity.x)
+	if move_sign != 0:
+		parent.visuals.scale = Vector2(move_sign, 1)
 	
 func _get_transition(delta):
 	match state:
@@ -44,14 +49,13 @@ func _get_transition(delta):
 func _enter_state(new_state, old_state):
 	match new_state:
 		states.idle:
-			print('in idle state')
-			#parent.anim_player.play("idle")
+			parent.anim_player.play("idle")
 		states.run:
 			print('in run state')
 			#parent.anim_player.play("run")
 		states.jump:
 			print('in jump state')
-			#parent.anim_player.play("jump")
+			parent.anim_player.play("jump")
 		states.fall:
 			print('in fall state')
 			#parent.anim_player.play("fall")
