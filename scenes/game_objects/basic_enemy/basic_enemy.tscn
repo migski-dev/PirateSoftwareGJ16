@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://fxytc2rpov6n"]
+[gd_scene load_steps=12 format=3 uid="uid://fxytc2rpov6n"]
 
 [ext_resource type="Texture2D" uid="uid://cos4syos2p3uf" path="res://assets/sprite_sheets/slime_hit.png" id="1_36v1r"]
 [ext_resource type="Script" path="res://scenes/game_objects/basic_enemy/basic_enemy.gd" id="1_ot6om"]
@@ -6,12 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="2_tnpqn"]
 [ext_resource type="PackedScene" uid="uid://dqkdttegghfgw" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="4_3xqcv"]
 [ext_resource type="PackedScene" uid="uid://duhsb0rtxau21" path="res://scenes/components/velocity_component/velocity_component.tscn" id="4_sjq06"]
+[ext_resource type="PackedScene" uid="uid://bk8wppkl7v5vt" path="res://scenes/components/state_machine/enemy_state_machine/enemy_state_machine.tscn" id="7_3gekn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gmjdt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bsjko"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bh0td"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ltbll"]
 
 [node name="BasicEnemy" type="CharacterBody2D"]
 script = ExtResource("1_ot6om")
@@ -38,6 +41,8 @@ shape = SubResource("CircleShape2D_bh0td")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("4_sjq06")]
 
+[node name="EnemyStateMachine" parent="." instance=ExtResource("7_3gekn")]
+
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
@@ -46,3 +51,12 @@ texture = ExtResource("1_36v1r")
 hframes = 2
 vframes = 7
 frame = 3
+
+[node name="AttackArea2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
+position = Vector2(0, -8)
+scale = Vector2(5.02726, 4.66394)
+shape = SubResource("CircleShape2D_ltbll")
+debug_color = Color(0.69059, 0.497759, 0, 0.42)

@@ -5,9 +5,12 @@ extends CharacterBody2D
 
 func _ready():
 	$HurtboxComponent.hit.connect(on_hit)
+	apply_floor_snap()
 	
 func _process(delta):
+	apply_floor_snap()
 	velocity_component.accelerate_to_player()
+	velocity_component.apply_gravity(self, delta)
 	velocity_component.move(self)
 	
 	var move_sign = sign(velocity.x)
