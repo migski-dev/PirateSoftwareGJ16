@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
 [ext_resource type="Texture2D" uid="uid://jks20w3lpvav" path="res://assets/sprite_sheets/slime_idle1.png" id="2_ajtux"]
 [ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_jump.png" id="3_oxxf3"]
-[ext_resource type="PackedScene" uid="uid://dm3hixl5xabpo" path="res://scenes/player/state_machines/player_move_state_machine.tscn" id="3_yqh4w"]
+[ext_resource type="PackedScene" uid="uid://dm3hixl5xabpo" path="res://scenes/player/player_state_machine.tscn" id="3_yqh4w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d64aa"]
 radius = 11.6358
