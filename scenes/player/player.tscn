@@ -196,7 +196,9 @@ libraries = {
 }
 autoplay = "idle"
 
-[node name="PlayerStateMachine" parent="." instance=ExtResource("3_yqh4w")]
+[node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="PlayerMoveStateMachine" parent="." instance=ExtResource("3_yqh4w")]
 
 [node name="Visuals" type="Node2D" parent="."]
 

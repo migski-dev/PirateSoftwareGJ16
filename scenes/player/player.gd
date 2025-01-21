@@ -1,29 +1,218 @@
 extends CharacterBody2D
 class_name Player
 
-const SPEED = 300.0
-const MAX_JUMP_VELOCITY = -400.0
-const GRAVITY = 900.0
+@export_category("HORIZONTAL MOVEMENT")
+@export var max_speed: float = 300.0
+@export var time_to_reach_max_speed: float = 0.2
+@export var time_to_reach_zero: float = 0.2
 
-var is_jumping = false
+@export_category("VERTICAL MOVEMENT")
+# Peak Height of player jump
+@export var jump_height: float = 2.0
+# Strength of pull to the ground
+@export var gravity_scale: float = 20.0
+# Fastest the player can fall
+@export var terminal_velocity: float = 500.0
+# Increased player speed during falling (less floaty)
+@export var descending_gravity_factor: float = 1.3
+# Enable variable jump height
+@export var enable_var_jump_height: bool = true
+# How much jump height is cut by during short hop
+@export var jump_variable: float = 2
+# How much extra time does player have to jump after walking off platform
+@export var coyote_time: float = 0.2
+# Window of time player can have jump input registered before landing
+@export var jump_buffering: float = 0.2
+
+# Variables Dependent on Set Variables
+var applied_gravity: float
+var applied_terminal_velocity: float
+
+var friction: float
+var acceleration: float
+var deceleration: float
+
+var jump_magnitude: float = 500.0
+var jump_count: int
+var jump_was_pressed: bool = false
+var coyote_active: bool = false
+var gravity_active: bool = true
+
+var enabled_action: bool = true
+
+# Player Input Variables
+var left_hold: bool = false
+var left_tap: bool = false
+var left_release: bool = false
+
+var right_hold: bool = false
+var right_tap: bool = false
+var right_release: bool = false
+
+var jump_tap: bool = false
+var jump_release: bool = false
+
+var melee_tap: bool = false
+var range_tap: bool = false
+var special_tap: bool = false
+
 
 @onready var anim_player = $AnimationPlayer
+@onready var action_anim_player = $ActionAnimationPlayer
 @onready var visuals = $Visuals
 
+# Naive Approach Variables
+const MAX_JUMP_VELOCITY = -400.0
+const GRAVITY = 900.0
+var is_jumping = false
+
+
 func _ready():
-	velocity = Vector2.ZERO
+	apply_floor_snap()
+	_update_variables()
+	
+func _update_variables():
+	# Set Acceleration / Deceleration	
+	acceleration = max_speed / abs(time_to_reach_max_speed)
+	deceleration = -max_speed / abs(time_to_reach_zero)
+	
+	# Sets jump magnitude
+	jump_magnitude = (10.0 * jump_height) * gravity_scale
+	print(jump_magnitude)
+	
+	# Sets coyote time and jump buffering	
+	coyote_time = abs(coyote_time)
+	jump_buffering = abs(jump_buffering)
 	
 func _apply_movement(delta):
-	if is_jumping && velocity.y >= 0:
-			is_jumping = false
-	velocity.x = 300 * Input.get_axis("move_left", "move_right")
+	#if is_jumping && velocity.y >= 0:
+		#is_jumping = false
 	move_and_slide()
 	
-func _apply_gravity(delta):
-	velocity.y += GRAVITY * delta
+# Handles left and right player movement
+func _handle_horizontal_movement(delta: float) -> void:
+	# If holding both left and right input, decelerate
+	if right_hold and left_hold and enabled_action:
+		_decelerate(delta)
+	# If holding right...	 
+	elif right_hold and enabled_action:
+		_handle_right_movement(delta)
+	# If holding left...
+	elif left_hold and enabled_action:
+		_handle_left_movement(delta)
+	# No movement input -> decelerate	
+	if !(left_hold or right_hold):
+		_decelerate(delta)
 
-func _handle_move_input():
+
+# Assigns the player input variables	
+func _assign_move_input() -> void:
+	left_hold = Input.is_action_pressed("move_left")
+	left_tap = Input.is_action_just_pressed("move_left")
+	left_release = Input.is_action_just_released("move_left")
+	
+	right_hold = Input.is_action_pressed("move_right")
+	right_tap = Input.is_action_just_pressed("move_right")
+	right_release = Input.is_action_just_released("move_right")
+	
+	jump_tap = Input.is_action_just_pressed("jump")
+	jump_release = Input.is_action_just_released("jump")
+
+	
+func _handle_right_movement(delta: float) -> void: 
+	# Caps at max speed		
+	if velocity.x > max_speed:
+		velocity.x = max_speed
+	# Increase velocity
+	else:
+		velocity.x += acceleration * delta
+	# Decelerate
+	if velocity.x < 0:
+		_decelerate(delta)
+
+
+func _handle_left_movement(delta: float) -> void: 
+	# Caps at - max speed 
+	if velocity.x < -max_speed:
+		velocity.x = -max_speed
+	# Increase velocity
+	else:
+		velocity.x -= acceleration * delta
+	# Decelerate
+	if velocity.x > 0:
+		_decelerate(delta)
+
+
+# Slows player down
+func _decelerate(delta: float) -> void:
+	if (abs(velocity.x) > 0) and (abs(velocity.x) <= abs(deceleration * delta)):
+		velocity.x = 0
+	elif velocity.x > 0:
+		velocity.x += deceleration * delta
+	elif velocity.x < 0:
+		velocity.x -= deceleration * delta
+
+
+# Handles Jump and Gravity logic
+func _handle_vertical_movement(delta):
+	# Apply gravity	
+	if velocity.y > 0:
+		applied_gravity = gravity_scale * descending_gravity_factor
+	else: 
+		applied_gravity = gravity_scale
+		
+	# Terminal Velocity logic	
+	applied_terminal_velocity = terminal_velocity
+	if gravity_active:
+		if velocity.y < applied_terminal_velocity:
+			velocity.y += applied_gravity
+		elif velocity.y > applied_terminal_velocity:
+			velocity.y = applied_terminal_velocity
+			
+	# Short Hop	
+	if enable_var_jump_height and jump_release and velocity.y < 0:
+		velocity.y = velocity.y / jump_variable
+	
+	
+	# Create Coyote time window	
+	if jump_count == 1 and !is_on_floor():
+		if coyote_time > 0:
+			coyote_active = true
+			_coyote_time()
+	
+	# Apply coyote time / Jumps
+	if is_on_floor():
+		jump_count = 1
+		if coyote_time > 0:
+			coyote_active = true
+		else:
+			coyote_active = false
+		if jump_was_pressed:
+			_jump()
+
+
+func _buffer_jump():
+	await get_tree().create_timer(jump_buffering).timeout
+	jump_was_pressed = false
+	
+	
+func _coyote_time():
+	await get_tree().create_timer(coyote_time).timeout
+	coyote_active = false
+	jump_count += -1
+
+
+func _jump():
+	print('jump called')
+	if jump_count > 0:
+		velocity.y = -jump_magnitude
+		jump_count += -1
+		jump_was_pressed = false
+
+
+func _handle_action_input():
 	pass
 	
+
 
 	
