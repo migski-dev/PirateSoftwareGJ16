@@ -53,16 +53,16 @@ func _get_transition(delta):
 func _enter_state(new_state, old_state):
 	match new_state:
 		states.idle:
-			parent.anim_player.play("idle")
+			parent.action_anim_player.play("med_idle")
 		states.run:
-			print('in run state')
-			#parent.anim_player.play("run")
+
+			parent.action_anim_player.play("med_idle")
 		states.jump:
-			print('in jump state')
-			parent.anim_player.play("jump")
+
+			parent.action_anim_player.play("med_idle")
 		states.fall:
-			print('in fall state')
-			#parent.anim_player.play("fall")
+
+			parent.action_anim_player.play("med_idle")
 			
 	
 func _exit_state(old_state, new_state):
@@ -80,12 +80,10 @@ func _input(event):
 				parent._jump()
 			# Queue jump buffer
 			if parent.jump_buffering > 0:
-				print('third pass 2 ')
 				parent.jump_was_pressed = true
 				parent._buffer_jump()
 			# No jump buffer or coyote time window and on floor:			
 			elif parent.jump_buffering == 0 and parent.coyote_time == 0 and parent.is_on_floor():
-				print('third pass 3 ')
 				parent._jump()
 		elif Input.is_action_just_pressed("jump") and parent.is_on_floor():
 			parent._jump()

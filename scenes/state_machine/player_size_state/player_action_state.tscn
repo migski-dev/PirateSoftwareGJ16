@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://doyycl5pmc3lj"]
+
+[ext_resource type="Script" path="res://scenes/state_machine/player_size_state/player_action_state.gd" id="1_rnf4m"]
+
+[node name="PlayerSizeState" type="Node"]
+script = ExtResource("1_rnf4m")

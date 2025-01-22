@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://r32djkuj844j"]
+
+[ext_resource type="Script" path="res://scenes/player/state_machines/player_action_state_machine.gd" id="1_o8doc"]
+
+[node name="PlayerActionStateMachine" type="Node"]
+script = ExtResource("1_o8doc")
