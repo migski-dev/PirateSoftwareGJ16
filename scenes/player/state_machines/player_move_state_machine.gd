@@ -22,6 +22,8 @@ func _state_logic(delta):
 	var move_sign = sign(parent.velocity.x)
 	if move_sign != 0:
 		parent.visuals.scale = Vector2(move_sign, 1)
+		
+	parent._get_direction()
 	
 	
 func _get_transition(delta):

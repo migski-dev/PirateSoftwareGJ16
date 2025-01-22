@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://lfxrhtik7mb3"
-path="res://.godot/imported/slime_idle3.png-24d6012633ae5c6ce20bcb854572365f.ctex"
+path="res://.godot/imported/slime_idle3.png-15a1653431e3dee14dae02ad4f1e64b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite_sheets/slime_idle3.png"
-dest_files=["res://.godot/imported/slime_idle3.png-24d6012633ae5c6ce20bcb854572365f.ctex"]
+source_file="res://assets/sprite_sheets/slime_temp/slime_idle3.png"
+dest_files=["res://.godot/imported/slime_idle3.png-15a1653431e3dee14dae02ad4f1e64b1.ctex"]
 
 [params]
 

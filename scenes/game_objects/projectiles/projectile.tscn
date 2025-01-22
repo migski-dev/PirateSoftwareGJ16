@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://s34l87xwtgy5"]
+
+[ext_resource type="Texture2D" uid="uid://15mjldppohv" path="res://assets/sprite_sheets/projectile_temp/spritesheet.png" id="1_4rspy"]
+[ext_resource type="Script" path="res://scenes/game_objects/projectiles/projectile.gd" id="2_ieno5"]
+[ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="3_rmxpw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxber"]
+atlas = ExtResource("1_4rspy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tt4hu"]
+atlas = ExtResource("1_4rspy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n12nr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxber")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tt4hu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tg2dx"]
+radius = 2.0
+
+[node name="Bullet" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_n12nr")
+frame_progress = 0.785932
+script = ExtResource("2_ieno5")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_rmxpw")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_tg2dx")

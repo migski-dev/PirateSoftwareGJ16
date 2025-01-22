@@ -6,7 +6,7 @@ class_name PlayerSizeState
 func _melee_attack() -> void:
 	pass
 	
-func _range_attack() -> void:
+func _range_attack(target_position: Vector2) -> void:
 	pass
 	
 func _special_attack() -> void:
