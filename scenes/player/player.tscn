@@ -1,14 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://ci28x63s0dr5g"]
+[gd_scene load_steps=21 format=3 uid="uid://ci28x63s0dr5g"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
-[ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_jump.png" id="3_oxxf3"]
+[ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_temp/slime_jump.png" id="3_oxxf3"]
 [ext_resource type="PackedScene" uid="uid://dm3hixl5xabpo" path="res://scenes/player/player_state_machine.tscn" id="3_yqh4w"]
-[ext_resource type="Texture2D" uid="uid://36fidmdvyc8u" path="res://assets/sprite_sheets/slime_swallow.png" id="4_pt1vw"]
-[ext_resource type="Texture2D" uid="uid://b1c4kwb7ghh8o" path="res://assets/sprite_sheets/slime_die.png" id="5_cvji6"]
+[ext_resource type="Texture2D" uid="uid://36fidmdvyc8u" path="res://assets/sprite_sheets/slime_temp/slime_swallow.png" id="4_pt1vw"]
+[ext_resource type="Texture2D" uid="uid://b1c4kwb7ghh8o" path="res://assets/sprite_sheets/slime_temp/slime_die.png" id="5_cvji6"]
 [ext_resource type="PackedScene" uid="uid://r32djkuj844j" path="res://scenes/player/state_machines/player_action_state_machine.tscn" id="5_fycv8"]
-[ext_resource type="Texture2D" uid="uid://lfxrhtik7mb3" path="res://assets/sprite_sheets/slime_idle3.png" id="6_qffv4"]
+[ext_resource type="Texture2D" uid="uid://lfxrhtik7mb3" path="res://assets/sprite_sheets/slime_temp/slime_idle3.png" id="6_qffv4"]
 [ext_resource type="PackedScene" uid="uid://ca1ycav68qbw8" path="res://scenes/state_machine/player_size_state/medium_action_state.tscn" id="7_n8cm8"]
 [ext_resource type="Script" path="res://scenes/player/state_machines/player_move_state_machine.gd" id="8_j1hbs"]
+[ext_resource type="PackedScene" uid="uid://s34l87xwtgy5" path="res://scenes/game_objects/projectiles/projectile.tscn" id="10_k2mvn"]
+[ext_resource type="Script" path="res://scenes/components/hitbox_component/hitbox_component.gd" id="11_tidid"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
 height = 24.4864
@@ -414,6 +416,7 @@ player_action_fsm = NodePath("../PlayerActionStateMachine")
 [node name="SizeStates" type="Node" parent="."]
 
 [node name="MediumSizeState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("7_n8cm8")]
+bullet_scene = ExtResource("10_k2mvn")
 player = NodePath("../..")
 
 [node name="Visuals" type="Node2D" parent="."]
@@ -430,7 +433,11 @@ vframes = 7
 [node name="MediumMelee" type="Area2D" parent="Visuals/MeleeRanges"]
 collision_layer = 4
 collision_mask = 0
+script = ExtResource("11_tidid")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/MediumMelee"]
 position = Vector2(13, -10)
 shape = SubResource("RectangleShape2D_1psvk")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -6)
