@@ -1,12 +1,17 @@
 extends Node
 
-signal slime_collected(number: float)
-signal player_damaged
+signal on_player_died
 
+signal on_melee_end
+signal on_range_end
+signal on_special_end
 
-func emit_slime_collected(number: float):
-	slime_collected.emit(number)
+signal on_transition_to_XS
+signal on_transition_to_small
+signal on_transition_to_medium
+signal on_transition_to_large
+signal on_transition_to_XL
 
-
-func emit_player_damaged():
-	player_damaged.emit()
+func emit_on_player_died() -> void:
+	on_player_died.emit()
+	

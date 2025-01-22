@@ -15,6 +15,10 @@ run/main_scene="res://scenes/overworld/test_scene/test_scene.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameEvents="*res://singletons/game_events/game_events.tscn"
+
 [display]
 
 window/size/window_width_override=1920
@@ -66,6 +70,8 @@ special_attack={
 
 [layer_names]
 
+2d_physics/layer_1="TERRAIN"
+2d_physics/layer_2="PLAYER"
 2d_physics/layer_3="ENEMY"
 
 [rendering]

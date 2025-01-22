@@ -6,6 +6,7 @@ class_name Player
 @export var time_to_reach_max_speed: float = 0.2
 @export var time_to_reach_zero: float = 0.2
 
+
 @export_category("VERTICAL MOVEMENT")
 # Peak Height of player jump
 @export var jump_height: float = 2.0
@@ -24,6 +25,12 @@ class_name Player
 # Window of time player can have jump input registered before landing
 @export var jump_buffering: float = 0.2
 
+
+@export_category("SIZE STATES")
+@export var small_size_state: PlayerSizeState
+@export var medium_size_state: PlayerSizeState
+@export var large_size_state: PlayerSizeState
+
 # Variables Dependent on Set Variables
 var applied_gravity: float
 var applied_terminal_velocity: float
@@ -39,6 +46,7 @@ var coyote_active: bool = false
 var gravity_active: bool = true
 
 var enabled_action: bool = true
+var is_jumping: bool = false
 
 # Player Input Variables
 var left_hold: bool = false
@@ -57,19 +65,16 @@ var range_tap: bool = false
 var special_tap: bool = false
 
 
-@onready var anim_player = $AnimationPlayer
 @onready var action_anim_player = $ActionAnimationPlayer
 @onready var visuals = $Visuals
 
-# Naive Approach Variables
-const MAX_JUMP_VELOCITY = -400.0
-const GRAVITY = 900.0
-var is_jumping = false
+
 
 
 func _ready():
 	apply_floor_snap()
 	_update_variables()
+	$Visuals/MeleeRanges/MediumMelee/CollisionShape2D.disabled = true
 	
 func _update_variables():
 	# Set Acceleration / Deceleration	
@@ -85,8 +90,8 @@ func _update_variables():
 	jump_buffering = abs(jump_buffering)
 	
 func _apply_movement(delta):
-	#if is_jumping && velocity.y >= 0:
-		#is_jumping = false
+	if is_jumping && velocity.y >= 0:
+		is_jumping = false
 	move_and_slide()
 	
 # Handles left and right player movement
@@ -212,7 +217,4 @@ func _jump():
 
 func _handle_action_input():
 	pass
-	
-
-
 	

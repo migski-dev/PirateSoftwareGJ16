@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca1ycav68qbw8"]
+
+[ext_resource type="Script" path="res://scenes/state_machine/player_size_state/medium_action_state.gd" id="1_d60pi"]
+
+[node name="MediumSizeState" type="Node"]
+script = ExtResource("1_d60pi")

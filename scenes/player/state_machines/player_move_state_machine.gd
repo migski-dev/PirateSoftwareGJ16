@@ -1,5 +1,9 @@
 extends StateMachine
+class_name PlayerMovementStateMachine
 
+# Action Animations are prioritized over Movement Animations
+
+@export var player_action_fsm: PlayerActionStateMachine
 
 func _ready():
 	add_state("idle")
@@ -51,18 +55,17 @@ func _get_transition(delta):
 
 
 func _enter_state(new_state, old_state):
-	match new_state:
-		states.idle:
-			parent.anim_player.play("idle")
-		states.run:
-			print('in run state')
-			#parent.anim_player.play("run")
-		states.jump:
-			print('in jump state')
-			parent.anim_player.play("jump")
-		states.fall:
-			print('in fall state')
-			#parent.anim_player.play("fall")
+	# before playing a movement animation, only do so when the action state is none
+	if [player_action_fsm.states.none].has(player_action_fsm.state):
+		match new_state:
+			states.idle:
+				parent.action_anim_player.play("med_idle")
+			states.run:
+				parent.action_anim_player.play("med_idle")
+			states.jump:
+				parent.action_anim_player.play("med_idle")
+			states.fall:
+				parent.action_anim_player.play("med_idle")
 			
 	
 func _exit_state(old_state, new_state):
@@ -80,12 +83,10 @@ func _input(event):
 				parent._jump()
 			# Queue jump buffer
 			if parent.jump_buffering > 0:
-				print('third pass 2 ')
 				parent.jump_was_pressed = true
 				parent._buffer_jump()
 			# No jump buffer or coyote time window and on floor:			
 			elif parent.jump_buffering == 0 and parent.coyote_time == 0 and parent.is_on_floor():
-				print('third pass 3 ')
 				parent._jump()
 		elif Input.is_action_just_pressed("jump") and parent.is_on_floor():
 			parent._jump()
