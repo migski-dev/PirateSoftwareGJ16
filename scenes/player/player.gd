@@ -74,6 +74,7 @@ var special_tap: bool = false
 func _ready():
 	apply_floor_snap()
 	_update_variables()
+	$Visuals/MeleeRanges/MediumMelee/CollisionShape2D.disabled = true
 	
 func _update_variables():
 	# Set Acceleration / Deceleration	

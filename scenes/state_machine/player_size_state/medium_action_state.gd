@@ -1,7 +1,7 @@
 extends PlayerSizeState
 
 
-#TODO: Set the corresponding movement variables from Resource/ Singleton
+#TODO: Set the corresponding movement variables from Resource/ Singleton (max_speed, etc)
 
 
 func _melee_attack() -> void:
@@ -15,4 +15,4 @@ func _range_attack() -> void:
 	
 # Swallow Action
 func _special_attack() -> void:
-	pass
+	player.action_anim_player.play("med_range_attack")

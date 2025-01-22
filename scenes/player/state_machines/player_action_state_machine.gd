@@ -1,4 +1,9 @@
 extends StateMachine
+class_name PlayerActionStateMachine
+
+var is_meleeing: bool = false
+var is_ranging: bool = false
+var is_specialing: bool = false 
 
 
 func _ready() -> void:
@@ -18,56 +23,67 @@ func _state_logic(delta) -> void:
 	
 	
 func _get_transition(delta):
-	if Input.is_action_pressed("melee_attack") && can_melee_attack():
-		return states.melee_attack
-	elif Input.is_action_pressed("range_attack") && can_range_attack():
-		return states.range_attack
-	elif Input.is_action_pressed("special_attack") && can_special_attack():
-		return states.special_attack
-	else:
-		return states.none
-	#match state:
-		#states.none:
-			#if Input.is_action_pressed("melee_attack") && can_melee_attack():
-				#return states.melee_attack
-			#elif Input.is_action_pressed("range_attack") && can_range_attack():
-				#return states.range_attack
-			#elif Input.is_action_pressed("special_attack") && can_special_attack():
-				#return states.special_attack
-			#else:
-				#return states.none
+	print_debug(state)
+	match state:
+		states.none:
+			if Input.is_action_pressed("melee_attack") && can_melee_attack():
+				return states.melee_attack
+			elif Input.is_action_pressed("range_attack") && can_range_attack():
+				return states.range_attack
+			elif Input.is_action_pressed("special_attack") && can_special_attack():
+				return states.special_attack
+			else:
+				return states.none
 				
 
 func _enter_state(new_state, old_state) -> void:
+	var anim_player = parent.action_anim_player as AnimationPlayer
+	# TODO: Extend behavior so it matches the size state from slime component	
 	match new_state:
 		states.melee_attack:
 			print('in melee attack')
 			parent.medium_size_state._melee_attack()
+			is_meleeing = true
 		states.range_attack:
 			parent.medium_size_state._range_attack()
+			is_ranging = true
 		states.special_attack:
-			parent.action_anim_player.play("special_attack")
+			parent.medium_size_state._special_attack()
+			is_specialing = true
+		states.none:
+			#anim_player.stop(false)
+			is_meleeing = false
+			is_ranging = false
+			is_specialing = false
 		
 			
 func can_melee_attack() -> bool:
-	#TODO: Implement logic; can player melee attack in air?
+	#TODO: Implement logic; 
+	# Player can melee attack if not in melee/ special / range state 
 	return true
 	
 	
 func can_range_attack() -> bool:
-	#TODO: Implement logic; can player range attack in air?
+	#TODO: Implement logic; 
+	# Player can range attack if not in melee/special/range state AND has enough slime 
 	return true
 
 
 func can_special_attack() -> bool:
-	#TODO: Implement logic; can player special attack in air?
+	#TODO: Implement logic; 
+	# Player can special attack if not in melee/range/special state AND special timer = 0
 	return true
 	
 	
 func _exit_state(old_state, new_state):
-	pass
+	match old_state:
+		states.melee_attack:
+			is_meleeing = false
+		states.range_attack: 
+			is_ranging = false
+		states.special_attack:
+			is_specialing = false
 	
 
 func _reset_action() -> void:
-	print_debug('enter none state')
 	set_state(states.none)

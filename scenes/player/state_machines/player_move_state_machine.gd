@@ -1,5 +1,9 @@
 extends StateMachine
+class_name PlayerMovementStateMachine
 
+# Action Animations are prioritized over Movement Animations
+
+@export var player_action_fsm: PlayerActionStateMachine
 
 func _ready():
 	add_state("idle")
@@ -51,18 +55,17 @@ func _get_transition(delta):
 
 
 func _enter_state(new_state, old_state):
-	match new_state:
-		states.idle:
-			parent.action_anim_player.play("med_idle")
-		states.run:
-
-			parent.action_anim_player.play("med_idle")
-		states.jump:
-
-			parent.action_anim_player.play("med_idle")
-		states.fall:
-
-			parent.action_anim_player.play("med_idle")
+	# before playing a movement animation, only do so when the action state is none
+	if [player_action_fsm.states.none].has(player_action_fsm.state):
+		match new_state:
+			states.idle:
+				parent.action_anim_player.play("med_idle")
+			states.run:
+				parent.action_anim_player.play("med_idle")
+			states.jump:
+				parent.action_anim_player.play("med_idle")
+			states.fall:
+				parent.action_anim_player.play("med_idle")
 			
 	
 func _exit_state(old_state, new_state):
