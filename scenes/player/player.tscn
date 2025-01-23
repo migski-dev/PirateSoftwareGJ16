@@ -415,9 +415,10 @@ libraries = {
 [node name="PlayerActionStateMachine" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_fycv8")]
 player = NodePath("..")
 
-[node name="PlayerMoveStateMachine" parent="." node_paths=PackedStringArray("player_action_fsm") instance=ExtResource("3_yqh4w")]
+[node name="PlayerMoveStateMachine" parent="." node_paths=PackedStringArray("player_action_fsm", "player") instance=ExtResource("3_yqh4w")]
 script = ExtResource("8_j1hbs")
 player_action_fsm = NodePath("../PlayerActionStateMachine")
+player = NodePath("..")
 
 [node name="SlimeComponent" parent="." instance=ExtResource("9_s0tvn")]
 
@@ -457,9 +458,6 @@ shape = SubResource("RectangleShape2D_1psvk")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -6)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
