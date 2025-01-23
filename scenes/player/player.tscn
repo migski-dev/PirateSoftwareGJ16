@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scenes/player/state_machines/player_move_state_machine.gd" id="8_j1hbs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
-height = 24.4864
+height = 20.9883
 
 [sub_resource type="Animation" id="Animation_mv5ix"]
 length = 0.001
@@ -390,6 +390,7 @@ _data = {
 size = Vector2(26, 20)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_6bvhh")
 small_size_state = NodePath("SizeStates/MediumSizeState")
 medium_size_state = NodePath("SizeStates/MediumSizeState")

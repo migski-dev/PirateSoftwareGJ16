@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfvv3v034yhgd"]
+
+[ext_resource type="Script" path="res://scenes/game_objects/basic_enemy/basic_enemy_state_machine/enemy_state.gd" id="1_cpgxb"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_cpgxb")

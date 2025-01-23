@@ -9,7 +9,7 @@ func _ready():
 	
 func _process(delta):
 	apply_floor_snap()
-	velocity_component.accelerate_to_player()
+	#velocity_component.accelerate_to_player()
 	velocity_component.apply_gravity(self, delta)
 	velocity_component.move(self)
 	
