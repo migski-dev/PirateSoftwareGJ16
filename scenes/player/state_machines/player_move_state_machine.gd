@@ -3,7 +3,8 @@ class_name PlayerMovementStateMachine
 
 # Action Animations are prioritized over Movement Animations
 
-@export var player_action_fsm: PlayerActionStateMachine
+@export var player_action_fsm: PlayerActionStateMachine 
+@export var player: Player
 
 func _ready():
 	add_state("idle")
@@ -20,8 +21,24 @@ func _state_logic(delta):
 	parent._apply_movement(delta)
 	
 	var move_sign = sign(parent.velocity.x)
-	if move_sign != 0:
-		parent.visuals.scale = Vector2(move_sign, 1)
+	# If moving left, 
+	match player.current_size_state:
+		player.large_size_state:
+			if move_sign == -1:
+				player.visuals.scale = Vector2(-2, 2)
+			if move_sign == 1: 
+				player.visuals.scale = Vector2(2,2)
+		player.medium_size_state:
+			if move_sign == -1:
+				player.visuals.scale = Vector2(-1, 1)
+			if move_sign == 1: 
+				player.visuals.scale = Vector2(1,1)
+		player.small_size_state:
+			if move_sign == -1:
+				player.visuals.scale = Vector2(-.5, .5)
+			if move_sign == 1: 
+				player.visuals.scale = Vector2(.5,.5)
+	
 		
 	parent._get_direction()
 	
