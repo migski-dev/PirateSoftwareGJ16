@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq4dghfh4uu2x"]
+
+[ext_resource type="Script" path="res://scenes/state_machine/player_size_state/small_size_action_state.gd" id="1_hfcfs"]
+
+[node name="SmallSizeActionState" type="Node"]
+script = ExtResource("1_hfcfs")

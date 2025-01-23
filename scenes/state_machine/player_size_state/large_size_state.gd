@@ -1,9 +1,9 @@
 extends PlayerSizeState
-
+# TODO: THIS IS CURRENTLY A COPY OF MEDIUM; NEED TO DEFINE THE BEHAVIOR FOR LARGE STATE HERE
 @export var bullet_scene: PackedScene
 #TODO: Set the corresponding movement variables from Resource/ Singleton (max_speed, etc)
 
-@export var range_cost: float = 5.0
+@export var range_cost: float = 25.0
 
 func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 3
