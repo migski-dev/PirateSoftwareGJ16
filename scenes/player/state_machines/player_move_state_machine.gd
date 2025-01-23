@@ -55,7 +55,7 @@ func _get_transition(delta):
 			elif parent.velocity.y < 0:
 				return states.jump
 
-
+# 
 func _enter_state(new_state, old_state):
 	# before playing a movement animation, only do so when the action state is none
 	if [player_action_fsm.states.none].has(player_action_fsm.state):

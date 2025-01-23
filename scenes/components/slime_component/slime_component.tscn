@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfajddkpgygch"]
+
+[ext_resource type="Script" path="res://scenes/components/slime_component/slime_component.gd" id="1_rce7j"]
+
+[node name="SlimeComponent" type="Node"]
+script = ExtResource("1_rce7j")

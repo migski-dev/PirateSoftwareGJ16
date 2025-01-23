@@ -13,6 +13,7 @@ var bullet_cooldown: float = 0.7
 var is_on_bullet_cooldown: bool = false
 
 @export var player_bullet: PackedScene 
+@export var player: Player
 
 func _ready() -> void:
 	add_state("none")
@@ -36,23 +37,37 @@ func _get_transition(delta):
 			if Input.is_action_pressed("melee_attack") && can_melee_attack():
 				return states.melee_attack
 			elif Input.is_action_pressed("range_attack") && can_range_attack():
-				# Get Direction of Player (NAIVE APPROACH, BUGS WILL HAPPEN LOL)				
 				bullet_target = parent._get_direction()
 				return states.range_attack
 			elif Input.is_action_pressed("special_attack") && can_special_attack():
 				return states.special_attack
 			else:
-				return states.none			
+				return states.none
+
 
 func _enter_state(new_state, old_state) -> void:
 	var anim_player = parent.action_anim_player as AnimationPlayer
 	# TODO: Extend behavior so it matches the size state from slime component	
 	match new_state:
 		states.melee_attack:
-			parent.medium_size_state._melee_attack()
+			match player.current_size_state:
+				player.large_size_state:
+					player.large_size_state._melee_attack()
+				player.medium_size_state:
+					player.medium_size_state._melee_attack()
+				player.small_size_state:
+					player.small_size_state._melee_attack()
 			is_meleeing = true
+			
 		states.range_attack:
-			parent.medium_size_state._range_attack(bullet_target)
+			match player.current_size_state:
+				player.large_size_state:
+					player.large_size_state._range_attack(bullet_target)
+				player.medium_size_state:
+					player.medium_size_state._range_attack(bullet_target)
+				player.small_size_state:
+					player.small_size_state._range_attack(bullet_target)
+					
 			is_ranging = true
 			is_on_bullet_cooldown = true
 			await get_tree().create_timer(bullet_cooldown).timeout
@@ -61,8 +76,8 @@ func _enter_state(new_state, old_state) -> void:
 		states.special_attack:
 			parent.medium_size_state._special_attack()
 			is_specialing = true
+			
 		states.none:
-			#anim_player.stop(false)
 			is_meleeing = false
 			is_ranging = false
 			is_specialing = false

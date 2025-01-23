@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ci28x63s0dr5g"]
+[gd_scene load_steps=25 format=3 uid="uid://ci28x63s0dr5g"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
 [ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_temp/slime_jump.png" id="3_oxxf3"]
@@ -9,8 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://lfxrhtik7mb3" path="res://assets/sprite_sheets/slime_temp/slime_idle3.png" id="6_qffv4"]
 [ext_resource type="PackedScene" uid="uid://ca1ycav68qbw8" path="res://scenes/state_machine/player_size_state/medium_action_state.tscn" id="7_n8cm8"]
 [ext_resource type="Script" path="res://scenes/player/state_machines/player_move_state_machine.gd" id="8_j1hbs"]
+[ext_resource type="PackedScene" uid="uid://dfajddkpgygch" path="res://scenes/components/slime_component/slime_component.tscn" id="9_s0tvn"]
 [ext_resource type="PackedScene" uid="uid://s34l87xwtgy5" path="res://scenes/game_objects/projectiles/projectile.tscn" id="10_k2mvn"]
 [ext_resource type="Script" path="res://scenes/components/hitbox_component/hitbox_component.gd" id="11_tidid"]
+[ext_resource type="PackedScene" uid="uid://w3bdobbmhofe" path="res://scenes/state_machine/player_size_state/large_size_state.tscn" id="12_t7g3l"]
+[ext_resource type="PackedScene" uid="uid://dlq5i82nygqdl" path="res://scenes/ui/slime_bar/slime_bar.tscn" id="13_6vm4m"]
+[ext_resource type="PackedScene" uid="uid://cq4dghfh4uu2x" path="res://scenes/state_machine/player_size_state/small_size_action_state.tscn" id="13_d5gtb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
 height = 24.4864
@@ -56,7 +60,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Visuals/MeleeRanges/MediumMelee/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -287,7 +291,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Visuals/MeleeRanges/MediumMelee/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -354,7 +358,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Visuals/MeleeRanges/MediumMelee/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -393,9 +397,9 @@ size = Vector2(26, 20)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
 script = ExtResource("1_6bvhh")
-small_size_state = NodePath("SizeStates/MediumSizeState")
+small_size_state = NodePath("SizeStates/SmallSizeActionState")
 medium_size_state = NodePath("SizeStates/MediumSizeState")
-large_size_state = NodePath("SizeStates/MediumSizeState")
+large_size_state = NodePath("SizeStates/LargeSizeState")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -407,15 +411,26 @@ libraries = {
 "": SubResource("AnimationLibrary_o4j0g")
 }
 
-[node name="PlayerActionStateMachine" parent="." instance=ExtResource("5_fycv8")]
+[node name="PlayerActionStateMachine" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_fycv8")]
+player = NodePath("..")
 
 [node name="PlayerMoveStateMachine" parent="." node_paths=PackedStringArray("player_action_fsm") instance=ExtResource("3_yqh4w")]
 script = ExtResource("8_j1hbs")
 player_action_fsm = NodePath("../PlayerActionStateMachine")
 
+[node name="SlimeComponent" parent="." instance=ExtResource("9_s0tvn")]
+
 [node name="SizeStates" type="Node" parent="."]
 
+[node name="LargeSizeState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("12_t7g3l")]
+bullet_scene = ExtResource("10_k2mvn")
+player = NodePath("../..")
+
 [node name="MediumSizeState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("7_n8cm8")]
+bullet_scene = ExtResource("10_k2mvn")
+player = NodePath("../..")
+
+[node name="SmallSizeActionState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("13_d5gtb")]
 bullet_scene = ExtResource("10_k2mvn")
 player = NodePath("../..")
 
@@ -430,14 +445,29 @@ vframes = 7
 
 [node name="MeleeRanges" type="Node2D" parent="Visuals"]
 
-[node name="MediumMelee" type="Area2D" parent="Visuals/MeleeRanges"]
+[node name="MediumMeleeHitbox" type="Area2D" parent="Visuals/MeleeRanges"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("11_tidid")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/MediumMelee"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/MediumMeleeHitbox"]
 position = Vector2(13, -10)
 shape = SubResource("RectangleShape2D_1psvk")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -6)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SlimeBar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("13_6vm4m")]
+offset_left = 51.0
+offset_top = 161.0
+offset_right = 76.0
+offset_bottom = 258.0
+scale = Vector2(3.46345, 3.54601)
+player = NodePath("../..")
+
+[connection signal="health_decreased" from="SlimeComponent" to="CanvasLayer/SlimeBar" method="_on_slime_component_health_decreased"]

@@ -13,7 +13,6 @@ func _special_attack() -> void:
 	pass
 
 func emit_on_melee_end() -> void:
-	print_debug('exit melee state')
 	GameEvents.on_melee_end.emit()
 
 	

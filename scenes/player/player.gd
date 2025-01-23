@@ -31,6 +31,8 @@ class_name Player
 @export var medium_size_state: PlayerSizeState
 @export var large_size_state: PlayerSizeState
 
+var current_size_state: PlayerSizeState 
+
 # Variables Dependent on Set Variables
 var applied_gravity: float
 var applied_terminal_velocity: float
@@ -68,14 +70,20 @@ var special_tap: bool = false
 @onready var action_anim_player = $ActionAnimationPlayer
 @onready var visuals = $Visuals
 @onready var mid_point = $Marker2D
-@onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMelee
+@onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMeleeHitbox
 
 
 
 func _ready():
 	apply_floor_snap()
 	_update_variables()
-	$Visuals/MeleeRanges/MediumMelee/CollisionShape2D.disabled = true
+	$Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D.disabled = true
+	# Is the default state medium?
+	current_size_state = large_size_state
+	
+	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
+	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
+	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
 	
 func _update_variables() -> void:
 	# Set Acceleration / Deceleration	
@@ -225,3 +233,16 @@ func _get_direction() -> Vector2:
 	else:
 		return Vector2.RIGHT
 	
+func _on_transition_to_large() -> void:
+	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	current_size_state = large_size_state
+	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO LARGE!!!!!!!!!!!!!!!!!!!!!!!!!")
+	
+func _on_transition_to_medium() -> void:
+	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	current_size_state = medium_size_state
+	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO MEDIUM!!!!!!!!!!!!!!!!!!!!!!!!!")
+func _on_transition_to_small() -> void:
+	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	current_size_state = small_size_state
+	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO SMALL!!!!!!!!!!!!!!!!!!!!!!!!!")
