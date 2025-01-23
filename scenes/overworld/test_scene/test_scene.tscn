@@ -108,10 +108,7 @@ floor_stop_on_slope = false
 position = Vector2(97, 463)
 max_speed = 275.0
 jump_height = 2.5
-descending_gravity_factor = 1.4
-jump_variable = 4.5
+descending_gravity_factor = 0.9
 
-[node name="Camera2D2" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
-
-[editable path="Player"]
