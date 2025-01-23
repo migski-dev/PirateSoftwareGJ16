@@ -79,7 +79,7 @@ func _ready():
 	_update_variables()
 	$Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D.disabled = true
 	# Is the default state medium?
-	current_size_state = large_size_state
+	_on_transition_to_large()
 	
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
@@ -228,7 +228,7 @@ func _handle_action_input():
 	pass
 	
 func _get_direction() -> Vector2:
-	if visuals.scale == Vector2(-1, 1):
+	if visuals.scale.x < 0:
 		return Vector2.LEFT
 	else:
 		return Vector2.RIGHT
@@ -236,13 +236,15 @@ func _get_direction() -> Vector2:
 func _on_transition_to_large() -> void:
 	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
 	current_size_state = large_size_state
-	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO LARGE!!!!!!!!!!!!!!!!!!!!!!!!!")
+	visuals.scale = Vector2(2,2)
+	
 	
 func _on_transition_to_medium() -> void:
 	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
 	current_size_state = medium_size_state
-	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO MEDIUM!!!!!!!!!!!!!!!!!!!!!!!!!")
+	visuals.scale = Vector2(1,1)
+	
 func _on_transition_to_small() -> void:
 	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
 	current_size_state = small_size_state
-	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO SMALL!!!!!!!!!!!!!!!!!!!!!!!!!")
+	visuals.scale = Vector2(.5, .5)
