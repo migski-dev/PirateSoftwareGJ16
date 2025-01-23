@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://fxytc2rpov6n"]
 
-[ext_resource type="Texture2D" uid="uid://cos4syos2p3uf" path="res://assets/sprite_sheets/slime_temp/slime_hit.png" id="1_36v1r"]
+[ext_resource type="Texture2D" uid="uid://cos4syos2p3uf" path="res://assets/sprite_sheets/slime_hit.png" id="1_36v1r"]
 [ext_resource type="Script" path="res://scenes/game_objects/basic_enemy/basic_enemy.gd" id="1_ot6om"]
 [ext_resource type="PackedScene" uid="uid://lmhixy5cxi5k" path="res://scenes/components/health_component/health_component.tscn" id="2_4h36a"]
 [ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="2_tnpqn"]
 [ext_resource type="PackedScene" uid="uid://dqkdttegghfgw" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="4_3xqcv"]
 [ext_resource type="PackedScene" uid="uid://duhsb0rtxau21" path="res://scenes/components/velocity_component/velocity_component.tscn" id="4_sjq06"]
-[ext_resource type="PackedScene" uid="uid://bgtiosl14i45e" path="res://scenes/game_objects/basic_enemy/basic_enemy_state_machine/enemy_state_machine.tscn" id="7_686cj"]
+[ext_resource type="PackedScene" uid="uid://bk8wppkl7v5vt" path="res://scenes/components/state_machine/enemy_state_machine/enemy_state_machine.tscn" id="7_3gekn"]
 [ext_resource type="Script" path="res://scenes/game_objects/basic_enemy/basic_enemy_state_machine/enemy_states/enemy_idle.gd" id="8_wtwa8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wc2b2"]
@@ -31,16 +31,15 @@ shape = SubResource("CapsuleShape2D_wc2b2")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_tnpqn")]
 collision_layer = 4
-collision_mask = 1
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_gmjdt")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_3xqcv")]
+[node name="HurtboxComponent" parent="." instance=ExtResource("4_3xqcv")]
 collision_layer = 4
-collision_mask = 4
-health_component = NodePath("../HealthComponent")
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(-1, -6)
@@ -67,9 +66,7 @@ scale = Vector2(5.02726, 4.66394)
 shape = SubResource("CircleShape2D_ltbll")
 debug_color = Color(0.69059, 0.497759, 0, 0.42)
 
-[node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_686cj")]
-initial_state = NodePath("EnemyIdle")
+[node name="EnemyStateMachine" parent="." instance=ExtResource("7_3gekn")]
 
-[node name="EnemyIdle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
+[node name="EnemyIdle" type="Node" parent="EnemyStateMachine"]
 script = ExtResource("8_wtwa8")
-enemy = NodePath("../..")

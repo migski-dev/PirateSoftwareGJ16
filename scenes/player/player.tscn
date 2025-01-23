@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cq4dghfh4uu2x" path="res://scenes/state_machine/player_size_state/small_size_action_state.tscn" id="13_d5gtb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
-height = 24.4864
+height = 20.9883
 
 [sub_resource type="Animation" id="Animation_mv5ix"]
 length = 0.001
@@ -396,6 +396,7 @@ _data = {
 size = Vector2(26, 20)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
+collision_layer = 2
 script = ExtResource("1_6bvhh")
 small_size_state = NodePath("SizeStates/SmallSizeActionState")
 medium_size_state = NodePath("SizeStates/MediumSizeState")
