@@ -8,6 +8,6 @@ extends HealthComponent
 
 signal transitionToTiny
 signal transitionToSmall
-signal transitionToMediuem
+signal transitionToMedium
 signal transitionToLarge
 signal transitionToXL

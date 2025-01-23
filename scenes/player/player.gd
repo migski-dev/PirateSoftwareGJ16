@@ -31,6 +31,8 @@ class_name Player
 @export var medium_size_state: PlayerSizeState
 @export var large_size_state: PlayerSizeState
 
+var current_size_state: PlayerSizeState 
+
 # Variables Dependent on Set Variables
 var applied_gravity: float
 var applied_terminal_velocity: float
@@ -67,16 +69,23 @@ var special_tap: bool = false
 
 @onready var action_anim_player = $ActionAnimationPlayer
 @onready var visuals = $Visuals
-
+@onready var mid_point = $Marker2D
+@onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMeleeHitbox
 
 
 
 func _ready():
 	apply_floor_snap()
 	_update_variables()
-	$Visuals/MeleeRanges/MediumMelee/CollisionShape2D.disabled = true
+	$Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D.disabled = true
+	# Is the default state medium?
+	current_size_state = large_size_state
 	
-func _update_variables():
+	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
+	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
+	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
+	
+func _update_variables() -> void:
 	# Set Acceleration / Deceleration	
 	acceleration = max_speed / abs(time_to_reach_max_speed)
 	deceleration = -max_speed / abs(time_to_reach_zero)
@@ -89,7 +98,7 @@ func _update_variables():
 	coyote_time = abs(coyote_time)
 	jump_buffering = abs(jump_buffering)
 	
-func _apply_movement(delta):
+func _apply_movement(delta) -> void:
 	if is_jumping && velocity.y >= 0:
 		is_jumping = false
 	move_and_slide()
@@ -159,7 +168,7 @@ func _decelerate(delta: float) -> void:
 
 
 # Handles Jump and Gravity logic
-func _handle_vertical_movement(delta):
+func _handle_vertical_movement(delta) -> void:
 	# Apply gravity	
 	if velocity.y > 0:
 		applied_gravity = gravity_scale * descending_gravity_factor
@@ -196,18 +205,18 @@ func _handle_vertical_movement(delta):
 			_jump()
 
 
-func _buffer_jump():
+func _buffer_jump() -> void:
 	await get_tree().create_timer(jump_buffering).timeout
 	jump_was_pressed = false
 	
 	
-func _coyote_time():
+func _coyote_time() -> void:
 	await get_tree().create_timer(coyote_time).timeout
 	coyote_active = false
 	jump_count += -1
 
 
-func _jump():
+func _jump() -> void:
 	print('jump called')
 	if jump_count > 0:
 		velocity.y = -jump_magnitude
@@ -218,3 +227,22 @@ func _jump():
 func _handle_action_input():
 	pass
 	
+func _get_direction() -> Vector2:
+	if visuals.scale == Vector2(-1, 1):
+		return Vector2.LEFT
+	else:
+		return Vector2.RIGHT
+	
+func _on_transition_to_large() -> void:
+	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	current_size_state = large_size_state
+	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO LARGE!!!!!!!!!!!!!!!!!!!!!!!!!")
+	
+func _on_transition_to_medium() -> void:
+	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	current_size_state = medium_size_state
+	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO MEDIUM!!!!!!!!!!!!!!!!!!!!!!!!!")
+func _on_transition_to_small() -> void:
+	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	current_size_state = small_size_state
+	print_debug("!!!!!!!!!!!!!!!!!!!!!SIZE CHANGED TO SMALL!!!!!!!!!!!!!!!!!!!!!!!!!")

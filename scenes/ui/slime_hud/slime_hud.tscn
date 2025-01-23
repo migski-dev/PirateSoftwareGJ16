@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://80rk7fdpcwqe"]
+
+[ext_resource type="PackedScene" uid="uid://dlq5i82nygqdl" path="res://scenes/ui/slime_bar/slime_bar.tscn" id="1_rvu4a"]
+
+[node name="SlimeHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_bottom = 60
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+ratio = 3.0
+stretch_mode = 0
+
+[node name="SlimeBar" parent="MarginContainer/HBoxContainer/AspectRatioContainer" instance=ExtResource("1_rvu4a")]
+layout_mode = 2

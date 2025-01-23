@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://w3bdobbmhofe"]
+
+[ext_resource type="Script" path="res://scenes/state_machine/player_size_state/large_size_state.gd" id="1_qkrag"]
+
+[node name="LargeSizeState" type="Node"]
+script = ExtResource("1_qkrag")

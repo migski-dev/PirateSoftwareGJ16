@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvjat5j35y63r"
-path="res://.godot/imported/slime_move.png-123d98174f43e7361f167f08ab8b1a04.ctex"
+uid="uid://c3a6qcy0c24wr"
+path="res://.godot/imported/bar_round_gloss_large.png-e2054f0ef03878bda6f8658bb4cec123.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite_sheets/slime_move.png"
-dest_files=["res://.godot/imported/slime_move.png-123d98174f43e7361f167f08ab8b1a04.ctex"]
+source_file="res://assets/ui/progress_bar/bar_round_gloss_large.png"
+dest_files=["res://.godot/imported/bar_round_gloss_large.png-e2054f0ef03878bda6f8658bb4cec123.ctex"]
 
 [params]
 

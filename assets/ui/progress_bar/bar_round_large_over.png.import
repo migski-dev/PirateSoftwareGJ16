@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1c4kwb7ghh8o"
-path="res://.godot/imported/slime_die.png-1557fa766bf70e82409d19326871e01a.ctex"
+uid="uid://51emvhtx54mi"
+path="res://.godot/imported/bar_round_large_over.png-938ac2c451e0022b998ff6aafe4af964.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite_sheets/slime_die.png"
-dest_files=["res://.godot/imported/slime_die.png-1557fa766bf70e82409d19326871e01a.ctex"]
+source_file="res://assets/ui/progress_bar/bar_round_large_over.png"
+dest_files=["res://.godot/imported/bar_round_large_over.png-938ac2c451e0022b998ff6aafe4af964.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@ class_name HurtboxComponent
 
 signal hit
 
-@export var health_component: Node
+@export var health_component: HealthComponent
 
 var floating_text_scene = preload("res://scenes/ui/floating_text/floating_text.tscn")
 
@@ -14,9 +14,6 @@ func _ready():
 
 func on_area_entered(other_area: Area2D):
 	if not other_area is HitboxComponent:
-		return
-	
-	if health_component == null:
 		return
 	
 	var hitbox_component = other_area as HitboxComponent

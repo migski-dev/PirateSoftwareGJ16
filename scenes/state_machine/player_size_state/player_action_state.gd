@@ -6,14 +6,13 @@ class_name PlayerSizeState
 func _melee_attack() -> void:
 	pass
 	
-func _range_attack() -> void:
+func _range_attack(target_position: Vector2) -> void:
 	pass
 	
 func _special_attack() -> void:
 	pass
 
 func emit_on_melee_end() -> void:
-	print_debug('exit melee state')
 	GameEvents.on_melee_end.emit()
 
 	

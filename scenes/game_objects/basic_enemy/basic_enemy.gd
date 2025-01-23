@@ -19,4 +19,5 @@ func _process(delta):
 
 
 func on_hit():
-	$HitRandomAudioPlayerComponent.play_random()
+	print_debug('I GOT HIT')
+	
