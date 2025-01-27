@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://bvwghr1dlapii"]
+[gd_scene load_steps=12 format=4 uid="uid://bvwghr1dlapii"]
 
 [ext_resource type="PackedScene" uid="uid://ci28x63s0dr5g" path="res://scenes/player/player.tscn" id="1_pe27f"]
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="1_qy2wp"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_rlm47"]
 [ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/basic_enemy/basic_enemy.tscn" id="3_02lgf"]
+[ext_resource type="PackedScene" uid="uid://mxvq5wr03hku" path="res://scenes/game_objects/slime_drops/slime_drop.tscn" id="5_mex2j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vxfwj"]
 texture = ExtResource("1_rlm47")
@@ -112,3 +113,19 @@ descending_gravity_factor = 0.9
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
+
+[node name="SlimeDrop" parent="." instance=ExtResource("5_mex2j")]
+position = Vector2(457, 565)
+
+[node name="SlimeDrop2" parent="." instance=ExtResource("5_mex2j")]
+position = Vector2(542, 513)
+
+[node name="SlimeDrop3" parent="." instance=ExtResource("5_mex2j")]
+position = Vector2(577, 438)
+
+[node name="SlimeDrop4" parent="." instance=ExtResource("5_mex2j")]
+position = Vector2(358, 470)
+
+[node name="SlimeDrop5" parent="." instance=ExtResource("5_mex2j")]
+position = Vector2(679, 463)
+slime_restore = 50.0

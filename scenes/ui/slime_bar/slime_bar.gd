@@ -9,11 +9,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	value = player.slime_health.current_health
 
 func _on_range_start(range_cost: float) -> void:
-	value -= range_cost
-	check_slime_size()
+	player.slime_health.damage(range_cost)
 	
 func check_slime_size() -> void:
 	if value >= 70 and not (player.current_size_state == player.large_size_state):
