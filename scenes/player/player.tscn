@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ci28x63s0dr5g"]
+[gd_scene load_steps=26 format=3 uid="uid://ci28x63s0dr5g"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
 [ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_temp/slime_jump.png" id="3_oxxf3"]
@@ -395,6 +395,9 @@ size = Vector2(26, 20)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
 height = 20.9883
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tl0px"]
+radius = 29.14
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_6bvhh")
@@ -416,6 +419,12 @@ player_action_fsm = NodePath("../PlayerActionStateMachine")
 player = NodePath("..")
 
 [node name="SlimeComponent" parent="." instance=ExtResource("9_s0tvn")]
+tinyThreshold = 10.0
+smallThreshold = 30.0
+mediumThreshold = 50.0
+largeThreshold = 75.0
+XLThreshold = 90.0
+max_health = 100.0
 
 [node name="SizeStates" type="Node" parent="."]
 
@@ -458,6 +467,14 @@ position = Vector2(0, -6)
 position = Vector2(0, -6)
 scale = Vector2(0.601594, 0.571746)
 shape = SubResource("CapsuleShape2D_210mi")
+
+[node name="PickupArea2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="PickupCollisionShape2D" type="CollisionShape2D" parent="PickupArea2D"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_tl0px")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

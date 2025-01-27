@@ -102,6 +102,7 @@ value = 100.0
 
 [node name="OptionsBackButton" type="Button" parent="Panel"]
 custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
 offset_left = 23.0
 offset_top = 23.0
 offset_right = 151.0
