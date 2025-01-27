@@ -11,7 +11,10 @@ func _ready():
 	add_state("run")
 	add_state("jump")
 	add_state("fall")
+	
 	call_deferred("set_state", states.idle)
+	GameEvents.on_range_end.connect(_on_action_end)
+	GameEvents.on_melee_end.connect(_on_action_end)
 	
 	
 func _state_logic(delta):
@@ -110,3 +113,6 @@ func _input(event):
 		elif Input.is_action_just_pressed("jump") and parent.is_on_floor():
 			parent._jump()
 			
+func _on_action_end() -> void:
+	if(player.velocity == Vector2.ZERO):
+		call_deferred("set_state", states.idle)

@@ -11,6 +11,7 @@ class_name SlimeComponent
 func _ready() -> void:
 	current_health = max_health
 	GameEvents.on_slime_pickup.connect(_on_slime_pickup)
+	GameEvents.on_range_start.connect(damage)
 	
 func damage(damage_amount: float):
 	current_health = clamp(current_health - damage_amount, 0, max_health)
