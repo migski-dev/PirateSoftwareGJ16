@@ -1,0 +1,162 @@
+[gd_scene load_steps=8 format=3 uid="uid://dh2g6viajrht1"]
+
+[ext_resource type="FontFile" uid="uid://d2m2arte44ref" path="res://assets/fonts/CHUNKY/CHUNKY-webfont.woff" id="1_3odrj"]
+[ext_resource type="Script" path="res://scenes/ui/main_menu/main_menu.gd" id="1_xyp1o"]
+[ext_resource type="Theme" uid="uid://chlmxsyiolqti" path="res://assets/ui-theme/ui_theme.tres" id="2_4iohl"]
+[ext_resource type="PackedScene" uid="uid://bib5u6ebwuo0e" path="res://scenes/ui/main_menu/slime_line.tscn" id="3_0ju74"]
+[ext_resource type="PackedScene" uid="uid://cb6o1mpgi2oj5" path="res://scenes/ui/options_menu/options_menu.tscn" id="5_hv6vc"]
+[ext_resource type="PackedScene" uid="uid://plqy6vgsgo6v" path="res://scenes/ui/controls_screen/controls_screen.tscn" id="6_dv1ls"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oadqi"]
+font = ExtResource("1_3odrj")
+font_size = 48
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_xyp1o")
+
+[node name="ColorRectLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="ColorRectLayer"]
+show_behind_parent = true
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.627451, 0.341176, 0.639216, 1)
+
+[node name="SpriteContainer" type="Node2D" parent="."]
+rotation = -0.261799
+
+[node name="SlimeLine" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+sprite_count = 20
+line_length = 3200.0
+
+[node name="SlimeLine2" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(0, 90)
+sprite_count = 20
+line_length = 3200.0
+line_direction = Vector2(-1, 0)
+
+[node name="SlimeLine3" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(0, 180)
+sprite_count = 20
+line_length = 3200.0
+
+[node name="SlimeLine4" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(0, 270)
+sprite_count = 20
+line_length = 3200.0
+line_direction = Vector2(-1, 0)
+
+[node name="SlimeLine5" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(0, 360)
+sprite_count = 20
+line_length = 3200.0
+
+[node name="SlimeLine6" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(0, 450)
+sprite_count = 20
+line_length = 3200.0
+line_direction = Vector2(-1, 0)
+
+[node name="SlimeLine7" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(0, 540)
+sprite_count = 20
+line_length = 3200.0
+
+[node name="SlimeLine8" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(0, 629)
+sprite_count = 20
+line_length = 3200.0
+line_direction = Vector2(-1, 0)
+
+[node name="SlimeLine9" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(1.90457, 723.133)
+sprite_count = 20
+line_length = 3200.0
+
+[node name="SlimeLine10" parent="SpriteContainer" instance=ExtResource("3_0ju74")]
+position = Vector2(-0.138742, 815.76)
+sprite_count = 20
+line_length = 3200.0
+line_direction = Vector2(-1, 0)
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="MenuLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Slime Time"
+label_settings = SubResource("LabelSettings_oadqi")
+
+[node name="HSeparator" type="HSeparator" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+
+[node name="PlayButton" type="Button" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+text = "Play"
+flat = true
+
+[node name="HSeparator2" type="HSeparator" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+theme_override_constants/separation = 4
+
+[node name="OptionsButton" type="Button" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+text = "Options
+"
+flat = true
+
+[node name="HSeparator4" type="HSeparator" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+theme_override_constants/separation = 4
+
+[node name="ControlsButton" type="Button" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+text = "Controls"
+flat = true
+
+[node name="HSeparator3" type="HSeparator" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+theme_override_constants/separation = 4
+
+[node name="ExitButton" type="Button" parent="MenuLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_4iohl")
+text = "Exit"
+flat = true
+
+[node name="OptionsLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="OptionsMenu" parent="OptionsLayer" instance=ExtResource("5_hv6vc")]
+
+[node name="ControlsLayer" type="CanvasLayer" parent="."]
+
+[node name="ControlsScreen" parent="ControlsLayer" instance=ExtResource("6_dv1ls")]
+visible = false
+
+[connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="on_back_button_pressed" from="OptionsLayer/OptionsMenu" to="." method="_on_options_menu_on_back_button_pressed"]

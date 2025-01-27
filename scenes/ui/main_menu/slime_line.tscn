@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bib5u6ebwuo0e"]
+
+[ext_resource type="Script" path="res://scenes/ui/main_menu/slime_line.gd" id="1_defa7"]
+
+[node name="SlimeLine" type="Node2D"]
+script = ExtResource("1_defa7")

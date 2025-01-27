@@ -16,9 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://dlq5i82nygqdl" path="res://scenes/ui/slime_bar/slime_bar.tscn" id="13_6vm4m"]
 [ext_resource type="PackedScene" uid="uid://cq4dghfh4uu2x" path="res://scenes/state_machine/player_size_state/small_size_action_state.tscn" id="13_d5gtb"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
-height = 20.9883
-
 [sub_resource type="Animation" id="Animation_mv5ix"]
 length = 0.001
 tracks/0/type = "value"
@@ -395,17 +392,15 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1psvk"]
 size = Vector2(26, 20)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
+height = 20.9883
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_6bvhh")
 small_size_state = NodePath("SizeStates/SmallSizeActionState")
 medium_size_state = NodePath("SizeStates/MediumSizeState")
 large_size_state = NodePath("SizeStates/LargeSizeState")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
-scale = Vector2(0.601594, 0.571746)
-shape = SubResource("CapsuleShape2D_210mi")
 
 [node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -458,6 +453,11 @@ shape = SubResource("RectangleShape2D_1psvk")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(0.601594, 0.571746)
+shape = SubResource("CapsuleShape2D_210mi")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
