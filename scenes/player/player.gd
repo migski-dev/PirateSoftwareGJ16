@@ -81,9 +81,11 @@ func _ready():
 	# Is the default state medium?
 	_on_transition_to_large()
 	
+	GameEvents.on_transition_to_XL.connect(_on_transition_to_large) # TODO: CREATE XL STATE
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
 	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
+	GameEvents.on_transition_to_XS.connect(_on_transition_to_small) # TODO: CREATE XS STATE
 	
 func _update_variables() -> void:
 	# Set Acceleration / Deceleration	
