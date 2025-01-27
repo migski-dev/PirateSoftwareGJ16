@@ -1,0 +1,124 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb6o1mpgi2oj5"]
+
+[ext_resource type="Script" path="res://scenes/ui/options_menu/options_menu.gd" id="1_7rfny"]
+[ext_resource type="Theme" uid="uid://chlmxsyiolqti" path="res://assets/ui-theme/ui_theme.tres" id="2_qwsf2"]
+[ext_resource type="AudioStream" uid="uid://k47veogdbfjd" path="res://assets/bgm/Green Slime Guy gameplay -- loop.ogg" id="3_uejrm"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7rfny")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_qwsf2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 19.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 350
+theme_override_constants/margin_bottom = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Options" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+theme_override_font_sizes/font_size = 48
+text = "Options"
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+
+[node name="BGMMuteLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+text = "BGM Mute"
+
+[node name="BGMVolumeMute" type="CheckBox" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+theme_override_constants/separation = 4
+
+[node name="BGMVolumeLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+text = "BGM Volume
+"
+
+[node name="BGMVolume" type="HSlider" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+
+[node name="HSeparator4" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+theme_override_constants/separation = 32
+
+[node name="SFXMuteLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+text = "SFX Mute"
+
+[node name="SFXVolumeMute" type="CheckBox" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+theme_override_constants/separation = 4
+
+[node name="SFXVolumeLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwsf2")
+text = "SFX Volume
+"
+
+[node name="SFXVolume" type="HSlider" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+
+[node name="OptionsBackButton" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(30, 30)
+offset_left = 23.0
+offset_top = 23.0
+offset_right = 151.0
+offset_bottom = 53.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("2_qwsf2")
+text = "< Back"
+flat = true
+
+[node name="MainMenuBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_uejrm")
+autoplay = true
+bus = &"BGM"
+
+[connection signal="toggled" from="Panel/MarginContainer/VBoxContainer/BGMVolumeMute" to="." method="_on_bgm_volume_mute_toggled"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/BGMVolume" to="." method="_on_volume_value_changed"]
+[connection signal="toggled" from="Panel/MarginContainer/VBoxContainer/SFXVolumeMute" to="." method="_on_sfx_volume_mute_toggled"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SFXVolume" to="." method="_on_sfx_volume_value_changed"]
+[connection signal="pressed" from="Panel/OptionsBackButton" to="." method="_on_options_back_button_pressed"]

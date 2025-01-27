@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcfgyxd0yx4l1"]
+
+[ext_resource type="Texture2D" uid="uid://c2d27hjkmlcud" path="res://assets/sprite_sheets/slime_temp/slime_idle2.png" id="1_qlw37"]
+
+[node name="SlimeSprite" type="Sprite2D"]
+position = Vector2(6, -6)
+texture = ExtResource("1_qlw37")
+hframes = 7
+vframes = 7
+frame = 28

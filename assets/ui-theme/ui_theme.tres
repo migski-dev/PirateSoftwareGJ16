@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://chlmxsyiolqti"]
+
+[ext_resource type="FontFile" uid="uid://d2m2arte44ref" path="res://assets/fonts/CHUNKY/CHUNKY-webfont.woff" id="1_lwj0c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fo8xt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssgy2"]
+bg_color = Color(0.529412, 0.494118, 0.796078, 1)
+
+[resource]
+default_font = ExtResource("1_lwj0c")
+Button/font_sizes/font_size = 20
+HSeparator/constants/separation = 24
+HSeparator/styles/separator = SubResource("StyleBoxEmpty_fo8xt")
+Panel/styles/panel = SubResource("StyleBoxFlat_ssgy2")

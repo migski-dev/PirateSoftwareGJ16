@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://k47veogdbfjd"
+path="res://.godot/imported/Green Slime Guy gameplay -- loop.ogg-a1ecca2f426da92eff69e703cee32734.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/bgm/Green Slime Guy gameplay -- loop.ogg"
+dest_files=["res://.godot/imported/Green Slime Guy gameplay -- loop.ogg-a1ecca2f426da92eff69e703cee32734.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
