@@ -1,10 +1,11 @@
 extends Node
 
+@onready var enemy: Enemy = get_parent()
+@onready var anim_player: AnimationPlayer = enemy.get_node("Visuals/AnimationPlayer")
+
 @export var initial_state : EnemyState
-
-#@export var enemy_behavior:
-
 var current_state : EnemyState
+var current_state_name : String
 var states : Dictionary = {}
 
 func _ready():
@@ -14,8 +15,8 @@ func _ready():
 			child.Transitioned.connect(on_child_transition)
 	
 	if initial_state:
-			initial_state.Enter()
-			current_state = initial_state
+		initial_state.Enter()
+		current_state = initial_state
 
 func _process(delta):
 	if current_state:
@@ -26,16 +27,18 @@ func _physics_process(delta):
 		current_state.Physics_Update(delta)
 
 func on_child_transition(state, new_state_name):
+	
 	if state != current_state:
 		return
 	
 	var new_state = states.get(new_state_name.to_lower())
+	
 	if !new_state:
 		return
 	
 	if current_state:
 		current_state.Exit()
 		
-	new_state.enter()
+	new_state.Enter()
 	
 	current_state = new_state

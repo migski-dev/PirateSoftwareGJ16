@@ -449,7 +449,7 @@ vframes = 7
 
 [node name="MediumMeleeHitbox" type="Area2D" parent="Visuals/MeleeRanges"]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("11_tidid")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/MediumMeleeHitbox"]
