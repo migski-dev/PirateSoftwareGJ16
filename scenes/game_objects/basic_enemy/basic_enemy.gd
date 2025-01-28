@@ -19,7 +19,6 @@ func _ready():
 	$HurtboxComponent.hit.connect(on_hit)
 	apply_floor_snap()
 	
-	
 func _process(delta):
 	pass
 		

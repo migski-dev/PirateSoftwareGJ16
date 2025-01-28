@@ -35,6 +35,7 @@ frame_progress = 0.785932
 script = ExtResource("2_ieno5")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_rmxpw")]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_tg2dx")

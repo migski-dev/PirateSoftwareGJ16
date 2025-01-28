@@ -12,12 +12,15 @@ func _ready():
 	hitbox.damage = bullet_dmg
 	
 	if is_player_projectile:
-		hitbox.set_collision_layer_value(3, true)
-		hitbox.set_collision_layer_value(2, false)
-	else:
 		hitbox.set_collision_layer_value(3, false)
 		hitbox.set_collision_layer_value(2, true)
-
+		hitbox.set_collision_mask_value(3, false)
+		hitbox.set_collision_mask_value(2, true)
+	else:
+		hitbox.set_collision_layer_value(3, true)
+		hitbox.set_collision_layer_value(2, false)
+		hitbox.set_collision_mask_value(3, true)
+		hitbox.set_collision_mask_value(2, false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

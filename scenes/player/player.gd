@@ -68,11 +68,7 @@ var special_tap: bool = false
 @onready var visuals = $Visuals
 @onready var mid_point = $Marker2D
 @onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMeleeHitbox
-<<<<<<< HEAD
-=======
 @onready var slime_health: SlimeComponent = $SlimeComponent
-
->>>>>>> origin/main
 
 func _ready():
 	apply_floor_snap()

@@ -4,9 +4,10 @@ class_name EnemyFollow
 @export var enemy: CharacterBody2D
 var player: CharacterBody2D
 
-func enter():
+func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
-	
+
+func enter():
 	var anim_player: AnimationPlayer = enemy.get_node("Visuals/AnimationPlayer") 	
 	anim_player.play("walk")
 
