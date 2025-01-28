@@ -7,6 +7,7 @@ class_name PlayerActionStateMachine
 var is_meleeing: bool = false
 var is_ranging: bool = false
 var is_specialing: bool = false 
+var is_transitioning:bool = false
 
 var bullet_target: Vector2 = Vector2.ZERO
 var bullet_cooldown: float = 0.8
@@ -20,6 +21,8 @@ func _ready() -> void:
 	add_state("melee_attack")
 	add_state("range_attack")
 	add_state("special_attack")
+	add_state("shrinking")
+	add_state("growing")
 	call_deferred("set_state", states.none)
 
 
@@ -38,6 +41,10 @@ func _get_transition(delta):
 				return states.range_attack
 			elif Input.is_action_pressed("special_attack") && can_special_attack():
 				return states.special_attack
+			elif Input.is_action_pressed("shrink") && can_shrink():
+				return states.shrinking
+			elif Input.is_action_pressed("grow") && can_grow():
+				return states.growing
 			else:
 				return states.none
 
@@ -73,11 +80,41 @@ func _enter_state(new_state, old_state) -> void:
 		states.special_attack:
 			parent.medium_size_state._special_attack()
 			is_specialing = true
-			
+		
+		states.shrinking:
+			match player.current_size_state:
+				player.large_size_state:
+					GameEvents.on_transition_to_medium.emit()
+					GameEvents.on_transition_start.emit()
+					player.action_anim_player.play("shrinking")
+				player.medium_size_state:
+					GameEvents.on_transition_to_small.emit()
+					GameEvents.on_transition_start.emit()
+					player.action_anim_player.play("shrinking")
+				player.small_size_state:
+					#TODO: CREATE ERROR SOUND / CAMERA SHAKE
+					_reset_action()
+		
+		states.growing:
+			match player.current_size_state:
+				player.large_size_state:
+					#TODO: CREATE ERROR SOUND / CAMERA SHAKE
+					_reset_action()
+				player.medium_size_state:
+					GameEvents.on_transition_to_large.emit()
+					GameEvents.on_transition_start.emit()
+					player.action_anim_player.play("growing")
+				player.small_size_state:
+					GameEvents.on_transition_to_medium.emit()
+					GameEvents.on_transition_start.emit()
+					player.action_anim_player.play("growing")
+					
+		
 		states.none:
 			is_meleeing = false
 			is_ranging = false
 			is_specialing = false
+			is_transitioning = false
 		
 			
 func can_melee_attack() -> bool:
@@ -93,6 +130,36 @@ func can_range_attack() -> bool:
 		return true 
 	else: 
 		return false
+
+
+
+func can_shrink() -> bool:
+	match player.current_size_state:
+		player.small_size_state:
+			return false
+		player.medium_size_state:
+			return true
+		player.large_size_state:
+			return true
+		_:
+			return false
+
+
+#TODO ADD GROW CHECK
+func can_grow() -> bool:
+	var current_health = player.slime_health.current_health
+	var large_threshold = player.slime_health.largeThreshold
+	var medium_threshold = player.slime_health.mediumThreshold
+	
+	match player.current_size_state:
+		player.small_size_state:
+			return current_health >= medium_threshold
+		player.medium_size_state:
+			return current_health >= large_threshold
+		player.large_size_state:
+			return false
+		_:
+			return false
 		
 		
 func has_enough_slime() -> bool:

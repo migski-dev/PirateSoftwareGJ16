@@ -13,7 +13,11 @@ func _ready() -> void:
 	GameEvents.on_slime_pickup.connect(_on_slime_pickup)
 	GameEvents.on_range_start.connect(damage)
 	
+	
 func damage(damage_amount: float):
+	var player = get_parent() as Player
+	if player.is_invulnerable:
+		return
 	current_health = clamp(current_health - damage_amount, 0, max_health)
 	health_changed.emit()
 	set_slime_size()
@@ -27,6 +31,7 @@ func _on_slime_pickup(slime_amount: int) -> void:
 	heal(slime_amount)
 	set_slime_size()
 	
+	
 func set_slime_size() -> void:
 	if current_health >= XLThreshold:
 		GameEvents.on_transition_to_XL.emit()
@@ -39,7 +44,6 @@ func set_slime_size() -> void:
 	elif current_health < smallThreshold and current_health > 0:
 		GameEvents.on_transition_to_XS.emit()
 	else:
-		print_debug(current_health)
 		GameEvents.on_player_died.emit()
 	
 	
