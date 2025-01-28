@@ -21,4 +21,18 @@ func _range_attack(target_position: Vector2) -> void:
 	
 # Swallow Action
 func _special_attack() -> void:
-	player.action_anim_player.play("med_range_attack")
+	player.saw_hitbox.damage = 150
+	if player._get_direction() == Vector2.RIGHT:
+		player._disable_action(1.1)
+		player._disable_gravity(1.1)
+		player.velocity.x = player.max_speed
+		player.velocity.y = 0
+		player.action_anim_player.play("saw")
+	else:
+		player._disable_action(1.1)
+		player._disable_gravity(1.1)
+		player.velocity.x = -player.max_speed
+		player.velocity.y = 0
+		player.action_anim_player.play("saw")
+		
+	

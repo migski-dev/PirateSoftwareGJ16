@@ -121,7 +121,6 @@ position = Vector2(358, 470)
 
 [node name="SlimeDrop5" parent="." instance=ExtResource("5_mex2j")]
 position = Vector2(679, 463)
-slime_restore = 50.0
 
 [node name="Player" parent="." instance=ExtResource("5_ywu0l")]
 position = Vector2(162, 584)

@@ -2,7 +2,7 @@ extends Node2D
 class_name SlimeDrop
 
 @onready var sprite: Sprite2D = $Sprite2D
-@export var slime_restore: float = 10.0
+@export var slime_restore: int = 10.0
 
 func _ready() -> void: 
 	$Area2D.area_entered.connect(on_area_entered)

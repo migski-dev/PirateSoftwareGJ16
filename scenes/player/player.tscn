@@ -528,6 +528,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerActionStateMachine")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"emit_on_special_end"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o4j0g"]
 _data = {
@@ -570,6 +584,7 @@ libraries = {
 }
 
 [node name="PlayerActionStateMachine" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_fycv8")]
+player_bullet = ExtResource("10_k2mvn")
 player = NodePath("..")
 
 [node name="PlayerMoveStateMachine" parent="." node_paths=PackedStringArray("player_action_fsm", "player") instance=ExtResource("3_yqh4w")]
@@ -589,7 +604,7 @@ max_health = 100.0
 
 [node name="LargeSizeState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("12_t7g3l")]
 bullet_scene = ExtResource("10_k2mvn")
-max_speed = 200.0
+max_speed = 150.0
 time_to_reach_max_speed = 0.4
 time_to_reach_zero = 0.35
 gravity_scale = 12.0
@@ -611,7 +626,7 @@ time_to_reach_max_speed = 0.15
 time_to_reach_zero = 0.1
 terminal_velocity = 600.0
 descending_gravity_factor = 1.5
-jump_variable = 3.0
+jump_variable = 4.0
 player = NodePath("../..")
 
 [node name="Visuals" type="Node2D" parent="."]
