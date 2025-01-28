@@ -7,15 +7,16 @@ class_name SlimeComponent
 @export var largeThreshold: float = 10
 @export var XLThreshold: float = 12
 
+var player: Player
 
 func _ready() -> void:
 	current_health = max_health
 	GameEvents.on_slime_pickup.connect(_on_slime_pickup)
 	GameEvents.on_range_start.connect(damage)
+	player = get_parent()
 	
 	
 func damage(damage_amount: float):
-	var player = get_parent() as Player
 	if player.is_invulnerable:
 		return
 	current_health = clamp(current_health - damage_amount, 0, max_health)
@@ -29,14 +30,27 @@ func damage(damage_amount: float):
 	
 func _on_slime_pickup(slime_amount: int) -> void:
 	heal(slime_amount)
-	set_slime_size()
+	#set_slime_size()
 	
-	
+
+# shrink down when current size is below the threshold
 func set_slime_size() -> void:
-	if current_health >= XLThreshold:
-		GameEvents.on_transition_to_XL.emit()
-	elif current_health < XLThreshold and current_health >= largeThreshold :
-		GameEvents.on_transition_to_large.emit()
+	#if current_health >= XLThreshold:
+		#GameEvents.on_transition_to_XL.emit()
+	#elif current_health < XLThreshold and current_health >= largeThreshold :
+		#GameEvents.on_transition_to_large.emit()
+	#elif current_health < largeThreshold and current_health >= mediumThreshold:
+		#GameEvents.on_transition_to_medium.emit()
+	#elif current_health < mediumThreshold and current_health >= smallThreshold:
+		#GameEvents.on_transition_to_small.emit()
+	#elif current_health < smallThreshold and current_health > 0:
+		#GameEvents.on_transition_to_XS.emit()
+	#else:
+		#GameEvents.on_player_died.emit()
+	
+	# LOGIC IS DEPENDENT ON NOT BEING ABLE TO LOSE MORE THAN 2 SIZE STATES OF SLIME	
+	if current_health < largeThreshold and [player.large_size_state].has(player.current_size_state):
+		GameEvents.on_transition_to_medium.emit()
 	elif current_health < largeThreshold and current_health >= mediumThreshold:
 		GameEvents.on_transition_to_medium.emit()
 	elif current_health < mediumThreshold and current_health >= smallThreshold:

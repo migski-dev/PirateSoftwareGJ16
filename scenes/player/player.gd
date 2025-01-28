@@ -215,7 +215,6 @@ func _coyote_time() -> void:
 
 
 func _jump() -> void:
-	print('jump called')
 	if jump_count > 0:
 		velocity.y = -jump_magnitude
 		jump_count += -1
@@ -231,22 +230,43 @@ func _get_direction() -> Vector2:
 		return Vector2.RIGHT
 	
 func _on_transition_to_large() -> void:
-	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
 	await _on_transition_start()
 	current_size_state = large_size_state
+	_set_movement_stats(large_size_state)
 	visuals.scale = Vector2(2,2)
 	
 func _on_transition_to_medium() -> void:
-	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
 	await _on_transition_start()
 	current_size_state = medium_size_state
+	_set_movement_stats(medium_size_state)
 	visuals.scale = Vector2(1,1)
 	
 func _on_transition_to_small() -> void:
-	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
 	await _on_transition_start()
 	current_size_state = small_size_state
+	_set_movement_stats(small_size_state)
 	visuals.scale = Vector2(.5, .5)
+
+func _set_movement_stats(size_state: PlayerSizeState) -> void:
+	# Horizontal Movement
+	max_speed = size_state.max_speed
+	time_to_reach_max_speed = size_state.time_to_reach_max_speed
+	time_to_reach_zero = size_state.time_to_reach_zero
+	
+	# Vertical Movement
+	jump_height = size_state.jump_height
+	gravity_scale = size_state.gravity_scale
+	terminal_velocity = size_state.terminal_velocity
+	descending_gravity_factor = size_state.descending_gravity_factor
+	enable_var_jump_height = size_state.enable_var_jump_height
+	jump_variable = size_state.jump_variable
+	coyote_time = size_state.coyote_time 
+	jump_buffering = size_state.jump_buffering 
+	
+	_update_variables()
 
 
 func _on_hurtbox_component_hit() -> void:

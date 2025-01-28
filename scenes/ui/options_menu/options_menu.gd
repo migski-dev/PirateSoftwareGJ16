@@ -6,7 +6,7 @@ signal on_back_button_pressed
 @onready var sfx_volume_slider: HSlider = $Panel/MarginContainer/VBoxContainer/SFXVolume
 
 func _on_volume_value_changed(value):
-	AudioServer.set_bus_volume_db(1, value - 100)
+	AudioServer.set_bus_volume_db(1, 60 * (log(value + 12)/log(10)) - 125)
 	
 func _on_bgm_volume_mute_toggled(toggled_on):
 	if toggled_on:
@@ -25,7 +25,7 @@ func _on_sfx_volume_mute_toggled(toggled_on):
 
 
 func _on_sfx_volume_value_changed(value):
-	AudioServer.set_bus_volume_db(2, value - 100)
+	AudioServer.set_bus_volume_db(2, 60 * (log(value + 12)/log(10)) - 125)
 
 
 func _on_options_back_button_pressed():

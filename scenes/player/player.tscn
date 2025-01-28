@@ -532,14 +532,29 @@ max_health = 100.0
 
 [node name="LargeSizeState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("12_t7g3l")]
 bullet_scene = ExtResource("10_k2mvn")
+max_speed = 200.0
+time_to_reach_max_speed = 0.4
+time_to_reach_zero = 0.3
+gravity_scale = 12.0
+terminal_velocity = 250.0
+descending_gravity_factor = 0.9
 player = NodePath("../..")
 
 [node name="MediumSizeState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("7_n8cm8")]
 bullet_scene = ExtResource("10_k2mvn")
+max_speed = 270.0
+time_to_reach_max_speed = 0.25
+time_to_reach_zero = 0.25
 player = NodePath("../..")
 
 [node name="SmallSizeActionState" parent="SizeStates" node_paths=PackedStringArray("player") instance=ExtResource("13_d5gtb")]
 bullet_scene = ExtResource("10_k2mvn")
+max_speed = 350.0
+time_to_reach_max_speed = 0.15
+time_to_reach_zero = 0.1
+terminal_velocity = 600.0
+descending_gravity_factor = 1.5
+jump_variable = 3.0
 player = NodePath("../..")
 
 [node name="Visuals" type="Node2D" parent="."]

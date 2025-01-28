@@ -113,6 +113,13 @@ theme = ExtResource("2_qwsf2")
 text = "< Back"
 flat = true
 
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 487.0
+offset_top = 46.0
+offset_right = 573.0
+offset_bottom = 117.0
+
 [node name="MainMenuBGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_uejrm")
 autoplay = true
