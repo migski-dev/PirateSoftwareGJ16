@@ -70,24 +70,13 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/4/type = "method"
+tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("SizeStates/MediumSizeState")
+tracks/4/path = NodePath("Visuals/Sprite2D:vframes")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Visuals/Sprite2D:vframes")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -149,6 +138,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_faiwd"]
 resource_name = "med_idle"
 length = 0.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -304,7 +294,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("SizeStates/MediumSizeState")
+tracks/4/path = NodePath("PlayerActionStateMachine")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -319,7 +309,6 @@ tracks/4/keys = {
 [sub_resource type="Animation" id="Animation_o2p26"]
 resource_name = "med_range_attack"
 length = 0.8
-loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -351,10 +340,10 @@ tracks/2/path = NodePath("Visuals/Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.333333, 0.4, 0.5, 0.566667, 0.633333, 0.766667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.0666667, 0.1, 0.133333, 0.15779, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.404736, 0.433333, 0.466667, 0.491123, 0.533333, 0.571403, 0.628071, 0.675294, 0.730388),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12]
+"values": [1, 2, 3, 10, 4, 5, 6, 7, 8, 9, 10, 11, 8, 12, 11, 10, 9, 8, 4, 2, 1]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -371,7 +360,7 @@ tracks/3/keys = {
 tracks/4/type = "method"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("SizeStates/MediumSizeState")
+tracks/4/path = NodePath("PlayerActionStateMachine")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -379,7 +368,7 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"emit_on_melee_end"
+"method": &"emit_on_range_end"
 }]
 }
 
@@ -396,8 +385,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1psvk"]
 size = Vector2(26, 20)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_341o0"]
-radius = 9.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
+height = 20.9883
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tl0px"]
+radius = 29.14
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
 collision_layer = 2
@@ -405,11 +397,6 @@ script = ExtResource("1_6bvhh")
 small_size_state = NodePath("SizeStates/SmallSizeActionState")
 medium_size_state = NodePath("SizeStates/MediumSizeState")
 large_size_state = NodePath("SizeStates/LargeSizeState")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
-scale = Vector2(0.601594, 0.571746)
-shape = SubResource("CapsuleShape2D_210mi")
 
 [node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -425,6 +412,11 @@ player_action_fsm = NodePath("../PlayerActionStateMachine")
 player = NodePath("..")
 
 [node name="SlimeComponent" parent="." instance=ExtResource("9_s0tvn")]
+tinyThreshold = 10.0
+smallThreshold = 30.0
+mediumThreshold = 50.0
+largeThreshold = 75.0
+XLThreshold = 90.0
 max_health = 100.0
 
 [node name="SizeStates" type="Node" parent="."]
@@ -463,6 +455,19 @@ shape = SubResource("RectangleShape2D_1psvk")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(0.601594, 0.571746)
+shape = SubResource("CapsuleShape2D_210mi")
+
+[node name="PickupArea2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="PickupCollisionShape2D" type="CollisionShape2D" parent="PickupArea2D"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_tl0px")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

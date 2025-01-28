@@ -9,7 +9,7 @@ var is_ranging: bool = false
 var is_specialing: bool = false 
 
 var bullet_target: Vector2 = Vector2.ZERO
-var bullet_cooldown: float = 0.7
+var bullet_cooldown: float = 0.8
 var is_on_bullet_cooldown: bool = false
 
 @export var player_bullet: PackedScene 
@@ -21,10 +21,7 @@ func _ready() -> void:
 	add_state("range_attack")
 	add_state("special_attack")
 	call_deferred("set_state", states.none)
-	
-	GameEvents.connect("on_melee_end", _reset_action)
-	GameEvents.connect("on_range_end", _reset_action)
-	GameEvents.connect("on_special_end", _reset_action)
+
 
 
 func _state_logic(delta) -> void:
@@ -121,3 +118,17 @@ func _exit_state(old_state, new_state):
 
 func _reset_action() -> void:
 	set_state(states.none)
+
+
+func emit_on_melee_end() -> void:
+	GameEvents.on_melee_end.emit()
+	_reset_action()
+
+	
+func emit_on_range_end() -> void:
+	GameEvents.on_range_end.emit()
+	_reset_action()
+
+func emit_on_special_end() -> void:
+	GameEvents.on_special_end.emit()
+	_reset_action()

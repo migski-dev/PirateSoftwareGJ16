@@ -68,6 +68,11 @@ var special_tap: bool = false
 @onready var visuals = $Visuals
 @onready var mid_point = $Marker2D
 @onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMeleeHitbox
+<<<<<<< HEAD
+=======
+@onready var slime_health: SlimeComponent = $SlimeComponent
+
+>>>>>>> origin/main
 
 func _ready():
 	apply_floor_snap()
@@ -76,10 +81,10 @@ func _ready():
 	# Is the default state medium?
 	_on_transition_to_large()
 	
+	GameEvents.on_transition_to_XL.connect(_on_transition_to_large) # TODO: CREATE XL STATE
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
 	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
-	
 	
 func _update_variables() -> void:
 	# Set Acceleration / Deceleration	

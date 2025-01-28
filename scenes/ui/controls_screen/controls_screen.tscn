@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://plqy6vgsgo6v"]
+
+[ext_resource type="Theme" uid="uid://chlmxsyiolqti" path="res://assets/ui-theme/ui_theme.tres" id="1_2eve6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghql6"]
+bg_color = Color(0.360784, 0.670588, 0.368627, 1)
+
+[node name="ControlsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_2eve6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ghql6")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 350
+theme_override_constants/margin_bottom = 150
+
+[node name="Label" type="Label" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Controls"
+
+[node name="OptionsBackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 23.0
+offset_right = 151.0
+offset_bottom = 53.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_2eve6")
+text = "< Back"
+flat = true
