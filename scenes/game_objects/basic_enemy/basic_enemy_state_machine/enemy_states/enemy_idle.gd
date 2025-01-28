@@ -8,9 +8,8 @@ var move_direction : Vector2
 func _ready() -> void:
 	pass # Replace with function body.
 
-func Enter():
+func enter():
 	pass #play idle animation from here
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

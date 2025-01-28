@@ -6,7 +6,6 @@ class_name Player
 @export var time_to_reach_max_speed: float = 0.2
 @export var time_to_reach_zero: float = 0.2
 
-
 @export_category("VERTICAL MOVEMENT")
 # Peak Height of player jump
 @export var jump_height: float = 2.0
@@ -24,7 +23,6 @@ class_name Player
 @export var coyote_time: float = 0.2
 # Window of time player can have jump input registered before landing
 @export var jump_buffering: float = 0.2
-
 
 @export_category("SIZE STATES")
 @export var small_size_state: PlayerSizeState
@@ -66,13 +64,11 @@ var melee_tap: bool = false
 var range_tap: bool = false
 var special_tap: bool = false
 
-
 @onready var action_anim_player = $ActionAnimationPlayer
 @onready var visuals = $Visuals
 @onready var mid_point = $Marker2D
 @onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMeleeHitbox
 @onready var slime_health: SlimeComponent = $SlimeComponent
-
 
 func _ready():
 	apply_floor_snap()
@@ -85,7 +81,6 @@ func _ready():
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
 	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
-	GameEvents.on_transition_to_XS.connect(_on_transition_to_small) # TODO: CREATE XS STATE
 	
 func _update_variables() -> void:
 	# Set Acceleration / Deceleration	
@@ -189,7 +184,6 @@ func _handle_vertical_movement(delta) -> void:
 	if enable_var_jump_height and jump_release and velocity.y < 0:
 		velocity.y = velocity.y / jump_variable
 	
-	
 	# Create Coyote time window	
 	if jump_count == 1 and !is_on_floor():
 		if coyote_time > 0:
@@ -225,7 +219,6 @@ func _jump() -> void:
 		jump_count += -1
 		jump_was_pressed = false
 
-
 func _handle_action_input():
 	pass
 	
@@ -240,7 +233,6 @@ func _on_transition_to_large() -> void:
 	current_size_state = large_size_state
 	visuals.scale = Vector2(2,2)
 	
-	
 func _on_transition_to_medium() -> void:
 	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
 	current_size_state = medium_size_state
@@ -250,3 +242,7 @@ func _on_transition_to_small() -> void:
 	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
 	current_size_state = small_size_state
 	visuals.scale = Vector2(.5, .5)
+
+
+func _on_hurtbox_component_hit() -> void:
+	print("i AM HURTING")

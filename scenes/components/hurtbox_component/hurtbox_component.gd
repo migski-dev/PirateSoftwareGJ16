@@ -30,3 +30,4 @@ func on_area_entered(other_area: Area2D):
 	floating_text.start(format_string % hitbox_component.damage)
 	
 	hit.emit()
+	
