@@ -1,6 +1,8 @@
 extends HealthComponent
 class_name SlimeComponent
 
+signal on_damage_shrink
+
 @export var tinyThreshold: float = 1
 @export var smallThreshold: float = 3
 @export var mediumThreshold: float = 5
@@ -35,29 +37,17 @@ func _on_slime_pickup(slime_amount: int) -> void:
 
 # shrink down when current size is below the threshold
 func set_slime_size() -> void:
-	#if current_health >= XLThreshold:
-		#GameEvents.on_transition_to_XL.emit()
-	#elif current_health < XLThreshold and current_health >= largeThreshold :
-		#GameEvents.on_transition_to_large.emit()
-	#elif current_health < largeThreshold and current_health >= mediumThreshold:
-		#GameEvents.on_transition_to_medium.emit()
-	#elif current_health < mediumThreshold and current_health >= smallThreshold:
-		#GameEvents.on_transition_to_small.emit()
-	#elif current_health < smallThreshold and current_health > 0:
-		#GameEvents.on_transition_to_XS.emit()
-	#else:
-		#GameEvents.on_player_died.emit()
-	
-	# LOGIC IS DEPENDENT ON NOT BEING ABLE TO LOSE MORE THAN 2 SIZE STATES OF SLIME	
-	if current_health < largeThreshold and [player.large_size_state].has(player.current_size_state):
+	if (current_health < largeThreshold and current_health >= mediumThreshold 
+		and [player.large_size_state].has(player.current_size_state) ):
+		on_damage_shrink.emit()
 		GameEvents.on_transition_to_medium.emit()
-	elif current_health < largeThreshold and current_health >= mediumThreshold:
-		GameEvents.on_transition_to_medium.emit()
-	elif current_health < mediumThreshold and current_health >= smallThreshold:
+	elif (current_health < mediumThreshold and current_health >= smallThreshold 
+		and [player.large_size_state, player.medium_size_state].has(player.current_size_state)):
+		on_damage_shrink.emit()
 		GameEvents.on_transition_to_small.emit()
-	elif current_health < smallThreshold and current_health > 0:
+	elif (current_health < smallThreshold and current_health > 0 
+		and [player.large_size_state, player.medium_size_state, player.small_size_state].has(player.current_size_state)):
+		on_damage_shrink.emit()
 		GameEvents.on_transition_to_XS.emit()
-	else:
+	elif current_health == 0:
 		GameEvents.on_player_died.emit()
-	
-	

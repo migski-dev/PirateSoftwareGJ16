@@ -9,6 +9,7 @@ var is_ranging: bool = false
 var is_specialing: bool = false 
 var is_transitioning:bool = false
 
+
 var bullet_target: Vector2 = Vector2.ZERO
 var bullet_cooldown: float = 0.8
 var is_on_bullet_cooldown: bool = false
@@ -24,6 +25,7 @@ func _ready() -> void:
 	add_state("shrinking")
 	add_state("growing")
 	call_deferred("set_state", states.none)
+
 
 
 
@@ -78,7 +80,13 @@ func _enter_state(new_state, old_state) -> void:
 			is_on_bullet_cooldown = false
 			
 		states.special_attack:
-			parent.medium_size_state._special_attack()
+			match player.current_size_state:
+				player.large_size_state:
+					player.large_size_state._special_attack()
+				player.medium_size_state:
+					player.medium_size_state._special_attack()
+				player.small_size_state:
+					player.small_size_state._special_attack()
 			is_specialing = true
 		
 		states.shrinking:
@@ -108,7 +116,8 @@ func _enter_state(new_state, old_state) -> void:
 					GameEvents.on_transition_to_medium.emit()
 					GameEvents.on_transition_start.emit()
 					player.action_anim_player.play("growing")
-					
+		
+		
 		
 		states.none:
 			is_meleeing = false
@@ -199,3 +208,7 @@ func emit_on_range_end() -> void:
 func emit_on_special_end() -> void:
 	GameEvents.on_special_end.emit()
 	_reset_action()
+
+
+func _on_slime_component_on_damage_shrink():
+	set_state(states.shrinking)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ci28x63s0dr5g"]
+[gd_scene load_steps=33 format=3 uid="uid://ci28x63s0dr5g"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
 [ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_temp/slime_jump.png" id="3_oxxf3"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://w3bdobbmhofe" path="res://scenes/state_machine/player_size_state/large_size_state.tscn" id="12_t7g3l"]
 [ext_resource type="PackedScene" uid="uid://dlq5i82nygqdl" path="res://scenes/ui/slime_bar/slime_bar.tscn" id="13_6vm4m"]
 [ext_resource type="PackedScene" uid="uid://cq4dghfh4uu2x" path="res://scenes/state_machine/player_size_state/small_size_action_state.tscn" id="13_d5gtb"]
+[ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="15_bxyrf"]
 [ext_resource type="PackedScene" uid="uid://dqkdttegghfgw" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="16_0xx86"]
 
 [sub_resource type="Animation" id="Animation_mv5ix"]
@@ -102,6 +103,30 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visuals/MeleeRanges/SawHitboxComponent/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_7d70t"]
@@ -476,6 +501,34 @@ tracks/2/keys = {
 "values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1), Vector2(0.5, 0.5), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_i1yex"]
+resource_name = "saw"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.466667, 0.566667, 0.633333, 0.7, 0.766667, 0.833333, 0.9, 0.966667, 1.03333, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.785398, 1.5708, 2.35619, 3.14159, 3.92699, 4.71239, 5.49779, 6.28319, 7.06858, 7.85398, 8.63938, 9.42478, 10.2102, 10.9956, 11.781, 12.5664]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/MeleeRanges/SawHitboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o4j0g"]
 _data = {
 "RESET": SubResource("Animation_mv5ix"),
@@ -485,11 +538,15 @@ _data = {
 "med_jump": SubResource("Animation_f730v"),
 "med_melee_attack": SubResource("Animation_pq23v"),
 "med_range_attack": SubResource("Animation_o2p26"),
+"saw": SubResource("Animation_i1yex"),
 "shrinking": SubResource("Animation_bhkha")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1psvk"]
 size = Vector2(26, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d6c1q"]
+radius = 15.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
 height = 20.9883
@@ -534,7 +591,7 @@ max_health = 100.0
 bullet_scene = ExtResource("10_k2mvn")
 max_speed = 200.0
 time_to_reach_max_speed = 0.4
-time_to_reach_zero = 0.3
+time_to_reach_zero = 0.35
 gravity_scale = 12.0
 terminal_velocity = 250.0
 descending_gravity_factor = 0.9
@@ -577,7 +634,16 @@ script = ExtResource("11_tidid")
 position = Vector2(13, -10)
 shape = SubResource("RectangleShape2D_1psvk")
 
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="SawHitboxComponent" parent="Visuals/MeleeRanges" instance=ExtResource("15_bxyrf")]
+position = Vector2(0, -4)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/SawHitboxComponent"]
+position = Vector2(-1, -6)
+shape = SubResource("CircleShape2D_d6c1q")
+
+[node name="Center" type="Marker2D" parent="."]
 position = Vector2(0, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -618,4 +684,5 @@ shape = SubResource("CircleShape2D_341o0")
 zoom = Vector2(2.5, 2.5)
 
 [connection signal="health_decreased" from="SlimeComponent" to="CanvasLayer/SlimeBar" method="_on_slime_component_health_decreased"]
+[connection signal="on_damage_shrink" from="SlimeComponent" to="PlayerActionStateMachine" method="_on_slime_component_on_damage_shrink"]
 [connection signal="hit" from="HurtboxComponent" to="." method="_on_hurtbox_component_hit"]

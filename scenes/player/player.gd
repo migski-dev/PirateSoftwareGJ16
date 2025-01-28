@@ -67,7 +67,7 @@ var special_tap: bool = false
 
 @onready var action_anim_player = $ActionAnimationPlayer
 @onready var visuals = $Visuals
-@onready var mid_point = $Marker2D
+@onready var mid_point = $Center
 @onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMeleeHitbox
 @onready var slime_health: SlimeComponent = $SlimeComponent
 
@@ -82,7 +82,7 @@ func _ready() -> void:
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
 	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
-	#GameEvents.on_transition_start.connect(_on_transition_start)
+
 	
 func _update_variables() -> void:
 	# Set Acceleration / Deceleration	
