@@ -4,13 +4,13 @@ class_name EnemyFollow
 @export var enemy: CharacterBody2D
 var player: CharacterBody2D
 
-func Enter():
+func enter():
 	player = get_tree().get_first_node_in_group("player")
 	
 	var anim_player: AnimationPlayer = enemy.get_node("Visuals/AnimationPlayer") 	
 	anim_player.play("walk")
 
-func Physics_Update(delta: float):
+func physics_update(delta: float):
 	
 	var direction = player.global_position - enemy.global_position
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ci28x63s0dr5g"]
+[gd_scene load_steps=27 format=3 uid="uid://ci28x63s0dr5g"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
 [ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_temp/slime_jump.png" id="3_oxxf3"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://w3bdobbmhofe" path="res://scenes/state_machine/player_size_state/large_size_state.tscn" id="12_t7g3l"]
 [ext_resource type="PackedScene" uid="uid://dlq5i82nygqdl" path="res://scenes/ui/slime_bar/slime_bar.tscn" id="13_6vm4m"]
 [ext_resource type="PackedScene" uid="uid://cq4dghfh4uu2x" path="res://scenes/state_machine/player_size_state/small_size_action_state.tscn" id="13_d5gtb"]
+[ext_resource type="PackedScene" uid="uid://dqkdttegghfgw" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="16_0xx86"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_210mi"]
 height = 20.9883
@@ -395,6 +396,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1psvk"]
 size = Vector2(26, 20)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_341o0"]
+radius = 9.0
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_6bvhh")
@@ -421,6 +425,7 @@ player_action_fsm = NodePath("../PlayerActionStateMachine")
 player = NodePath("..")
 
 [node name="SlimeComponent" parent="." instance=ExtResource("9_s0tvn")]
+max_health = 100.0
 
 [node name="SizeStates" type="Node" parent="."]
 
@@ -448,11 +453,11 @@ vframes = 7
 [node name="MeleeRanges" type="Node2D" parent="Visuals"]
 
 [node name="MediumMeleeHitbox" type="Area2D" parent="Visuals/MeleeRanges"]
-collision_layer = 4
+collision_layer = 2
 collision_mask = 4
 script = ExtResource("11_tidid")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/MediumMeleeHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/MediumMeleeHitbox" groups=["player"]]
 position = Vector2(13, -10)
 shape = SubResource("RectangleShape2D_1psvk")
 
@@ -469,4 +474,14 @@ offset_bottom = 258.0
 scale = Vector2(3.46345, 3.54601)
 player = NodePath("../..")
 
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("16_0xx86")]
+collision_layer = 2
+collision_mask = 4
+health_component = NodePath("../SlimeComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(-1, -6)
+shape = SubResource("CircleShape2D_341o0")
+
 [connection signal="health_decreased" from="SlimeComponent" to="CanvasLayer/SlimeBar" method="_on_slime_component_health_decreased"]
+[connection signal="hit" from="HurtboxComponent" to="." method="_on_hurtbox_component_hit"]

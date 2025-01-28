@@ -6,16 +6,25 @@ class_name Enemy
 @onready var velocity_component = $VelocityComponent
 @onready var hitbox_component = $CollisionShape2D
 
+@export_category("ATTACK TYPE")
+enum attack_types {MELEE, RANGED}
+
+@export_category("Enemy Attack")
+@export var enemy_attack_type : attack_types = attack_types.MELEE
+@export var attack_damage : int = 5
+@export var attack_range : int = 35
+
 func _ready():
-	#$HitboxComponent.hit.connect(on_attack)
+	$HitboxComponent.damage = attack_damage
 	$HurtboxComponent.hit.connect(on_hit)
 	apply_floor_snap()
+	
 	
 func _process(delta):
 	pass
 		
 func _physics_process(delta: float) -> void:
-	
+
 	#make enemy face direction methinks?
 	var move_sign = sign(velocity.x)
 	if move_sign != 0:
@@ -26,5 +35,4 @@ func on_hit():
 	print_debug('I GOT HIT')
 	
 func on_attack():
-	print_debug('I attacked!')
-	pass
+	print_debug('I HIT SOMETHING')

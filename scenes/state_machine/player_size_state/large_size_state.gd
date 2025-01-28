@@ -9,8 +9,6 @@ func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 3
 	player.action_anim_player.play("med_melee_attack")
 	
-
-
 # Projectile Attack	
 func _range_attack(target_position: Vector2) -> void:
 	GameEvents.on_range_start.emit(range_cost)

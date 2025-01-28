@@ -80,6 +80,7 @@ func _ready():
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
 	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
 	
+	
 func _update_variables() -> void:
 	# Set Acceleration / Deceleration	
 	acceleration = max_speed / abs(time_to_reach_max_speed)
@@ -240,3 +241,7 @@ func _on_transition_to_small() -> void:
 	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
 	current_size_state = small_size_state
 	visuals.scale = Vector2(.5, .5)
+
+
+func _on_hurtbox_component_hit() -> void:
+	print("i AM HURTING")
