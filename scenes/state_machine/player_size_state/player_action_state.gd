@@ -26,6 +26,10 @@ class_name PlayerSizeState
 
 @export var player: Player
 
+func _ready() -> void:
+	GameEvents.on_special_end.connect(_on_special_end)
+
+
 func _melee_attack() -> void:
 	pass
 	
@@ -33,4 +37,10 @@ func _range_attack(target_position: Vector2) -> void:
 	pass
 	
 func _special_attack() -> void:
+	pass
+	
+func _on_special_end() -> void:
+	pass
+	
+func handle_special(delta: float) -> void:
 	pass

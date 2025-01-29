@@ -23,3 +23,6 @@ func _range_attack(target_position: Vector2) -> void:
 # Swallow Action
 func _special_attack() -> void:
 	player.action_anim_player.play("med_range_attack")
+
+func handle_special(delta: float) -> void:
+	pass
