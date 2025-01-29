@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://df7i7bdii488l"]
+[gd_scene load_steps=18 format=4 uid="uid://df7i7bdii488l"]
 
 [ext_resource type="Script" path="res://scenes/overworld/Level Segments/segment.gd" id="1_jgxvy"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_kdlb8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ci28x63s0dr5g" path="res://scenes/player/player.tscn" id="3_k47xv"]
 [ext_resource type="PackedScene" uid="uid://dntjg5d6mv0sw" path="res://scenes/game_objects/Level Objects/breakable_crate.tscn" id="5_sf8tv"]
 [ext_resource type="PackedScene" uid="uid://brjdiatxdjwgf" path="res://scenes/game_objects/Level Objects/segment_switch.tscn" id="6_3g400"]
+[ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.tscn" id="7_e4yse"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tdpws"]
 texture = ExtResource("1_kdlb8")
@@ -189,3 +190,6 @@ to = 2
 
 [node name="Player" parent="." instance=ExtResource("3_k47xv")]
 position = Vector2(135, 580)
+
+[node name="BasicEnemy" parent="." instance=ExtResource("7_e4yse")]
+position = Vector2(250, 599)

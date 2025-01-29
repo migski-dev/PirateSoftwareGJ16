@@ -1,5 +1,5 @@
 extends Area2D
-class_name segment_switch
+class_name SegmentSwitch
 
 signal switch_segments(from: int, to: int)
 signal on_switch_enable

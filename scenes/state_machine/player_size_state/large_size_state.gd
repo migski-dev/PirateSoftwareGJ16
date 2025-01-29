@@ -24,8 +24,7 @@ func _range_attack(target_position: Vector2) -> void:
 # Saw attack
 func _special_attack() -> void:
 	player.saw_hitbox.damage = 150
-	player._disable_action(2)
-	player._disable_gravity(2)
+	
 	player.velocity.x = 2*player.max_speed if player._get_direction() == Vector2.RIGHT else -player.max_speed*2
 	player.velocity.y = 0
 	player.action_anim_player.play("saw")
@@ -38,6 +37,9 @@ func _on_special_end() -> void:
 func handle_special(delta: float) -> void:
 	var direction: Vector2 = player._get_direction()
 	var speed_multiplier: float = 1.5
+	
+	player._disable_action(delta)
+	player._disable_gravity(delta)
 	
 	if player.floor_raycast.is_colliding() and player.floor_raycast.get_collider() is TileMapLayer and not player.saw_raycast.is_colliding():
 		if player.is_on_floor():
