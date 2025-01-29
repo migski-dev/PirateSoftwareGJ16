@@ -242,21 +242,30 @@ func _on_transition_to_large() -> void:
 	await _on_transition_start()
 	current_size_state = large_size_state
 	_set_movement_stats(large_size_state)
-	visuals.scale = Vector2(2,2)
+	#visuals.scale = Vector2(2,2)
+	scale = Vector2(2,2)
+	#$PlayerTerrainCollision.move_local_y(-15, false)
 	
 func _on_transition_to_medium() -> void:
 	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
 	await _on_transition_start()
 	current_size_state = medium_size_state
 	_set_movement_stats(medium_size_state)
-	visuals.scale = Vector2(1,1)
+	
+	#visuals.scale = Vector2(1,1)
+	scale = Vector2(1,1)
+	
+	
+	
 	
 func _on_transition_to_small() -> void:
 	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
 	await _on_transition_start()
 	current_size_state = small_size_state
 	_set_movement_stats(small_size_state)
-	visuals.scale = Vector2(.5, .5)
+	#visuals.scale = Vector2(.5, .5)
+	scale = Vector2(.5,.5)
+	#$PlayerTerrainCollision.move_local_y(-5, false)
 	
 	# To handle bug where player can heal from their own bullets after shrinking while swallowing	
 	$Visuals/MeleeRanges/SwallowHurtboxComponent/CollisionShape2D.disabled = true 

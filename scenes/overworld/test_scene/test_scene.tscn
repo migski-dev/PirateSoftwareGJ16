@@ -85,9 +85,6 @@ sources/0 = SubResource("TileSetAtlasSource_hlnkc")
 
 [node name="TestScene" type="Node2D" groups=["foreground_layer"]]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(581, 324)
-
 [node name="TileMap" type="TileMapLayer" parent="."]
 
 [node name="Background" type="TileMapLayer" parent="TileMap"]
