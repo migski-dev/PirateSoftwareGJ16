@@ -257,6 +257,9 @@ func _on_transition_to_small() -> void:
 	current_size_state = small_size_state
 	_set_movement_stats(small_size_state)
 	visuals.scale = Vector2(.5, .5)
+	
+	# To handle bug where player can heal from their own bullets after shrinking while swallowing	
+	$Visuals/MeleeRanges/SwallowHurtboxComponent/CollisionShape2D.disabled = true 
 
 func _set_movement_stats(size_state: PlayerSizeState) -> void:
 	# Horizontal Movement
