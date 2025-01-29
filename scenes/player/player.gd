@@ -47,6 +47,7 @@ var gravity_active: bool = true
 
 var enabled_action: bool = true
 var is_jumping: bool = false
+var is_invulnerable: bool = false
 
 # Player Input Variables
 var left_hold: bool = false
@@ -64,23 +65,29 @@ var melee_tap: bool = false
 var range_tap: bool = false
 var special_tap: bool = false
 
-@onready var action_anim_player = $ActionAnimationPlayer
-@onready var visuals = $Visuals
-@onready var mid_point = $Marker2D
-@onready var med_melee_hitbox = $Visuals/MeleeRanges/MediumMeleeHitbox
+@onready var action_anim_player: AnimationPlayer = $ActionAnimationPlayer
+@onready var visuals: Node2D = $Visuals
+@onready var mid_point: Marker2D = $Center
+@onready var med_melee_hitbox: HitboxComponent = $Visuals/MeleeRanges/MediumMeleeHitbox
+@onready var saw_hitbox: HitboxComponent = $Visuals/MeleeRanges/SawHitboxComponent
 @onready var slime_health: SlimeComponent = $SlimeComponent
+@onready var saw_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/SawRayCast2D
+@onready var floor_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/FloorRayCast2D
+@onready var ceiling_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/CielingRayCast2D
 
-func _ready():
+func _ready() -> void:
 	apply_floor_snap()
 	_update_variables()
 	$Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D.disabled = true
-	# Is the default state medium?
+	
+	# Is the default state medium or large?
 	_on_transition_to_large()
 	
 	GameEvents.on_transition_to_XL.connect(_on_transition_to_large) # TODO: CREATE XL STATE
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
 	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
+
 	
 func _update_variables() -> void:
 	# Set Acceleration / Deceleration	
@@ -213,7 +220,6 @@ func _coyote_time() -> void:
 
 
 func _jump() -> void:
-	print('jump called')
 	if jump_count > 0:
 		velocity.y = -jump_magnitude
 		jump_count += -1
@@ -229,20 +235,69 @@ func _get_direction() -> Vector2:
 		return Vector2.RIGHT
 	
 func _on_transition_to_large() -> void:
-	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
+	await _on_transition_start()
 	current_size_state = large_size_state
+	_set_movement_stats(large_size_state)
 	visuals.scale = Vector2(2,2)
 	
 func _on_transition_to_medium() -> void:
-	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
+	await _on_transition_start()
 	current_size_state = medium_size_state
+	_set_movement_stats(medium_size_state)
 	visuals.scale = Vector2(1,1)
 	
 func _on_transition_to_small() -> void:
-	#TODO: ADD INVUL STATE, ANIMATION AND LOGIC FOR SIZE STATE CHANGE
+	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
+	await _on_transition_start()
 	current_size_state = small_size_state
+	_set_movement_stats(small_size_state)
 	visuals.scale = Vector2(.5, .5)
+
+func _set_movement_stats(size_state: PlayerSizeState) -> void:
+	# Horizontal Movement
+	max_speed = size_state.max_speed
+	time_to_reach_max_speed = size_state.time_to_reach_max_speed
+	time_to_reach_zero = size_state.time_to_reach_zero
+	
+	# Vertical Movement
+	jump_height = size_state.jump_height
+	gravity_scale = size_state.gravity_scale
+	terminal_velocity = size_state.terminal_velocity
+	descending_gravity_factor = size_state.descending_gravity_factor
+	enable_var_jump_height = size_state.enable_var_jump_height
+	jump_variable = size_state.jump_variable
+	coyote_time = size_state.coyote_time 
+	jump_buffering = size_state.jump_buffering 
+	
+	_update_variables()
 
 
 func _on_hurtbox_component_hit() -> void:
+	#TODO: play hit flash
 	print("i AM HURTING")
+
+func _disable_action(timer_amount: float) -> void:
+	enabled_action = false
+	await get_tree().create_timer(timer_amount).timeout
+	enabled_action = true
+
+func _invulnerable(timer_amount: float) -> void:
+	is_invulnerable = true
+	$HurtboxComponent/CollisionShape2D.set_deferred("disabled", true)
+	await get_tree().create_timer(timer_amount).timeout
+	$HurtboxComponent/CollisionShape2D.set_deferred("disabled", false)
+	is_invulnerable = false
+
+func _disable_gravity(timer_amount: float) -> void:
+	gravity_active = false
+	await get_tree().create_timer(timer_amount).timeout
+	gravity_active = true
+
+# During size transition, make player have no movement and be invulnerable
+func _on_transition_start() -> void:
+	velocity = Vector2.ZERO
+	_disable_action(.67)
+	_disable_gravity(.67)
+	await _invulnerable(.9)

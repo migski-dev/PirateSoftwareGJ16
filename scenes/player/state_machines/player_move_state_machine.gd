@@ -15,6 +15,7 @@ func _ready():
 	call_deferred("set_state", states.idle)
 	GameEvents.on_range_end.connect(_on_action_end)
 	GameEvents.on_melee_end.connect(_on_action_end)
+	GameEvents.on_special_end.connect(_on_action_end)
 	
 	
 func _state_logic(delta):
@@ -42,7 +43,6 @@ func _state_logic(delta):
 			if move_sign == 1: 
 				player.visuals.scale = Vector2(.5,.5)
 	
-		
 	parent._get_direction()
 	
 	

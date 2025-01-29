@@ -5,14 +5,14 @@ signal hit
 
 @export var health_component: HealthComponent
 
-var floating_text_scene = preload("res://scenes/ui/floating_text/floating_text.tscn")
+var floating_text_scene: PackedScene = preload("res://scenes/ui/floating_text/floating_text.tscn")
 
 
-func _ready():
+func _ready() -> void:
 	area_entered.connect(on_area_entered)
 
 
-func on_area_entered(other_area: Area2D):
+func on_area_entered(other_area: Area2D) -> void:
 	if not other_area is HitboxComponent:
 		return
 	
