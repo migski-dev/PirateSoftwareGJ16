@@ -17,7 +17,7 @@ func _ready() -> void:
 		if child is Segment:
 			segments[child.ID] = child
 			for subchild in child.get_children():
-				if subchild is segment_switch:
+				if subchild is SegmentSwitch:
 					subchild.connect("switch_segments", Callable(self,"_on_switch_segments"))
 					subchild.connect("on_switch_enable", _on_switch_enable)
 	

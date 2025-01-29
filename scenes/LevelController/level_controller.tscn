@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://df7i7bdii488l" path="res://scenes/overworld/Level Segments/segment_1.tscn" id="2_innyt"]
 [ext_resource type="PackedScene" uid="uid://buxjbtcr71nqi" path="res://scenes/overworld/Level Segments/segment_2.tscn" id="3_uf2aw"]
 
-[node name="LevelController" type="Node2D"]
+[node name="LevelController" type="Node2D" groups=["foreground_layer"]]
 script = ExtResource("1_3k3cd")
 
 [node name="Segment-2" parent="." instance=ExtResource("3_uf2aw")]
