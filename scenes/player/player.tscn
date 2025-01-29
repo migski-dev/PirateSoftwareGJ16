@@ -393,6 +393,7 @@ radius = 8.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
 collision_layer = 2
+collision_mask = 33
 script = ExtResource("1_6bvhh")
 small_size_state = NodePath("SizeStates/SmallSizeActionState")
 medium_size_state = NodePath("SizeStates/MediumSizeState")
@@ -473,10 +474,13 @@ shape = SubResource("CircleShape2D_tl0px")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="SlimeBar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("13_6vm4m")]
-offset_left = 51.0
-offset_top = 161.0
-offset_right = 76.0
-offset_bottom = 258.0
+anchors_preset = -1
+anchor_left = 0.000868056
+anchor_right = 0.000868056
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 29.0
+offset_bottom = 103.0
 scale = Vector2(3.46345, 3.54601)
 player = NodePath("../..")
 metadata/_edit_use_anchors_ = true
@@ -489,9 +493,6 @@ health_component = NodePath("../SlimeComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(-1, -6)
 shape = SubResource("CircleShape2D_341o0")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
 
 [connection signal="health_decreased" from="SlimeComponent" to="CanvasLayer/SlimeBar" method="_on_slime_component_health_decreased"]
 [connection signal="hit" from="HurtboxComponent" to="." method="_on_hurtbox_component_hit"]

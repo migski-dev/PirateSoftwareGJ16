@@ -11,7 +11,6 @@ var floating_text_scene = preload("res://scenes/ui/floating_text/floating_text.t
 func _ready():
 	area_entered.connect(on_area_entered)
 
-
 func on_area_entered(other_area: Area2D):
 	if not other_area is HitboxComponent:
 		return
