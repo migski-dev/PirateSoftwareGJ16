@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://mkwhwvwobcd4"]
+
+[ext_resource type="Script" path="res://scenes/components/swallow_hurtbox_component/swallow_hurtbox_component.gd" id="1_eda6c"]
+
+[node name="SwallowHurtboxComponent" type="Area2D"]
+script = ExtResource("1_eda6c")

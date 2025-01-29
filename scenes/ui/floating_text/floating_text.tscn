@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdpr0xoh3rj7c"]
+[gd_scene load_steps=3 format=3 uid="uid://cdpr0xoh3rj7c"]
 
 [ext_resource type="Script" path="res://scenes/ui/floating_text/floating_text.gd" id="1_l4q3d"]
+[ext_resource type="Theme" uid="uid://chlmxsyiolqti" path="res://assets/ui-theme/ui_theme.tres" id="2_wm3yg"]
 
 [node name="FloatingText" type="Node2D"]
 script = ExtResource("1_l4q3d")
@@ -9,4 +10,5 @@ script = ExtResource("1_l4q3d")
 custom_minimum_size = Vector2(100, 32)
 offset_right = 40.0
 offset_bottom = 23.0
+theme = ExtResource("2_wm3yg")
 text = "-10"

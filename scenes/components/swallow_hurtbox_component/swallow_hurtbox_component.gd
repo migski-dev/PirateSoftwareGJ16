@@ -1,23 +1,16 @@
-extends Area2D
-class_name HurtboxComponent
+extends HurtboxComponent
+class_name SwallowHurtboxComponent
 
-signal hit
-
-@export var health_component: HealthComponent
-
-var floating_text_scene: PackedScene = preload("res://scenes/ui/floating_text/floating_text.tscn")
-
-
-func _ready() -> void:
-	area_entered.connect(on_area_entered)
-
+@export var collision_shape: CollisionShape2D
+var swallowed_projectile: bool = false
 
 func on_area_entered(other_area: Area2D) -> void:
 	if not other_area is HitboxComponent:
 		return
 	
 	var hitbox_component = other_area as HitboxComponent
-	health_component.damage(hitbox_component.damage)
+	health_component.heal(hitbox_component.damage)
+	swallowed_projectile = true
 	
 	var floating_text = floating_text_scene.instantiate() as Node2D
 	get_tree().get_first_node_in_group("foreground_layer").add_child(floating_text)
@@ -30,4 +23,3 @@ func on_area_entered(other_area: Area2D) -> void:
 	floating_text.start(format_string % hitbox_component.damage)
 	
 	hit.emit()
-	

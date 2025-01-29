@@ -15,6 +15,7 @@ func _ready():
 	call_deferred("set_state", states.idle)
 	GameEvents.on_range_end.connect(_on_action_end)
 	GameEvents.on_melee_end.connect(_on_action_end)
+	GameEvents.on_special_end.connect(_on_action_end)
 	
 	
 func _state_logic(delta):
@@ -24,25 +25,28 @@ func _state_logic(delta):
 	parent._apply_movement(delta)
 	
 	var move_sign = sign(parent.velocity.x)
+	if move_sign == -1:
+		player.visuals.scale = Vector2(-1, 1)
+	if move_sign == 1: 
+		player.visuals.scale = Vector2(1,1)
 	# If moving left, 
-	match player.current_size_state:
-		player.large_size_state:
-			if move_sign == -1:
-				player.visuals.scale = Vector2(-2, 2)
-			if move_sign == 1: 
-				player.visuals.scale = Vector2(2,2)
-		player.medium_size_state:
-			if move_sign == -1:
-				player.visuals.scale = Vector2(-1, 1)
-			if move_sign == 1: 
-				player.visuals.scale = Vector2(1,1)
-		player.small_size_state:
-			if move_sign == -1:
-				player.visuals.scale = Vector2(-.5, .5)
-			if move_sign == 1: 
-				player.visuals.scale = Vector2(.5,.5)
+	#match player.current_size_state:
+		#player.large_size_state:
+			#if move_sign == -1:
+				#player.visuals.scale = Vector2(-1, 1)
+			#if move_sign == 1: 
+				#player.visuals.scale = Vector2(1,1)
+		#player.medium_size_state:
+			#if move_sign == -1:
+				#player.visuals.scale = Vector2(-1, 1)
+			#if move_sign == 1: 
+				#player.visuals.scale = Vector2(1,1)
+		#player.small_size_state:
+			#if move_sign == -1:
+				#player.visuals.scale = Vector2(-1, 1)
+			#if move_sign == 1: 
+				#player.visuals.scale = Vector2(1,1)
 	
-		
 	parent._get_direction()
 	
 	

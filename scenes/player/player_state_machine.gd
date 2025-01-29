@@ -8,6 +8,7 @@ func _ready():
 	add_state("fall")
 	call_deferred("set_state", states.idle)
 	
+	
 func _state_logic(delta):
 	parent._handle_move_input()
 	parent._apply_gravity(delta)
@@ -16,6 +17,7 @@ func _state_logic(delta):
 	var move_sign = sign(parent.velocity.x)
 	if move_sign != 0:
 		parent.visuals.scale = Vector2(move_sign, 1)
+	
 	
 func _get_transition(delta):
 	match state:
@@ -46,6 +48,7 @@ func _get_transition(delta):
 			elif parent.velocity.y < 0:
 				return states.jump
 
+
 func _enter_state(new_state, old_state):
 	match new_state:
 		states.idle:
@@ -63,6 +66,7 @@ func _enter_state(new_state, old_state):
 	
 func _exit_state(old_state, new_state):
 	pass
+
 
 func _input(event):
 	if [states.idle, states.run].has(state):
