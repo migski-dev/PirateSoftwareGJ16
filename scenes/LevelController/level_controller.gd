@@ -30,7 +30,7 @@ func _on_switch_segments(from: int, to: int):
 		return
 	is_able_to_transition = false
 
-	if not segments[to].segment_acamera.is_current():
+	if not segments[to].segment_camera.is_current():
 		var to_segment: Segment = segments[to]
 		to_segment.segment_camera.make_current()
 	
