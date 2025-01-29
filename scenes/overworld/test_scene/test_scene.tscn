@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="1_qy2wp"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_rlm47"]
-[ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/basic_enemy/basic_enemy.tscn" id="3_02lgf"]
+[ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.tscn" id="3_02lgf"]
 [ext_resource type="PackedScene" uid="uid://s34l87xwtgy5" path="res://scenes/game_objects/projectiles/projectile.tscn" id="4_8kfo4"]
 [ext_resource type="PackedScene" uid="uid://mxvq5wr03hku" path="res://scenes/game_objects/slime_drops/slime_drop.tscn" id="5_mex2j"]
 [ext_resource type="PackedScene" uid="uid://ci28x63s0dr5g" path="res://scenes/player/player.tscn" id="5_ywu0l"]

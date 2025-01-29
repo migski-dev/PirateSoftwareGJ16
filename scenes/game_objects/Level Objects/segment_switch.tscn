@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bhij"]
 size = Vector2(8, 32)
 
-[node name="SegmentSwitch" type="Area2D"]
+[node name="SegmentSwitch" type="Area2D" groups=["segment_switch_group"]]
 collision_layer = 32
 collision_mask = 2
 script = ExtResource("1_v0no6")
@@ -14,3 +14,4 @@ script = ExtResource("1_v0no6")
 shape = SubResource("RectangleShape2D_4bhij")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

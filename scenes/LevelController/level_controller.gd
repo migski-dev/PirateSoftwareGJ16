@@ -8,6 +8,7 @@ extends Node2D
 var segments : Dictionary = {}
 var current_segment : Segment
 var transition_cooldown : bool = false
+var is_able_to_transition: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,29 +19,19 @@ func _ready() -> void:
 			for subchild in child.get_children():
 				if subchild is segment_switch:
 					subchild.connect("switch_segments", Callable(self,"_on_switch_segments"))
+					subchild.connect("on_switch_enable", _on_switch_enable)
 	
 	current_segment = segments[initial_segment_number]
 	current_segment.segment_camera.make_current()
 
 func _on_switch_segments(from: int, to: int):
-	if transition_cooldown == false:
-		if !segments[to].segment_camera.is_current():
-			var to_segment : Segment = segments[to]
-			to_segment.segment_camera.make_current()
-			segment_switch_cooldown()
-		else:
-			
-			return
-	
-func segment_switch_cooldown():
-	transition_cooldown = true
-	
-	var timer = Timer.new()
-	add_child(timer)
-	timer.one_shot = true
-	timer.wait_time = 1.5 
-	timer.timeout.connect(_on_timer_timeout)
-	timer.start()
+	if not is_able_to_transition:
+		return
+	is_able_to_transition = false
 
-func _on_timer_timeout():
-	transition_cooldown = false
+	if not segments[to].segment_camera.is_current():
+		var to_segment: Segment = segments[to]
+		to_segment.segment_camera.make_current()
+	
+func _on_switch_enable() -> void:
+	is_able_to_transition = true

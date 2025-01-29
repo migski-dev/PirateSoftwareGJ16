@@ -138,8 +138,8 @@ position = Vector2(346, 503)
 zoom = Vector2(2.5, 2.5)
 
 [node name="SegmentBoundaries" type="StaticBody2D" parent="."]
-collision_layer = 31
-collision_mask = 3
+collision_layer = 64
+collision_mask = 14
 
 [node name="TopBoundary" type="CollisionShape2D" parent="SegmentBoundaries"]
 position = Vector2(345.5, 358)
@@ -182,7 +182,8 @@ position = Vector2(560, 591)
 position = Vector2(576, 591)
 
 [node name="SegmentSwitch" parent="." instance=ExtResource("6_3g400")]
-position = Vector2(572, 587)
+position = Vector2(569, 587)
+scale = Vector2(0.120039, 1)
 from = 1
 to = 2
 
