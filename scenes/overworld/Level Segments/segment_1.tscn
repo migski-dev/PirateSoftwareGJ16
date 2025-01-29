@@ -193,3 +193,4 @@ position = Vector2(135, 580)
 
 [node name="BasicEnemy" parent="." instance=ExtResource("7_e4yse")]
 position = Vector2(250, 599)
+attack_damage = 100

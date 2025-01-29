@@ -2,6 +2,7 @@ extends HealthComponent
 class_name SlimeComponent
 
 signal on_damage_shrink
+signal on_player_died
 
 @export var tinyThreshold: float = 1
 @export var smallThreshold: float = 3
@@ -49,5 +50,11 @@ func set_slime_size() -> void:
 		and [player.large_size_state, player.medium_size_state, player.small_size_state].has(player.current_size_state)):
 		on_damage_shrink.emit()
 		GameEvents.on_transition_to_XS.emit()
-	elif current_health == 0:
-		GameEvents.on_player_died.emit()
+
+
+
+func check_death():
+	if current_health == 0:
+		on_player_died.emit()
+		GameEvents.on_player_death.emit()
+		#owner.queue_free()

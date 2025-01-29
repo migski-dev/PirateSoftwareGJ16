@@ -15,6 +15,8 @@ signal on_transition_to_XL
 
 signal on_transition_start
 
+signal on_player_death
+
 signal on_slime_pickup(slime_amount: int)
 
 

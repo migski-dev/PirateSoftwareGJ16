@@ -8,6 +8,8 @@ var current_state : EnemyState
 var current_state_name : String
 var states : Dictionary = {}
 
+var is_player_dead: bool = false
+
 func _ready():
 	for child in get_children():
 		if child is EnemyState:
@@ -17,12 +19,18 @@ func _ready():
 	if initial_state:
 		initial_state.enter()
 		current_state = initial_state
+		
+	GameEvents.on_player_death.connect(_on_player_death)
 
 func _process(delta):
+	if is_player_dead:
+		return
 	if current_state:
 		current_state.update(delta)
 
 func _physics_process(delta):
+	if is_player_dead:
+		return
 	if current_state:
 		current_state.physics_update(delta)
 
@@ -41,3 +49,8 @@ func on_child_transition(state, new_state_name):
 		
 	new_state.enter()
 	current_state = new_state
+
+
+func _on_player_death() -> void:
+	on_child_transition(current_state, 'enemyidle')
+	
