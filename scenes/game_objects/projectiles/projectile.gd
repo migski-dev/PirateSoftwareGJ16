@@ -24,6 +24,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if not is_player_projectile: 
+		pass
 	position += direction * bullet_speed * delta
 	if not is_on_screen():
 		queue_free()

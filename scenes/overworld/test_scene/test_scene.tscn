@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://bvwghr1dlapii"]
+[gd_scene load_steps=13 format=4 uid="uid://bvwghr1dlapii"]
 
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="1_qy2wp"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_rlm47"]
 [ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/basic_enemy/basic_enemy.tscn" id="3_02lgf"]
+[ext_resource type="PackedScene" uid="uid://s34l87xwtgy5" path="res://scenes/game_objects/projectiles/projectile.tscn" id="4_8kfo4"]
 [ext_resource type="PackedScene" uid="uid://mxvq5wr03hku" path="res://scenes/game_objects/slime_drops/slime_drop.tscn" id="5_mex2j"]
 [ext_resource type="PackedScene" uid="uid://ci28x63s0dr5g" path="res://scenes/player/player.tscn" id="5_ywu0l"]
 
@@ -107,17 +108,17 @@ tile_set = SubResource("TileSet_4k6qo")
 position = Vector2(317, 589)
 floor_stop_on_slope = false
 
-[node name="SlimeDrop" parent="." instance=ExtResource("5_mex2j")]
-position = Vector2(457, 565)
+[node name="Bullet" parent="." instance=ExtResource("4_8kfo4")]
+position = Vector2(553, 515)
+is_player_projectile = false
 
-[node name="SlimeDrop2" parent="." instance=ExtResource("5_mex2j")]
-position = Vector2(542, 513)
+[node name="Bullet2" parent="." instance=ExtResource("4_8kfo4")]
+position = Vector2(577, 515)
+is_player_projectile = false
 
-[node name="SlimeDrop3" parent="." instance=ExtResource("5_mex2j")]
-position = Vector2(577, 438)
-
-[node name="SlimeDrop4" parent="." instance=ExtResource("5_mex2j")]
-position = Vector2(358, 470)
+[node name="Bullet3" parent="." instance=ExtResource("4_8kfo4")]
+position = Vector2(564, 515)
+is_player_projectile = false
 
 [node name="SlimeDrop5" parent="." instance=ExtResource("5_mex2j")]
 position = Vector2(679, 463)

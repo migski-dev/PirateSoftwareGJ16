@@ -24,6 +24,10 @@ class_name PlayerSizeState
 # Window of time player can have jump input registered before landing
 @export var jump_buffering: float = 0.2
 
+
+@export_category("Projectile")
+@export var projectile_damage: float = 5
+
 @export var player: Player
 
 func _ready() -> void:
