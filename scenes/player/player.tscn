@@ -697,6 +697,7 @@ jump_variable = 4.0
 player = NodePath("../..")
 
 [node name="Visuals" type="Node2D" parent="."]
+position = Vector2(-1, 6)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 position = Vector2(2, -11)
@@ -753,10 +754,9 @@ shape = SubResource("CapsuleShape2D_tw2wv")
 disabled = true
 
 [node name="Center" type="Marker2D" parent="."]
-position = Vector2(0, -6)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+[node name="PlayerTerrainCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4.76837e-07)
 scale = Vector2(0.601594, 0.571746)
 shape = SubResource("CapsuleShape2D_210mi")
 
@@ -791,7 +791,7 @@ position = Vector2(-1, -6)
 shape = SubResource("CircleShape2D_341o0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(1.75, 1.75)
 
 [connection signal="health_decreased" from="SlimeComponent" to="CanvasLayer/SlimeBar" method="_on_slime_component_health_decreased"]
 [connection signal="on_damage_shrink" from="SlimeComponent" to="PlayerActionStateMachine" method="_on_slime_component_on_damage_shrink"]
