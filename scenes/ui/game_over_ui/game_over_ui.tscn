@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3 uid="uid://pj0mxgk1rsrm"]
+
+[ext_resource type="Script" path="res://scenes/ui/game_over_ui/game_over_ui.gd" id="1_ve0x0"]
+[ext_resource type="Theme" uid="uid://chlmxsyiolqti" path="res://assets/ui-theme/ui_theme.tres" id="2_tm4w3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ytb6u"]
+bg_color = Color(0.623529, 0.305882, 0.266667, 1)
+
+[node name="GameOverUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ve0x0")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tm4w3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ytb6u")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 19.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 350
+theme_override_constants/margin_bottom = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOver" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tm4w3")
+theme_override_font_sizes/font_size = 48
+text = "Game Over!
+"
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tm4w3")
+theme_override_constants/separation = 55
+
+[node name="Try Again" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tm4w3")
+text = "Try Again?"
+
+[node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tm4w3")
+theme_override_constants/separation = 8
+
+[node name="Return to Main Menu" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tm4w3")
+text = "Return to Main Menu
+"
+
+[node name="HSeparator4" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tm4w3")
+theme_override_constants/separation = 8
+
+[node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_tm4w3")
+text = "Quit
+"
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Try Again" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Return to Main Menu" to="." method="_on_return_to_main_menu_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -30,6 +30,8 @@ func _ready() -> void:
 
 
 func _state_logic(delta) -> void:
+	if player.is_dead:
+		return
 	parent._handle_action_input()
 	_handle_special_states(delta)
 	
@@ -94,10 +96,12 @@ func _enter_state(new_state, old_state) -> void:
 		states.shrinking:
 			match player.current_size_state:
 				player.large_size_state:
+					is_transitioning = true
 					GameEvents.on_transition_to_medium.emit()
 					GameEvents.on_transition_start.emit()
 					player.action_anim_player.play("shrinking")
 				player.medium_size_state:
+					is_transitioning = true
 					GameEvents.on_transition_to_small.emit()
 					GameEvents.on_transition_start.emit()
 					player.action_anim_player.play("shrinking")
@@ -111,10 +115,12 @@ func _enter_state(new_state, old_state) -> void:
 					#TODO: CREATE ERROR SOUND / CAMERA SHAKE
 					_reset_action()
 				player.medium_size_state:
+					is_transitioning = true
 					GameEvents.on_transition_to_large.emit()
 					GameEvents.on_transition_start.emit()
 					player.action_anim_player.play("growing")
 				player.small_size_state:
+					is_transitioning = true
 					GameEvents.on_transition_to_medium.emit()
 					GameEvents.on_transition_start.emit()
 					player.action_anim_player.play("growing")
