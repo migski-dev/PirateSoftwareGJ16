@@ -82,6 +82,7 @@ func _ready() -> void:
 	apply_floor_snap()
 	_update_variables()
 	$Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D.disabled = true
+	$Visuals/MeleeRanges/SawHitboxComponent/CollisionShape2D.disabled = true
 	
 	# Is the default state medium or large?
 	_on_transition_to_large()

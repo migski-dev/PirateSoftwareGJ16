@@ -721,7 +721,7 @@ shape = SubResource("RectangleShape2D_1psvk")
 [node name="SawHitboxComponent" parent="Visuals/MeleeRanges" instance=ExtResource("15_bxyrf")]
 position = Vector2(0, -4)
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/SawHitboxComponent"]
 position = Vector2(-1, -6)
