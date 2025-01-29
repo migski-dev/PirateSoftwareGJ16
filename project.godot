@@ -32,6 +32,9 @@ project/assembly_name="SlimeGame"
 [global_group]
 
 player=""
+foreground_layer=""
+segment_group=""
+segment_switch_group=""
 
 [input]
 
@@ -89,6 +92,8 @@ grow={
 2d_physics/layer_3="ENEMY"
 2d_physics/layer_4="PROJECTILES"
 2d_physics/layer_5="PICKUPS"
+2d_physics/layer_6="SEGMENT SWITCHES"
+2d_physics/layer_7="BOUNDARY"
 
 [rendering]
 

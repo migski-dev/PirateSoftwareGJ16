@@ -640,6 +640,7 @@ radius = 8.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("small_size_state", "medium_size_state", "large_size_state") groups=["player"]]
 collision_layer = 2
+collision_mask = 97
 script = ExtResource("1_6bvhh")
 small_size_state = NodePath("SizeStates/SmallSizeActionState")
 medium_size_state = NodePath("SizeStates/MediumSizeState")
@@ -761,6 +762,7 @@ scale = Vector2(0.601594, 0.571746)
 shape = SubResource("CapsuleShape2D_210mi")
 
 [node name="PickupArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 
@@ -772,10 +774,13 @@ shape = SubResource("CircleShape2D_tl0px")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="SlimeBar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("13_6vm4m")]
-offset_left = 51.0
-offset_top = 161.0
-offset_right = 76.0
-offset_bottom = 258.0
+anchors_preset = -1
+anchor_left = 0.000868056
+anchor_right = 0.000868056
+offset_left = 4.0
+offset_top = 168.0
+offset_right = 29.0
+offset_bottom = 265.0
 scale = Vector2(3.46345, 3.54601)
 player = NodePath("../..")
 metadata/_edit_use_anchors_ = true
