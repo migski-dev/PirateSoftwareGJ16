@@ -33,6 +33,7 @@ func _special_attack() -> void:
 		
 func _on_special_end() -> void:
 	player.velocity = Vector2.ZERO
+	player.enabled_action = true
 
 func handle_special(delta: float) -> void:
 	var direction: Vector2 = player._get_direction()

@@ -66,10 +66,13 @@ var range_tap: bool = false
 var special_tap: bool = false
 
 @onready var action_anim_player: AnimationPlayer = $ActionAnimationPlayer
+@onready var player_action_fsm: PlayerActionStateMachine = $PlayerActionStateMachine
 @onready var visuals: Node2D = $Visuals
 @onready var mid_point: Marker2D = $Center
 @onready var med_melee_hitbox: HitboxComponent = $Visuals/MeleeRanges/MediumMeleeHitbox
 @onready var saw_hitbox: HitboxComponent = $Visuals/MeleeRanges/SawHitboxComponent
+@onready var swallow_hitbox: SwallowHurtboxComponent = $Visuals/MeleeRanges/SwallowHurtboxComponent
+
 @onready var slime_health: SlimeComponent = $SlimeComponent
 @onready var saw_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/SawRayCast2D
 @onready var floor_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/FloorRayCast2D

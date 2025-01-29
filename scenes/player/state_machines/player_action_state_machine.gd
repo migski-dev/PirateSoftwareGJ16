@@ -9,6 +9,7 @@ var is_ranging: bool = false
 var is_specialing: bool = false 
 var is_transitioning:bool = false
 var is_sawing: bool = false
+var is_swallowing: bool = false
 
 var bullet_target: Vector2 = Vector2.ZERO
 var bullet_cooldown: float = 0.8
@@ -18,6 +19,7 @@ var is_on_bullet_cooldown: bool = false
 @export var player: Player
 
 func _ready() -> void:
+	#GameEvents.on_swallow_end.connect(_reset_action)
 	add_state("none")
 	add_state("melee_attack")
 	add_state("range_attack")
@@ -25,8 +27,6 @@ func _ready() -> void:
 	add_state("shrinking")
 	add_state("growing")
 	call_deferred("set_state", states.none)
-
-
 
 
 func _state_logic(delta) -> void:
@@ -54,7 +54,6 @@ func _get_transition(delta):
 
 func _enter_state(new_state, old_state) -> void:
 	var anim_player = parent.action_anim_player as AnimationPlayer
-	# TODO: Extend behavior so it matches the size state from slime component	
 	match new_state:
 		states.melee_attack:
 			match player.current_size_state:
@@ -87,6 +86,7 @@ func _enter_state(new_state, old_state) -> void:
 					is_sawing = true
 				player.medium_size_state:
 					player.medium_size_state._special_attack()
+					is_swallowing = true
 				player.small_size_state:
 					player.small_size_state._special_attack()
 			is_specialing = true
@@ -135,7 +135,8 @@ func can_melee_attack() -> bool:
 	
 func can_range_attack() -> bool:
 	#TODO: Implement logic; 
-	# Player can range attack if not in melee/special/range state AND has enough slime AND not on range CD
+	# Player can range attack if not in melee/special/range state AND has enough 
+	# slime AND not on range CD
 	if state == states.none and has_enough_slime() and not is_on_bullet_cooldown: 
 		return true 
 	else: 
@@ -192,6 +193,7 @@ func _exit_state(old_state, new_state):
 		states.special_attack:
 			is_specialing = false
 			is_sawing = false
+			is_swallowing = false
 	
 
 func _reset_action() -> void:
@@ -227,4 +229,6 @@ func _handle_special_states(delta:float) -> void:
 			player.medium_size_state.handle_special(delta)
 		player.small_size_state:
 			player.small_size_state.handle_special(delta)
+
+
 	
