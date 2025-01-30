@@ -10,6 +10,7 @@ var hitbox : CollisionShape2D
 var anim_player : AnimationPlayer
 var attack_range :  int
 
+
 func enter():
 	player = get_tree().get_first_node_in_group("player")
 	hitbox = enemy.get_node("HurtboxComponent/CollisionShape2D")

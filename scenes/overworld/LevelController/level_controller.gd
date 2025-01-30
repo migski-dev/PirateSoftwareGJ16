@@ -12,6 +12,7 @@ var is_able_to_transition: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GameEvents.on_player_death.connect(_on_player_death)
 	#Store each level child in our dictionary so we may reference them & connect our switch segment signal to each segment_switch obj
 	for child in get_children():
 		if child is Segment:
@@ -35,3 +36,8 @@ func _on_switch_segments(from: int, to: int):
 	
 func _on_switch_enable() -> void:
 	is_able_to_transition = true
+
+func _on_player_death() -> void:
+	var game_over_ui: Control = $UICanvasLayer/GameOverUi
+	game_over_ui.visible = true
+	

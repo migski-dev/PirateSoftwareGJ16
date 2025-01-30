@@ -78,6 +78,8 @@ var special_tap: bool = false
 @onready var floor_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/FloorRayCast2D
 @onready var ceiling_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/CielingRayCast2D
 
+var is_dead: bool = false
+
 func _ready() -> void:
 	apply_floor_snap()
 	_update_variables()
@@ -90,6 +92,7 @@ func _ready() -> void:
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
 	GameEvents.on_transition_to_medium.connect(_on_transition_to_medium)
 	GameEvents.on_transition_to_small.connect(_on_transition_to_small)
+	GameEvents.on_player_death.connect(_on_player_death)
 
 	
 func _update_variables() -> void:
@@ -176,6 +179,8 @@ func _decelerate(delta: float) -> void:
 
 # Handles Jump and Gravity logic
 func _handle_vertical_movement(delta) -> void:
+	if player_action_fsm.is_transitioning:
+		velocity = Vector2.ZERO
 	# Apply gravity	
 	if velocity.y > 0:
 		applied_gravity = gravity_scale * descending_gravity_factor
@@ -236,24 +241,32 @@ func _get_direction() -> Vector2:
 		return Vector2.LEFT
 	else:
 		return Vector2.RIGHT
-	
+
+func _reset_velocity() -> void:
+	velocity.x = 0
+	velocity.y = 0
+
 func _on_transition_to_large() -> void:
 	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
 	await _on_transition_start()
+	
 	current_size_state = large_size_state
 	_set_movement_stats(large_size_state)
 	#visuals.scale = Vector2(2,2)
 	scale = Vector2(2,2)
+
 	#$PlayerTerrainCollision.move_local_y(-15, false)
 	
 func _on_transition_to_medium() -> void:
 	#TODO: ADD LOGIC FOR SIZE STATE CHANGE
 	await _on_transition_start()
+	
 	current_size_state = medium_size_state
 	_set_movement_stats(medium_size_state)
 	
 	#visuals.scale = Vector2(1,1)
 	scale = Vector2(1,1)
+
 	
 	
 	
@@ -265,6 +278,7 @@ func _on_transition_to_small() -> void:
 	_set_movement_stats(small_size_state)
 	#visuals.scale = Vector2(.5, .5)
 	scale = Vector2(.5,.5)
+
 	#$PlayerTerrainCollision.move_local_y(-5, false)
 	
 	# To handle bug where player can heal from their own bullets after shrinking while swallowing	
@@ -316,3 +330,8 @@ func _on_transition_start() -> void:
 	_disable_action(.67)
 	_disable_gravity(.67)
 	await _invulnerable(.9)
+	
+	
+func _on_player_death() -> void:
+	is_dead = true
+	

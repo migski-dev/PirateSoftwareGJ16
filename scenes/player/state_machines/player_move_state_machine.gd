@@ -19,16 +19,22 @@ func _ready():
 	
 	
 func _state_logic(delta):
-	parent._assign_move_input()
-	parent._handle_horizontal_movement(delta)
-	parent._handle_vertical_movement(delta)
-	parent._apply_movement(delta)
-	
-	var move_sign = sign(parent.velocity.x)
-	if move_sign == -1:
-		player.visuals.scale = Vector2(-1, 1)
-	if move_sign == 1: 
-		player.visuals.scale = Vector2(1,1)
+	if player.is_dead or player_action_fsm.is_transitioning:
+		return
+		
+	if not player.enabled_action:
+		parent._apply_movement(delta)
+	else:
+		parent._assign_move_input()
+		parent._handle_horizontal_movement(delta)
+		parent._handle_vertical_movement(delta)
+		parent._apply_movement(delta)
+		
+		var move_sign = sign(parent.velocity.x)
+		if move_sign == -1:
+			player.visuals.scale = Vector2(-1, 1)
+		if move_sign == 1: 
+			player.visuals.scale = Vector2(1,1)
 	# If moving left, 
 	#match player.current_size_state:
 		#player.large_size_state:
@@ -47,7 +53,7 @@ func _state_logic(delta):
 			#if move_sign == 1: 
 				#player.visuals.scale = Vector2(1,1)
 	
-	parent._get_direction()
+		parent._get_direction()
 	
 	
 func _get_transition(delta):
@@ -100,7 +106,7 @@ func _exit_state(old_state, new_state):
 
 func _input(event):
 	# If currently Idle or Running, then...	 
-	if [states.idle, states.run].has(state):
+	if [states.idle, states.run].has(state) and not player_action_fsm.is_transitioning:
 		# Handle Jump	
 		if Input.is_action_just_pressed("jump"):
 			# Jumped during coyote time window
