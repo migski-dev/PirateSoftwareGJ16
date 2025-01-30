@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameEvents="*res://singletons/game_events/game_events.tscn"
+AudioManager="*res://singletons/audio_manager/audio_manager.tscn"
 
 [display]
 

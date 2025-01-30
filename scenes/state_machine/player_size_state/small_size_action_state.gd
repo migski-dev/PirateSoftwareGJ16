@@ -8,12 +8,14 @@ extends PlayerSizeState
 func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 3
 	player.action_anim_player.play("med_melee_attack")
+	AudioManager.play_slime_melee_audio()
 	
 
 # Projectile Attack	
 func _range_attack(target_position: Vector2) -> void:
 	GameEvents.on_range_start.emit(range_cost)
 	player.action_anim_player.play("med_range_attack")
+	AudioManager.play_slime_range_audio()
 	
 	var bullet: Projectile = bullet_scene.instantiate()
 	bullet.is_player_projectile = true

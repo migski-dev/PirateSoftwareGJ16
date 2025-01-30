@@ -13,6 +13,7 @@ var is_able_to_transition: bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GameEvents.on_player_death.connect(_on_player_death)
+	AudioManager.play_bgm_audio()
 	#Store each level child in our dictionary so we may reference them & connect our switch segment signal to each segment_switch obj
 	for child in get_children():
 		if child is Segment:

@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cb6o1mpgi2oj5"]
+[gd_scene load_steps=3 format=3 uid="uid://cb6o1mpgi2oj5"]
 
 [ext_resource type="Script" path="res://scenes/ui/options_menu/options_menu.gd" id="1_7rfny"]
 [ext_resource type="Theme" uid="uid://chlmxsyiolqti" path="res://assets/ui-theme/ui_theme.tres" id="2_qwsf2"]
-[ext_resource type="AudioStream" uid="uid://k47veogdbfjd" path="res://assets/bgm/Green Slime Guy gameplay -- loop.ogg" id="3_uejrm"]
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -119,11 +118,6 @@ offset_left = 487.0
 offset_top = 46.0
 offset_right = 573.0
 offset_bottom = 117.0
-
-[node name="MainMenuBGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_uejrm")
-autoplay = true
-bus = &"BGM"
 
 [connection signal="toggled" from="Panel/MarginContainer/VBoxContainer/BGMVolumeMute" to="." method="_on_bgm_volume_mute_toggled"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/BGMVolume" to="." method="_on_volume_value_changed"]

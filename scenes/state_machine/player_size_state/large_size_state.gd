@@ -10,11 +10,13 @@ extends PlayerSizeState
 func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 50
 	player.action_anim_player.play("med_melee_attack")
+	AudioManager.play_slime_melee_audio()
 
 # Projectile Attack	
 func _range_attack(target_position: Vector2) -> void:
 	GameEvents.on_range_start.emit(range_cost)
 	player.action_anim_player.play("med_range_attack")
+	AudioManager.play_slime_range_audio()
 	
 	var bullet: Projectile = bullet_scene.instantiate()
 	bullet.is_player_projectile = true
@@ -29,11 +31,14 @@ func _special_attack() -> void:
 	player.velocity.x = 2*player.max_speed if player._get_direction() == Vector2.RIGHT else -player.max_speed*2
 	player.velocity.y = 0
 	player.action_anim_player.play("saw")
+	AudioManager.play_slime_saw_audio()
 	
 		
 func _on_special_end() -> void:
 	player.velocity = Vector2.ZERO
 	player.enabled_action = true
+	AudioManager.end_slime_saw_audio()
+	
 
 func handle_special(delta: float) -> void:
 	var direction: Vector2 = player._get_direction()

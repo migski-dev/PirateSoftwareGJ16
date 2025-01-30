@@ -229,6 +229,7 @@ func _coyote_time() -> void:
 
 func _jump() -> void:
 	if jump_count > 0:
+		AudioManager.play_slime_jump_audio()
 		velocity.y = -jump_magnitude
 		jump_count += -1
 		jump_was_pressed = false
