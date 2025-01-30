@@ -27,11 +27,7 @@ func _ready() -> void:
 	
 	current_segment = segments[initial_segment_number]
 	current_segment.segment_camera.make_current()
-	
-	
-#func _process(delta):
-	#if Input.is_action_pressed("pause_game"):
-		#pause_game()
+
 
 func _on_switch_segments(from: int, to: int):
 	if not is_able_to_transition:
@@ -49,10 +45,3 @@ func _on_player_death() -> void:
 	var game_over_ui: Control = $UICanvasLayer/GameOverUi
 	game_over_ui.visible = true
 	
-func pause_game() -> void:
-	if GameEvents.is_paused:
-		$UICanvasLayer/PauseMenu.hide()
-		Engine.time_scale = 1
-	else:
-		$UICanvasLayer/PauseMenu.show()
-		Engine.time_scale = 0

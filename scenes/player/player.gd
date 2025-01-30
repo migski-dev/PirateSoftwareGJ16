@@ -66,6 +66,7 @@ var range_tap: bool = false
 var special_tap: bool = false
 
 @onready var action_anim_player: AnimationPlayer = $ActionAnimationPlayer
+@onready var hitflash_anim_player: AnimationPlayer = $HitFlashAnimationPlayer
 @onready var player_action_fsm: PlayerActionStateMachine = $PlayerActionStateMachine
 @onready var visuals: Node2D = $Visuals
 @onready var mid_point: Marker2D = $Center
@@ -340,6 +341,9 @@ func _on_player_death() -> void:
 	
 func shake_camera(shake_amount: float) -> void:
 	GameEvents.on_shake_camera.emit(shake_amount)
+	
+func play_hit_flash() -> void:
+	hitflash_anim_player.play("hitflash")
 	
 func _disable_saw_collision() -> void:
 	$Visuals/MeleeRanges/SawHitboxComponent/CollisionShape2D.set_deferred("disabled", true)
