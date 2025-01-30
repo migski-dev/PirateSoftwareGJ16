@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dh2g6viajrht1"]
+[gd_scene load_steps=9 format=3 uid="uid://dh2g6viajrht1"]
 
 [ext_resource type="FontFile" uid="uid://d2m2arte44ref" path="res://assets/fonts/CHUNKY/CHUNKY-webfont.woff" id="1_3odrj"]
 [ext_resource type="Script" path="res://scenes/ui/main_menu/main_menu.gd" id="1_xyp1o"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bib5u6ebwuo0e" path="res://scenes/ui/main_menu/slime_line.tscn" id="3_0ju74"]
 [ext_resource type="PackedScene" uid="uid://cb6o1mpgi2oj5" path="res://scenes/ui/options_menu/options_menu.tscn" id="5_hv6vc"]
 [ext_resource type="PackedScene" uid="uid://plqy6vgsgo6v" path="res://scenes/ui/controls_screen/controls_screen.tscn" id="6_dv1ls"]
+[ext_resource type="AudioStream" uid="uid://baamkaea8qfpt" path="res://assets/bgm/Slime Time main menu loop.mp3" id="7_opvhy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oadqi"]
 font = ExtResource("1_3odrj")
@@ -154,6 +155,11 @@ visible = false
 
 [node name="ControlsScreen" parent="ControlsLayer" instance=ExtResource("6_dv1ls")]
 visible = false
+
+[node name="MainMenuBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_opvhy")
+autoplay = true
+bus = &"BGM"
 
 [connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]

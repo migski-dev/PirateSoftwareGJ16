@@ -94,6 +94,7 @@ func _enter_state(new_state, old_state):
 				parent.action_anim_player.play("med_idle")
 			states.run:
 				parent.action_anim_player.play("med_idle")
+				AudioManager.play_slime_walk_audio()
 			states.jump:
 				parent.action_anim_player.play("med_idle")
 			states.fall:
