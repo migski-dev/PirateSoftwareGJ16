@@ -2,7 +2,7 @@ extends EnemyState
 class_name EnemyAttack
 
 @export_category("Enemy Resource")
-@export var enemy: CharacterBody2D
+@export var enemy: Enemy
 
 #reference to player for position
 var player: CharacterBody2D
@@ -15,13 +15,17 @@ func enter():
 	hitbox = enemy.get_node("HurtboxComponent/CollisionShape2D")
 	anim_player = enemy.get_node("Visuals/AnimationPlayer")
 	attack_range = enemy.attack_range
-	anim_player.play("attack")
+	
+	if enemy.enemy_attack_type == enemy.attack_types.MELEE:
+		anim_player.play("melee_attack")
+	if enemy.enemy_attack_type == enemy.attack_types.RANGED:
+		anim_player.play("range_attack")
 
 func physics_update(delta: float):
 	var direction = player.global_position - enemy.global_position
 	enemy.velocity_component.apply_gravity(enemy, delta)
 
-	#adjust to take state machine parameter.
+	#See AnimationPlayer for how damage assignment works
 	if direction.length() > attack_range:
 		Transitioned.emit(self,"EnemyFollow")
 	else:

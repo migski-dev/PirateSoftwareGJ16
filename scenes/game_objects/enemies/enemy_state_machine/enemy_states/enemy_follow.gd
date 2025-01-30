@@ -1,7 +1,7 @@
 extends EnemyState
 class_name EnemyFollow
 
-@export var enemy: CharacterBody2D
+@export var enemy: Enemy
 var player: CharacterBody2D
 
 func _ready() -> void:
@@ -18,10 +18,10 @@ func physics_update(delta: float):
 	enemy.velocity_component.apply_gravity(enemy, delta)
 
 	#adjust to take state machine parameter.
-	if direction.length() > 25:
+	if direction.length() > enemy.attack_range:
 		enemy.velocity_component.accelerate_in_direction(direction)
 		enemy.velocity_component.move(enemy)
-		#print(str(direction))
+		enemy.velocity_component.apply_gravity(enemy, delta)
 	else:
 		enemy.velocity = Vector2()
 		Transitioned.emit(self,"EnemyAttack")
