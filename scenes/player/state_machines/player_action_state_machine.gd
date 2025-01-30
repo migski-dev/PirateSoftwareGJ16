@@ -10,6 +10,8 @@ var is_specialing: bool = false
 var is_transitioning:bool = false
 var is_sawing: bool = false
 var is_swallowing: bool = false
+var is_winding:bool = false
+var is_flying: bool = false
 
 var bullet_target: Vector2 = Vector2.ZERO
 var bullet_cooldown: float = 0.8
@@ -91,6 +93,7 @@ func _enter_state(new_state, old_state) -> void:
 					is_swallowing = true
 				player.small_size_state:
 					player.small_size_state._special_attack()
+					is_winding = true
 			is_specialing = true
 		
 		states.shrinking:
@@ -131,6 +134,8 @@ func _enter_state(new_state, old_state) -> void:
 			is_ranging = false
 			is_specialing = false
 			is_transitioning = false
+			is_winding = false
+			is_flying = false
 		
 			
 func can_melee_attack() -> bool:
@@ -187,6 +192,8 @@ func has_enough_slime() -> bool:
 func can_special_attack() -> bool:
 	#TODO: Implement logic; 
 	# Player can special attack if not in melee/range/special state AND special timer = 0
+	if player.current_size_state == player.small_size_state and not player.is_on_floor():
+		return false
 	return true
 	
 	
@@ -200,6 +207,8 @@ func _exit_state(old_state, new_state):
 			is_specialing = false
 			is_sawing = false
 			is_swallowing = false
+			is_winding = false
+			is_flying = false
 	
 
 func _reset_action() -> void:
@@ -236,5 +245,16 @@ func _handle_special_states(delta:float) -> void:
 		player.small_size_state:
 			player.small_size_state.handle_special(delta)
 
+func _disable_sling_collision():
+	player.sling_hitbox_collision.disabled = true
+	
+func _on_sling_hurtbox_component_body_entered(body):
+	is_flying = false
+	call_deferred("_disable_sling_collision")
+	player.player_sprite.offset = Vector2.ZERO
 
+	if not body is CharacterBody2D:
+		print('asdfasdfsa')
+		emit_on_special_end()
+	# TODO: Add splat on impact?
 	

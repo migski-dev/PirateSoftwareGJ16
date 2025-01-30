@@ -72,7 +72,9 @@ var special_tap: bool = false
 @onready var med_melee_hitbox: HitboxComponent = $Visuals/MeleeRanges/MediumMeleeHitbox
 @onready var saw_hitbox: HitboxComponent = $Visuals/MeleeRanges/SawHitboxComponent
 @onready var swallow_hitbox: SwallowHurtboxComponent = $Visuals/MeleeRanges/SwallowHurtboxComponent
-
+@onready var sling_sprite: Sprite2D = $Visuals/SlimeSling
+@onready var sling_hitbox_collision: CollisionShape2D = $Visuals/MeleeRanges/SlingHurtboxComponent/CollisionShape2D
+@onready var player_sprite: Sprite2D = $Visuals/Sprite2D
 @onready var slime_health: SlimeComponent = $SlimeComponent
 @onready var saw_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/SawRayCast2D
 @onready var floor_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/FloorRayCast2D

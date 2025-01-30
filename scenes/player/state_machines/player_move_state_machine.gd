@@ -107,7 +107,7 @@ func _exit_state(old_state, new_state):
 
 func _input(event):
 	# If currently Idle or Running, then...	 
-	if [states.idle, states.run].has(state) and not player_action_fsm.is_transitioning:
+	if [states.idle, states.run].has(state) and not player_action_fsm.is_transitioning and not player_action_fsm.is_specialing:
 		# Handle Jump	
 		if Input.is_action_just_pressed("jump"):
 			# Jumped during coyote time window

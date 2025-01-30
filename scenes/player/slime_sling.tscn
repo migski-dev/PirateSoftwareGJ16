@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://7urw3u61w6tx"]
+
+[ext_resource type="Texture2D" uid="uid://duxndugpf0ea6" path="res://assets/sprite_sheets/player/Slime_Animation_Sheetv2.png" id="1_md08i"]
+[ext_resource type="Script" path="res://scenes/player/slime_sling.gd" id="2_y5q0w"]
+
+[node name="SlimeSling" type="Sprite2D"]
+rotation = -1.5708
+texture = ExtResource("1_md08i")
+centered = false
+offset = Vector2(-32, -40)
+hframes = 5
+vframes = 4
+frame = 16
+script = ExtResource("2_y5q0w")

@@ -83,7 +83,7 @@ texture = ExtResource("1_qy2wp")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_c4qnq")
 
-[node name="TestScene" type="Node2D"]
+[node name="TestScene" type="Node2D" groups=["foreground_layer"]]
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 
@@ -102,7 +102,7 @@ tile_map_data = PackedByteArray("AAA5AAMAAAADAAAAAAD5/wMAAAACAAAAAAD6/wMAAAABAAA
 tile_set = SubResource("TileSet_4k6qo")
 
 [node name="BasicEnemy" parent="." instance=ExtResource("3_02lgf")]
-position = Vector2(317, 589)
+position = Vector2(653, 589)
 floor_stop_on_slope = false
 
 [node name="Bullet" parent="." instance=ExtResource("4_8kfo4")]
@@ -122,3 +122,11 @@ position = Vector2(679, 463)
 
 [node name="Player" parent="." instance=ExtResource("5_ywu0l")]
 position = Vector2(162, 584)
+
+[node name="Sprite2D" parent="Player/Visuals" index="0"]
+offset = Vector2(0, 0)
+
+[node name="SlimeSling" parent="Player/Visuals" index="2"]
+rotation = 123.943
+
+[editable path="Player"]
