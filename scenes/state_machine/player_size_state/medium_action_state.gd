@@ -20,6 +20,7 @@ func _range_attack(target_position: Vector2) -> void:
 	AudioManager.play_slime_range_audio()
 	
 	var bullet: Projectile = bullet_scene.instantiate()
+
 	bullet.is_player_projectile = true
 	bullet.global_position = player.mid_point.global_position
 	if player.swallow_hitbox.swallowed_projectile: 

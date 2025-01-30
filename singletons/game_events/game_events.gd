@@ -20,10 +20,12 @@ signal on_player_death
 
 signal on_slime_pickup(slime_amount: int)
 
+var is_paused: bool = false
+
 
 func emit_on_slime_pickup(slime_amount: int) -> void:
 	on_slime_pickup.emit(slime_amount)
-	
+
 
 	
 

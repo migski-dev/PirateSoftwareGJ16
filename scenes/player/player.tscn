@@ -934,7 +934,7 @@ position = Vector2(-2, 1)
 target_position = Vector2(13, 0)
 
 [node name="FloorRayCast2D" type="RayCast2D" parent="Visuals/MeleeRanges/SawHitboxComponent"]
-position = Vector2(3, 1)
+position = Vector2(3, -4)
 rotation = 1.57079
 target_position = Vector2(8, 1.81198e-05)
 
@@ -1001,6 +1001,7 @@ position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_tl0px")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="SlimeBar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("13_6vm4m")]
 anchors_preset = -1
