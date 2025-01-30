@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://buxjbtcr71nqi"]
+[gd_scene load_steps=16 format=4 uid="uid://buxjbtcr71nqi"]
 
 [ext_resource type="Script" path="res://scenes/overworld/Level Segments/segment.gd" id="1_bbxhx"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_lnv6c"]
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="2_vjkc2"]
 [ext_resource type="PackedScene" uid="uid://brjdiatxdjwgf" path="res://scenes/game_objects/Level Objects/segment_switch.tscn" id="3_0ymyf"]
+[ext_resource type="Script" path="res://scenes/components/scripts/camera_shake.gd" id="4_xn7o7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gbn6w"]
 texture = ExtResource("1_lnv6c")
@@ -133,6 +134,7 @@ tile_set = SubResource("TileSet_k4sg8")
 [node name="SegmentCamera" type="Camera2D" parent="."]
 position = Vector2(346, 503)
 zoom = Vector2(2.5, 2.5)
+script = ExtResource("4_xn7o7")
 
 [node name="SegmentBoundaries" type="StaticBody2D" parent="."]
 collision_layer = 64

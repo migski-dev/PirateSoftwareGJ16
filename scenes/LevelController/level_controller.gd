@@ -10,6 +10,8 @@ var current_segment : Segment
 var transition_cooldown : bool = false
 var is_able_to_transition: bool = true
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GameEvents.on_player_death.connect(_on_player_death)
@@ -25,6 +27,7 @@ func _ready() -> void:
 	
 	current_segment = segments[initial_segment_number]
 	current_segment.segment_camera.make_current()
+
 
 func _on_switch_segments(from: int, to: int):
 	if not is_able_to_transition:

@@ -3,7 +3,7 @@ extends PlayerSizeState
 @export var bullet_scene: PackedScene
 #TODO: Set the corresponding movement variables from Resource/ Singleton (max_speed, etc)
 
-@export var range_cost: float = 25.0
+@export var range_cost: float = 3.0
 
 
 # TODO: implement large hitbox and animation
@@ -38,6 +38,7 @@ func _on_special_end() -> void:
 	player.velocity = Vector2.ZERO
 	player.enabled_action = true
 	AudioManager.end_slime_saw_audio()
+	player._disable_saw_collision()
 	
 
 func handle_special(delta: float) -> void:
@@ -67,7 +68,7 @@ func handle_special(delta: float) -> void:
 			saw_move(Vector2(speed_multiplier * - player.max_speed, speed_multiplier * -player.max_speed), delta)
 	
 #	TODO: Test this
-	elif player.ceiling_raycast.is_colliding() and player.ceiling_raycast.get_collider() is TileMapLayer:
+	elif player.ceiling_raycast.is_colliding() and player.ceiling_raycast.get_collider() is TileMapLayer and not player.floor_raycast.is_colliding():
 		if direction == Vector2.RIGHT:
 			saw_move(Vector2(speed_multiplier * -player.max_speed, 0), delta)
 		else:

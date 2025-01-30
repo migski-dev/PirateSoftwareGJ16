@@ -5,7 +5,7 @@ extends PlayerSizeState
 
 #TODO: Set the corresponding movement variables from Resource/ Singleton (max_speed, etc)
 
-@export var range_cost: float = 5.0
+@export var range_cost: float = 2.0
 
 func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 3
@@ -20,6 +20,7 @@ func _range_attack(target_position: Vector2) -> void:
 	AudioManager.play_slime_range_audio()
 	
 	var bullet: Projectile = bullet_scene.instantiate()
+
 	bullet.is_player_projectile = true
 	bullet.global_position = player.mid_point.global_position
 	if player.swallow_hitbox.swallowed_projectile: 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwljrfuy6vdyv"]
+[gd_scene load_steps=6 format=3 uid="uid://bwljrfuy6vdyv"]
 
 [ext_resource type="Script" path="res://scenes/LevelController/level_controller.gd" id="1_3k3cd"]
 [ext_resource type="PackedScene" uid="uid://df7i7bdii488l" path="res://scenes/overworld/Level Segments/segment_1.tscn" id="2_innyt"]
 [ext_resource type="PackedScene" uid="uid://buxjbtcr71nqi" path="res://scenes/overworld/Level Segments/segment_2.tscn" id="3_uf2aw"]
 [ext_resource type="PackedScene" uid="uid://pj0mxgk1rsrm" path="res://scenes/ui/game_over_ui/game_over_ui.tscn" id="4_ovsk0"]
+[ext_resource type="PackedScene" uid="uid://6l2cwnbkl51t" path="res://scenes/ui/pause_menu/pause_menu.tscn" id="5_6lio3"]
 
 [node name="LevelController" type="Node2D" groups=["foreground_layer"]]
 script = ExtResource("1_3k3cd")
@@ -18,3 +19,5 @@ position = Vector2(71, 1)
 
 [node name="GameOverUi" parent="UICanvasLayer" instance=ExtResource("4_ovsk0")]
 visible = false
+
+[node name="PauseMenu" parent="UICanvasLayer" instance=ExtResource("5_6lio3")]

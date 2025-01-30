@@ -96,9 +96,9 @@ func _enter_state(new_state, old_state):
 				parent.action_anim_player.play("med_idle")
 				AudioManager.play_slime_walk_audio()
 			states.jump:
-				parent.action_anim_player.play("med_idle")
+				parent.action_anim_player.play("med_jump")
 			states.fall:
-				parent.action_anim_player.play("med_idle")
+				parent.action_anim_player.play("med_fall")
 			
 	
 func _exit_state(old_state, new_state):
@@ -107,7 +107,7 @@ func _exit_state(old_state, new_state):
 
 func _input(event):
 	# If currently Idle or Running, then...	 
-	if [states.idle, states.run].has(state) and not player_action_fsm.is_transitioning:
+	if [states.idle, states.run].has(state) and not player_action_fsm.is_transitioning and not player_action_fsm.is_specialing:
 		# Handle Jump	
 		if Input.is_action_just_pressed("jump"):
 			# Jumped during coyote time window
