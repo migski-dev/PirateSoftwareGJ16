@@ -26,6 +26,7 @@ func damage(damage_amount: float):
 	health_changed.emit()
 	set_slime_size()
 	if damage_amount > 0:
+		GameEvents.on_shake_camera.emit(1.5)
 		health_decreased.emit()
 	Callable(check_death).call_deferred()
 	

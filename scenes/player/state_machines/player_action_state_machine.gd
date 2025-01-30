@@ -251,7 +251,7 @@ func _disable_sling_collision():
 func _on_sling_hurtbox_component_body_entered(body):
 	is_flying = false
 	call_deferred("_disable_sling_collision")
-	player.player_sprite.offset = Vector2.ZERO
+	#player.player_sprite.offset = Vector2.ZERO
 
 	if not body is CharacterBody2D:
 		print('asdfasdfsa')

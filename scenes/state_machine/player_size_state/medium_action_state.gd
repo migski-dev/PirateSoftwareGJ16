@@ -5,7 +5,7 @@ extends PlayerSizeState
 
 #TODO: Set the corresponding movement variables from Resource/ Singleton (max_speed, etc)
 
-@export var range_cost: float = 5.0
+@export var range_cost: float = 2.0
 
 func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 3

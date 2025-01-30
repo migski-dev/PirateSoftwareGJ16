@@ -3,7 +3,7 @@ extends PlayerSizeState
 @export var bullet_scene: PackedScene
 #TODO: Set the corresponding movement variables from Resource/ Singleton (max_speed, etc)
 
-@export var range_cost: float = 2.0
+@export var range_cost: float = 1.0
 
 func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 3
@@ -33,11 +33,21 @@ func handle_special(delta: float) -> void:
 	if player.player_action_fsm.is_winding:
 		player._disable_action(delta)
 		player._disable_gravity(delta)
+		
+#		Code to fix where slingshot base is facing
+		#if (player.sling_sprite.rotation_degrees < 270 and player.sling_sprite.rotation_degrees > 90):
+			#player.visuals.scale = Vector2(-1, 1)
+		#else:
+			#player.visuals.scale = Vector2(1, 1)
 	elif player.player_action_fsm.is_flying:
 		player._disable_action(delta)
-		player._disable_gravity(delta)
+		_apply_flying_gravity(delta)
+		#player._disable_gravity(delta)
 		
-	
+
+func _apply_flying_gravity(delta):
+	player.velocity.y += 5
+
 func _input(event):
 	if player.current_size_state == player.small_size_state and player.player_action_fsm.is_winding:
 		# Handle Jump	

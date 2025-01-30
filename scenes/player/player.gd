@@ -317,9 +317,9 @@ func _disable_action(timer_amount: float) -> void:
 
 func _invulnerable(timer_amount: float) -> void:
 	is_invulnerable = true
-	$HurtboxComponent/CollisionShape2D.set_deferred("disabled", true)
+	$Visuals/HurtboxComponent/CollisionShape2D.set_deferred("disabled", true)
 	await get_tree().create_timer(timer_amount).timeout
-	$HurtboxComponent/CollisionShape2D.set_deferred("disabled", false)
+	$Visuals/HurtboxComponent/CollisionShape2D.set_deferred("disabled", false)
 	is_invulnerable = false
 
 func _disable_gravity(timer_amount: float) -> void:
@@ -338,3 +338,8 @@ func _on_transition_start() -> void:
 func _on_player_death() -> void:
 	is_dead = true
 	
+func shake_camera(shake_amount: float) -> void:
+	GameEvents.on_shake_camera.emit(shake_amount)
+	
+func _disable_saw_collision() -> void:
+	$Visuals/MeleeRanges/SawHitboxComponent/CollisionShape2D.set_deferred("disabled", true)

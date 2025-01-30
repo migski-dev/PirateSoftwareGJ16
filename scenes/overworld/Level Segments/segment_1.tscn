@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=4 uid="uid://df7i7bdii488l"]
+[gd_scene load_steps=19 format=4 uid="uid://df7i7bdii488l"]
 
 [ext_resource type="Script" path="res://scenes/overworld/Level Segments/segment.gd" id="1_jgxvy"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_kdlb8"]
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="2_4dpg1"]
 [ext_resource type="PackedScene" uid="uid://ci28x63s0dr5g" path="res://scenes/player/player.tscn" id="3_k47xv"]
+[ext_resource type="Script" path="res://scenes/components/scripts/camera_shake.gd" id="4_ufwsj"]
 [ext_resource type="PackedScene" uid="uid://dntjg5d6mv0sw" path="res://scenes/game_objects/Level Objects/breakable_crate.tscn" id="5_sf8tv"]
 [ext_resource type="PackedScene" uid="uid://brjdiatxdjwgf" path="res://scenes/game_objects/Level Objects/segment_switch.tscn" id="6_3g400"]
 [ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.tscn" id="7_e4yse"]
@@ -137,6 +138,7 @@ tile_set = SubResource("TileSet_vlppu")
 [node name="SegmentCamera" type="Camera2D" parent="."]
 position = Vector2(346, 503)
 zoom = Vector2(2.5, 2.5)
+script = ExtResource("4_ufwsj")
 
 [node name="SegmentBoundaries" type="StaticBody2D" parent="."]
 collision_layer = 64
