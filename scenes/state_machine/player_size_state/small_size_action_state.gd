@@ -4,6 +4,8 @@ extends PlayerSizeState
 #TODO: Set the corresponding movement variables from Resource/ Singleton (max_speed, etc)
 
 @export var range_cost: float = 1.0
+var can_exit_flight: bool = true
+var direction: Vector2 
 
 func _melee_attack() -> void:
 	player.med_melee_hitbox.damage = 3
@@ -30,18 +32,17 @@ func _special_attack() -> void:
 
 func handle_special(delta: float) -> void:
 	if player.player_action_fsm.is_winding:
-		player._disable_action(delta)
+		player.enabled_action = false
 		player._disable_gravity(delta)
 		
-#		Code to fix where slingshot base is facing
-		#if (player.sling_sprite.rotation_degrees < 270 and player.sling_sprite.rotation_degrees > 90):
-			#player.visuals.scale = Vector2(-1, 1)
-		#else:
-			#player.visuals.scale = Vector2(1, 1)
-	elif player.player_action_fsm.is_flying:
-		player._disable_action(delta)
+	elif player.player_action_fsm.is_flying and can_exit_flight:
+		player.enabled_action = false
+		player._disable_gravity(delta)
 		_apply_flying_gravity(delta)
-		#player._disable_gravity(delta)
+		
+		#if player.is_on_floor():
+			#player.player_action_fsm.emit_on_special_end()
+		
 		
 
 func _apply_flying_gravity(delta):
@@ -50,12 +51,18 @@ func _apply_flying_gravity(delta):
 func _input(event):
 	if player.current_size_state == player.small_size_state and player.player_action_fsm.is_winding:
 		# Handle Jump	
-		if Input.is_action_just_pressed("range_attack"):
-			player.velocity = _get_launch_vector() * player.max_speed * 1.3
+		if Input.is_action_just_pressed("special_attack"):
+			#player._disable_layer_collision()
+			
+			direction = _get_launch_vector()
+			player.velocity = direction * player.max_speed * 1.3
 			player.action_anim_player.play("flying")
 			player.sling_sprite.hide()
 			winding_to_flying()
-			print('FLY')
+			can_exit_flight = false
+			await get_tree().create_timer(.3).timeout
+			can_exit_flight = true			
+			player.sling_hitbox.damage = 15
 
 
 func _get_launch_vector() -> Vector2:
