@@ -25,4 +25,3 @@ func physics_update(delta: float):
 	else:
 		enemy.velocity = Vector2()
 		Transitioned.emit(self,"EnemyAttack")
-		print("TIME TO ATTACK")

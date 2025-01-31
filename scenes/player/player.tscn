@@ -993,7 +993,6 @@ shape = SubResource("RectangleShape2D_1psvk")
 disabled = true
 
 [node name="SawHitboxComponent" parent="Visuals/MeleeRanges" instance=ExtResource("15_bxyrf")]
-visible = false
 position = Vector2(4, -1)
 collision_layer = 2
 collision_mask = 5
