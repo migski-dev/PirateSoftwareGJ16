@@ -30,6 +30,14 @@ _data = {
 "shot": SubResource("Animation_h2mra")
 }
 
+[sub_resource type="Animation" id="Animation_h2mra"]
+resource_name = "shot"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_veamc"]
+_data = {
+"shot": SubResource("Animation_h2mra")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_xswpt"]
 radius = 3.0
 

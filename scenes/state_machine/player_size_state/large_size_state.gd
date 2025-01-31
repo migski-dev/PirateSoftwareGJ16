@@ -44,6 +44,7 @@ func _on_special_end() -> void:
 func handle_special(delta: float) -> void:
 	var direction: Vector2 = player._get_direction()
 	var speed_multiplier: float = 1.5
+	player.slime_health.damage(3.5/ 60.0)
 	
 	player._disable_action(delta)
 	player._disable_gravity(delta)

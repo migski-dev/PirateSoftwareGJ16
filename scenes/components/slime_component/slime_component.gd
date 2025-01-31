@@ -44,6 +44,7 @@ func set_slime_size() -> void:
 		and [player.large_size_state].has(player.current_size_state) ):
 		on_damage_shrink.emit()
 		GameEvents.on_transition_to_medium.emit()
+		AudioManager.end_slime_saw_audio()
 	elif (current_health < mediumThreshold and current_health >= smallThreshold 
 		and [player.large_size_state, player.medium_size_state].has(player.current_size_state)):
 		on_damage_shrink.emit()

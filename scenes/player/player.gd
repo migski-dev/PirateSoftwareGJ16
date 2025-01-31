@@ -29,6 +29,15 @@ class_name Player
 @export var medium_size_state: PlayerSizeState
 @export var large_size_state: PlayerSizeState
 
+
+@export_category("DAMPED OSCILLATOR")
+@export var spring:float = 2000.0
+@export var damp:float = 8.0
+@export var velocity_multiplier:float = 2.0
+
+var displacement: float =0.0
+var oscillator_velocity:float =0.0
+
 var current_size_state: PlayerSizeState 
 
 # Variables Dependent on Set Variables
@@ -115,6 +124,14 @@ func _apply_movement(delta) -> void:
 	if is_jumping && velocity.y >= 0:
 		is_jumping = false
 	move_and_slide()
+	
+	# Oscillation	
+	oscillator_velocity += velocity.normalized().x * velocity_multiplier
+	var force = -spring * displacement - damp * oscillator_velocity
+	oscillator_velocity += force * delta
+	displacement += oscillator_velocity* delta
+	
+	player_sprite.rotation = -displacement
 	
 # Handles left and right player movement
 func _handle_horizontal_movement(delta: float) -> void:
