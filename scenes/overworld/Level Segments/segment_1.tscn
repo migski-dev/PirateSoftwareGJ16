@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://df7i7bdii488l"]
+[gd_scene load_steps=19 format=4 uid="uid://df7i7bdii488l"]
 
 [ext_resource type="Script" path="res://scenes/overworld/Level Segments/segment.gd" id="1_jgxvy"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_kdlb8"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dntjg5d6mv0sw" path="res://scenes/game_objects/Level Objects/breakable_crate.tscn" id="5_sf8tv"]
 [ext_resource type="PackedScene" uid="uid://cyh7srm5eqybv" path="res://scenes/game_objects/Level Objects/deathzone.tscn" id="7_b8bdq"]
 [ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.tscn" id="7_e4yse"]
-[ext_resource type="PackedScene" uid="uid://bn1g13u8rscsf" path="res://gun.tscn" id="9_o745x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tdpws"]
 texture = ExtResource("1_kdlb8")
@@ -162,7 +161,7 @@ position = Vector2(587, 412.5)
 shape = SubResource("RectangleShape2D_nyx3e")
 
 [node name="Crate Obstacle" type="Node2D" parent="."]
-position = Vector2(-4, 4)
+position = Vector2(-4, 5)
 
 [node name="breakable_crate" parent="Crate Obstacle" instance=ExtResource("5_sf8tv")]
 position = Vector2(536, 586)
@@ -195,7 +194,3 @@ attack_damage = 10
 [node name="Deathzone" parent="." instance=ExtResource("7_b8bdq")]
 position = Vector2(312, 639)
 scale = Vector2(2, 2.8)
-
-[node name="Gun" parent="." instance=ExtResource("9_o745x")]
-position = Vector2(523, 568)
-rotation = -1.5708

@@ -35,24 +35,7 @@ func _state_logic(delta):
 			player.visuals.scale = Vector2(-1, 1)
 		if move_sign == 1: 
 			player.visuals.scale = Vector2(1,1)
-	# If moving left, 
-	#match player.current_size_state:
-		#player.large_size_state:
-			#if move_sign == -1:
-				#player.visuals.scale = Vector2(-1, 1)
-			#if move_sign == 1: 
-				#player.visuals.scale = Vector2(1,1)
-		#player.medium_size_state:
-			#if move_sign == -1:
-				#player.visuals.scale = Vector2(-1, 1)
-			#if move_sign == 1: 
-				#player.visuals.scale = Vector2(1,1)
-		#player.small_size_state:
-			#if move_sign == -1:
-				#player.visuals.scale = Vector2(-1, 1)
-			#if move_sign == 1: 
-				#player.visuals.scale = Vector2(1,1)
-	
+
 		parent._get_direction()
 	
 	

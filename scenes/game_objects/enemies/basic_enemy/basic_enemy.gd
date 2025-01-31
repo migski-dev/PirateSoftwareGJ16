@@ -41,7 +41,7 @@ func on_attack():
 	print_debug('I HIT SOMETHING')
 	
 func on_ranged_attack():
-	var target_direction = (player.global_position- self.global_position).normalized()
+	var target_direction = (player.global_position - self.global_position).normalized()
 		
 	var bullet: Projectile = bullet_scene.instantiate()
 	bullet.is_player_projectile = false

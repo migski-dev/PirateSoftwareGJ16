@@ -126,12 +126,15 @@ drag_horizontal_enabled = true
 
 [node name="BasicEnemy-Ranged" parent="." instance=ExtResource("4_pv0fm")]
 position = Vector2(653, 421)
+enemy_attack_type = 0
 
 [node name="BasicEnemy-Ranged2" parent="." instance=ExtResource("4_pv0fm")]
 position = Vector2(747, 423)
+enemy_attack_type = 0
 
 [node name="BasicEnemy-Ranged3" parent="." instance=ExtResource("4_pv0fm")]
 position = Vector2(844, 423)
+enemy_attack_type = 0
 
 [node name="BasicEnemy-Melee" parent="." instance=ExtResource("5_r3c4u")]
 position = Vector2(697, 597)

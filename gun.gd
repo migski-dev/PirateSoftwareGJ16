@@ -19,7 +19,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	time += delta
-	print(str(time) + "and " + str(delta))
 	
 	if time >= 0.5:
 		if detected_in_radius:
@@ -30,7 +29,7 @@ func _physics_process(delta: float) -> void:
 			bullet.global_position = mid_point.global_position
 			bullet.travel(target_direction * 100)
 			get_tree().root.add_child(bullet)
-		time = time - 1
+		time = time - .5
 	
 
 func player_entry(body):

@@ -6,9 +6,9 @@
 [ext_resource type="Script" path="res://scenes/ui/slime_bar/slime_bar.gd" id="4_054fw"]
 
 [node name="SlimeBar" type="TextureProgressBar"]
-offset_right = 25.0
-offset_bottom = 97.0
-scale = Vector2(10, 10)
+offset_right = 24.0
+offset_bottom = 96.0
+scale = Vector2(3, 3)
 value = 100.0
 fill_mode = 3
 texture_under = ExtResource("1_nqh6w")

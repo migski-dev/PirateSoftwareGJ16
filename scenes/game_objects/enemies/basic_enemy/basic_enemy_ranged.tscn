@@ -104,6 +104,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_t85pg"]
 resource_name = "idle"
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -298,7 +299,7 @@ acceleration = 10.0
 max_health = 15.0
 
 [node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_q6fkn")]
-initial_state = NodePath("EnemyFollow")
+initial_state = NodePath("EnemyIdle")
 
 [node name="EnemyIdle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("8_sivv7")

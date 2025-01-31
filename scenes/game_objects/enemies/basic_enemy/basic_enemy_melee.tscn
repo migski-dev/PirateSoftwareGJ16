@@ -254,7 +254,6 @@ _data = {
 collision_layer = 4
 script = ExtResource("1_ypccm")
 initial_state = NodePath("EnemyStateMachine/EnemyIdle")
-attack_range = 25
 attack_damage = 10
 mid_point = NodePath("Center")
 

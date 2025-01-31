@@ -17,7 +17,6 @@ func physics_update(delta: float):
 
 	#adjust to take state machine parameter.
 	if direction.length() > enemy.enemy_detection_radius:
-		Transitioned.emit(self,"EnemyIdle")
 		enemy.velocity_component.move(enemy)
 		enemy.velocity_component.apply_gravity(enemy, delta)
 	#enemy.velocity_component.move(enemy)

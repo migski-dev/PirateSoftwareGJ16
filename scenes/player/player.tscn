@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ci28x63s0dr5g"]
+[gd_scene load_steps=43 format=3 uid="uid://ci28x63s0dr5g"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_6bvhh"]
 [ext_resource type="Texture2D" uid="uid://ckb2dpuay43h8" path="res://assets/sprite_sheets/slime_temp/slime_jump.png" id="3_oxxf3"]
@@ -141,6 +141,18 @@ tracks/9/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Visuals/MeleeRanges/SlingHurtboxComponent/HitboxComponent/CollisionShape2D:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_rjdha"]
 resource_name = "flying"
@@ -200,6 +212,18 @@ tracks/4/path = NodePath("Visuals/MeleeRanges/SlingHurtboxComponent/CollisionSha
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Visuals/MeleeRanges/SlingHurtboxComponent/HitboxComponent/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -865,6 +889,9 @@ radius = 9.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tw2wv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qi1ah"]
+height = 41.6663
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ot8m2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_341o0"]
 radius = 6.0
@@ -956,6 +983,7 @@ vframes = 7
 [node name="MeleeRanges" type="Node2D" parent="Visuals"]
 
 [node name="MediumMeleeHitbox" type="Area2D" parent="Visuals/MeleeRanges"]
+visible = false
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("11_tidid")
@@ -966,6 +994,7 @@ shape = SubResource("RectangleShape2D_1psvk")
 disabled = true
 
 [node name="SawHitboxComponent" parent="Visuals/MeleeRanges" instance=ExtResource("15_bxyrf")]
+visible = false
 position = Vector2(4, -1)
 collision_layer = 2
 collision_mask = 5
@@ -990,6 +1019,7 @@ rotation = -1.57079
 target_position = Vector2(10, -2.28882e-05)
 
 [node name="SwallowHurtboxComponent" parent="Visuals/MeleeRanges" node_paths=PackedStringArray("collision_shape", "health_component") instance=ExtResource("16_kxbl2")]
+visible = false
 collision_layer = 0
 collision_mask = 8
 collision_shape = NodePath("CollisionShape2D")
@@ -1005,9 +1035,19 @@ disabled = true
 collision_mask = 69
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/SlingHurtboxComponent"]
-position = Vector2(2, -6)
-scale = Vector2(1, 0.240002)
+position = Vector2(3, -6)
+scale = Vector2(0.859031, 0.370448)
 shape = SubResource("CapsuleShape2D_qi1ah")
+disabled = true
+
+[node name="HitboxComponent" parent="Visuals/MeleeRanges/SlingHurtboxComponent" instance=ExtResource("15_bxyrf")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/MeleeRanges/SlingHurtboxComponent/HitboxComponent"]
+position = Vector2(3, -6)
+scale = Vector2(1.08, 0.640002)
+shape = SubResource("CapsuleShape2D_ot8m2")
 disabled = true
 
 [node name="SlimeSling" parent="Visuals" node_paths=PackedStringArray("rotation_point") instance=ExtResource("19_rdkp4")]
@@ -1050,20 +1090,17 @@ layer = 0
 
 [node name="SlimeBar" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("13_6vm4m")]
 anchors_preset = -1
-anchor_left = 0.00260417
-anchor_top = 0.00462963
-anchor_right = 0.00260417
-anchor_bottom = 0.00462963
+anchor_left = 0.00173611
+anchor_top = 0.00925926
+anchor_right = 0.00173611
+anchor_bottom = 0.00925926
 offset_left = 33.0
 offset_top = 179.0
 offset_right = 58.0
 offset_bottom = 276.0
-scale = Vector2(3.46345, 3.54601)
+scale = Vector2(1.172, 1.2)
 player = NodePath("../..")
 metadata/_edit_use_anchors_ = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.75, 1.75)
 
 [connection signal="health_decreased" from="SlimeComponent" to="CanvasLayer/SlimeBar" method="_on_slime_component_health_decreased"]
 [connection signal="on_damage_shrink" from="SlimeComponent" to="PlayerActionStateMachine" method="_on_slime_component_on_damage_shrink"]

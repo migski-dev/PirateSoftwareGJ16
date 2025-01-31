@@ -145,8 +145,8 @@ position = Vector2(757, 565)
 [node name="BasicEnemy-Melee3" parent="." instance=ExtResource("5_vm1h1")]
 position = Vector2(816, 564)
 
-[node name="BasicEnemy-Ranged" parent="." instance=ExtResource("4_fad01")]
-position = Vector2(962, 567)
-
 [node name="Gun" parent="." instance=ExtResource("6_lxnv8")]
 position = Vector2(876, 565)
+
+[node name="BasicEnemy-Ranged" parent="." instance=ExtResource("4_fad01")]
+position = Vector2(958, 562)

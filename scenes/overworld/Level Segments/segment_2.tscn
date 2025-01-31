@@ -161,4 +161,4 @@ shape = SubResource("RectangleShape2D_rncsv")
 position = Vector2(125, 616)
 
 [node name="BasicEnemy-Ranged" parent="." instance=ExtResource("5_ly6pd")]
-position = Vector2(393, 412)
+position = Vector2(386, 436)
