@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://mxvq5wr03hku"]
 
 [ext_resource type="Script" path="res://scenes/game_objects/slime_drops/slime_drop.gd" id="1_2npoa"]
-[ext_resource type="Texture2D" uid="uid://15mjldppohv" path="res://assets/sprite_sheets/projectile_temp/spritesheet.png" id="2_dtbdc"]
+[ext_resource type="Texture2D" uid="uid://buv16c7ec47lm" path="res://assets/sprite_sheets/slime_drop.png" id="2_nqv7w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ccjsn"]
 radius = 15.0
@@ -10,8 +10,7 @@ radius = 15.0
 script = ExtResource("1_2npoa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_dtbdc")
-hframes = 2
+texture = ExtResource("2_nqv7w")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

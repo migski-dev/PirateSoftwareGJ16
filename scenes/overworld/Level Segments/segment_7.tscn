@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://87vrpjx835yl"]
+[gd_scene load_steps=13 format=4 uid="uid://87vrpjx835yl"]
 
 [ext_resource type="Script" path="res://scenes/overworld/Level Segments/segment.gd" id="1_lt4xx"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="2_n3mjq"]
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="3_j68eo"]
 [ext_resource type="PackedScene" uid="uid://das6fjwdr4wty" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy_ranged.tscn" id="4_pv0fm"]
 [ext_resource type="PackedScene" uid="uid://d0c5cmn5hweex" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy_melee.tscn" id="5_r3c4u"]
+[ext_resource type="PackedScene" uid="uid://bbhs6ksxu457u" path="res://scenes/game_objects/slime_drops/slime_jar.tscn" id="6_3fk1f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gbn6w"]
 texture = ExtResource("2_n3mjq")
@@ -144,3 +145,9 @@ position = Vector2(891, 597)
 
 [node name="BasicEnemy-Melee4" parent="." instance=ExtResource("5_r3c4u")]
 position = Vector2(933, 421)
+
+[node name="SlimeDrop" parent="." instance=ExtResource("6_3fk1f")]
+position = Vector2(592, 581)
+
+[node name="SlimeDrop2" parent="." instance=ExtResource("6_3fk1f")]
+position = Vector2(892, 566)

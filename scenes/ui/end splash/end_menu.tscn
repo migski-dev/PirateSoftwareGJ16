@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://hp5ivwbd5t31"]
+
+[ext_resource type="Theme" uid="uid://chlmxsyiolqti" path="res://assets/ui-theme/ui_theme.tres" id="1_auu65"]
+[ext_resource type="Texture2D" uid="uid://vgp3gm58pyni" path="res://scenes/ui/end splash/SLIME_TIME.png" id="3_bvbxb"]
+
+[node name="EndMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1126.0
+offset_bottom = 466.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -274.0
+offset_right = 274.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 350
+theme_override_constants/margin_bottom = 100
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+theme = ExtResource("1_auu65")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = -154.0
+offset_right = -50.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_auu65")
+theme_override_font_sizes/font_size = 28
+text = " Thanks for Playing SLIME TIME!"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator5" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator6" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator7" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator8" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator9" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator10" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator11" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator12" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator13" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator14" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator15" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator16" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator17" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 712.0
+offset_top = 172.0
+offset_right = 1580.0
+offset_bottom = 876.0
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(50, 100)
+texture = ExtResource("3_bvbxb")
+
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

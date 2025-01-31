@@ -34,7 +34,7 @@ func _on_switch_segments(from: int, to: int):
 		
 	is_able_to_transition = false
 
-	if segments[to].segment_camera.is_current():
+	if segments[to].segment_cameras.is_current():
 		print("To Segment " + str(to) + "----------------------------------------------------------------------------")
 		segments[from].segment_camera.make_current()
 	elif segments[from].segment_camera.is_current():
