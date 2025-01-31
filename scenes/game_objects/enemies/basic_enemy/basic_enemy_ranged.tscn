@@ -245,6 +245,7 @@ script = ExtResource("1_qcvxm")
 initial_state = NodePath("EnemyStateMachine/EnemyIdle")
 enemy_attack_type = 1
 attack_range = 150
+attack_damage = 10
 bullet_scene = ExtResource("2_xrtlo")
 mid_point = NodePath("Center")
 
@@ -294,6 +295,7 @@ max_speed = 100
 acceleration = 10.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_fs06v")]
+max_health = 15.0
 
 [node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_q6fkn")]
 initial_state = NodePath("EnemyFollow")

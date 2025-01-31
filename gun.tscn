@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bn1g13u8rscsf"]
+
+[ext_resource type="Script" path="res://gun.gd" id="1_15016"]
+[ext_resource type="Texture2D" uid="uid://8btifontp2t3" path="res://assets/sprite_sheets/BIG_CANNON.png" id="2_a1t6h"]
+[ext_resource type="PackedScene" uid="uid://s34l87xwtgy5" path="res://scenes/game_objects/projectiles/projectile.tscn" id="2_qonc3"]
+[ext_resource type="Texture2D" uid="uid://hvbvrewlpogs" path="res://assets/sprite_sheets/BIG_CANNON_ROD.png" id="3_e2gc4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jxfrc"]
+radius = 90.0
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_15016")
+bullet_scene = ExtResource("2_qonc3")
+
+[node name="Center" type="Marker2D" parent="."]
+
+[node name="BASE" type="Sprite2D" parent="."]
+texture = ExtResource("2_a1t6h")
+
+[node name="ROD" type="Sprite2D" parent="."]
+texture = ExtResource("3_e2gc4")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_jxfrc")

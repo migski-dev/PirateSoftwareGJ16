@@ -1,11 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://buxjbtcr71nqi"]
+[gd_scene load_steps=17 format=4 uid="uid://buxjbtcr71nqi"]
 
 [ext_resource type="Script" path="res://scenes/overworld/Level Segments/segment.gd" id="1_bbxhx"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_lnv6c"]
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="2_vjkc2"]
+[ext_resource type="Script" path="res://scenes/components/scripts/camera_shake.gd" id="4_xn7o7"]
 [ext_resource type="PackedScene" uid="uid://d0c5cmn5hweex" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy_melee.tscn" id="5_gkn7g"]
 [ext_resource type="PackedScene" uid="uid://das6fjwdr4wty" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy_ranged.tscn" id="5_ly6pd"]
-[ext_resource type="Script" path="res://scenes/components/scripts/camera_shake.gd" id="4_xn7o7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gbn6w"]
 texture = ExtResource("1_lnv6c")

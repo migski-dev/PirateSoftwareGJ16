@@ -255,6 +255,7 @@ collision_layer = 4
 script = ExtResource("1_ypccm")
 initial_state = NodePath("EnemyStateMachine/EnemyIdle")
 attack_range = 25
+attack_damage = 10
 mid_point = NodePath("Center")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -303,6 +304,7 @@ max_speed = 100
 acceleration = 10.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_vvalk")]
+max_health = 25.0
 
 [node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_0xaq8")]
 initial_state = NodePath("EnemyIdle")

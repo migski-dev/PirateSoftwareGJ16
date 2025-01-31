@@ -46,25 +46,25 @@ visible = false
 
 [node name="SegmentSwitch" parent="." instance=ExtResource("5_toa1x")]
 position = Vector2(649, 590)
-scale = Vector2(0.25, 1)
+scale = Vector2(0.5, 1)
 from = 2
 to = 1
 
 [node name="SegmentSwitch2" parent="." instance=ExtResource("5_toa1x")]
-position = Vector2(1121, 556)
-scale = Vector2(0.25, 1)
+position = Vector2(1121, 552)
+scale = Vector2(0.5, 2)
 from = 2
 to = 3
 
 [node name="SegmentSwitch3" parent="." instance=ExtResource("5_toa1x")]
 position = Vector2(1603, 666)
-scale = Vector2(0.25, 10)
+scale = Vector2(0.5, 10)
 from = 3
 to = 4
 
 [node name="SegmentSwitch4" parent="." instance=ExtResource("5_toa1x")]
 position = Vector2(2099, 650)
-scale = Vector2(0.25, 10)
+scale = Vector2(0.5, 10)
 from = 4
 to = 5
 

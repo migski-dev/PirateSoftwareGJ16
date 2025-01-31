@@ -8,7 +8,7 @@ extends PlayerSizeState
 @export var range_cost: float = 2.0
 
 func _melee_attack() -> void:
-	player.med_melee_hitbox.damage = 3
+	player.med_melee_hitbox.damage = 10
 	player.action_anim_player.play("med_melee_attack")
 	AudioManager.play_slime_melee_audio()
 	

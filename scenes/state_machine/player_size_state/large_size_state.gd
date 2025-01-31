@@ -8,7 +8,7 @@ extends PlayerSizeState
 
 # TODO: implement large hitbox and animation
 func _melee_attack() -> void:
-	player.med_melee_hitbox.damage = 50
+	player.med_melee_hitbox.damage = 25
 	player.action_anim_player.play("med_melee_attack")
 	AudioManager.play_slime_melee_audio()
 

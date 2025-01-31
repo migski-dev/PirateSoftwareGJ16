@@ -9,11 +9,12 @@ signal on_player_died
 @export var mediumThreshold: float = 5
 @export var largeThreshold: float = 10
 @export var XLThreshold: float = 12
+@export var starting_health: float = 35
 
 var player: Player
 
 func _ready() -> void:
-	current_health = max_health
+	current_health = starting_health
 	GameEvents.on_slime_pickup.connect(_on_slime_pickup)
 	GameEvents.on_range_start.connect(damage)
 	player = get_parent()
