@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://s34l87xwtgy5"]
+[gd_scene load_steps=10 format=3 uid="uid://s34l87xwtgy5"]
 
 [ext_resource type="Texture2D" uid="uid://dqjbma2845gd4" path="res://assets/sprite_sheets/player/Slime_Animation_Sheetv3.png" id="1_supfu"]
 [ext_resource type="Script" path="res://scenes/game_objects/projectiles/projectile.gd" id="2_ieno5"]

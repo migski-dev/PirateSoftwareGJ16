@@ -89,6 +89,7 @@ var special_tap: bool = false
 @onready var saw_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/SawRayCast2D
 @onready var floor_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/FloorRayCast2D
 @onready var ceiling_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/CielingRayCast2D
+@onready var sling_hitbox: HitboxComponent = $Visuals/MeleeRanges/SlingHurtboxComponent/HitboxComponent
 
 var is_dead: bool = false
 
@@ -114,7 +115,6 @@ func _update_variables() -> void:
 	
 	# Sets jump magnitude
 	jump_magnitude = (10.0 * jump_height) * gravity_scale
-	print(jump_magnitude)
 	
 	# Sets coyote time and jump buffering	
 	coyote_time = abs(coyote_time)
@@ -322,7 +322,7 @@ func _set_movement_stats(size_state: PlayerSizeState) -> void:
 
 func _on_hurtbox_component_hit() -> void:
 	#TODO: play hit flash
-	print("i AM HURTING")
+	pass
 
 func _disable_action(timer_amount: float) -> void:
 	enabled_action = false
@@ -360,3 +360,12 @@ func play_hit_flash() -> void:
 	
 func _disable_saw_collision() -> void:
 	$Visuals/MeleeRanges/SawHitboxComponent/CollisionShape2D.set_deferred("disabled", true)
+
+func _disable_layer_collision() -> void:
+	$PlayerTerrainCollision.set_deferred("disabled", true)
+
+func _enable_layer_collision() -> void:
+	$PlayerTerrainCollision.set_deferred("disabled", false)
+
+func _disable_sling_hitbox() -> void:
+	$Visuals/MeleeRanges/SlingHurtboxComponent/HitboxComponent/CollisionShape2D.set_deferred("disabled", true)
