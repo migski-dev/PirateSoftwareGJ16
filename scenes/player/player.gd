@@ -321,8 +321,8 @@ func _set_movement_stats(size_state: PlayerSizeState) -> void:
 
 
 func _on_hurtbox_component_hit() -> void:
-	#TODO: play hit flash
-	pass
+	AudioManager.play_hurt_audio()
+
 
 func _disable_action(timer_amount: float) -> void:
 	enabled_action = false

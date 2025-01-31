@@ -18,6 +18,8 @@ var is_play_clicked: bool = false
 var is_options_clicked: bool = false
 var is_controls_clicked: bool  = false
 
+
+
 func _process(delta):
 	var force = -spring * displacement - damp * velocity
 	velocity += force * delta
@@ -70,4 +72,9 @@ func _on_exit_button_pressed() -> void:
 
 func _on_options_menu_on_back_button_pressed():
 	$OptionsLayer.hide()
+	$MenuLayer.show()
+
+
+func _on_controls_screen_on_back_pressed():
+	$ControlsLayer.hide()
 	$MenuLayer.show()

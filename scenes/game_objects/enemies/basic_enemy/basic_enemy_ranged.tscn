@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://das6fjwdr4wty"]
+[gd_scene load_steps=25 format=3 uid="uid://das6fjwdr4wty"]
 
 [ext_resource type="Script" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.gd" id="1_qcvxm"]
 [ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="2_xhyj8"]
@@ -239,6 +239,43 @@ _data = {
 "walk": SubResource("Animation_8p62y")
 }
 
+[sub_resource type="Animation" id="Animation_d34el"]
+resource_name = "hit_flash"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(100, 100, 100, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iubgi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v0u0a"]
+_data = {
+"RESET": SubResource("Animation_iubgi"),
+"hit_flash": SubResource("Animation_d34el")
+}
+
 [node name="BasicEnemy-Ranged" type="CharacterBody2D" node_paths=PackedStringArray("initial_state", "mid_point")]
 collision_layer = 4
 script = ExtResource("1_qcvxm")
@@ -287,6 +324,11 @@ vframes = 5
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
 libraries = {
 "": SubResource("AnimationLibrary_wxteb")
+}
+
+[node name="HitflashAnimationPlayer" type="AnimationPlayer" parent="Visuals"]
+libraries = {
+"": SubResource("AnimationLibrary_v0u0a")
 }
 
 [node name="VelocityComponent" parent="." instance=ExtResource("5_iar35")]

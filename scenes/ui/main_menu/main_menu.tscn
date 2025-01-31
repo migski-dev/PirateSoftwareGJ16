@@ -166,3 +166,4 @@ bus = &"BGM"
 [connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="MenuLayer/CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="on_back_button_pressed" from="OptionsLayer/OptionsMenu" to="." method="_on_options_menu_on_back_button_pressed"]
+[connection signal="on_back_pressed" from="ControlsLayer/ControlsScreen" to="." method="_on_controls_screen_on_back_pressed"]

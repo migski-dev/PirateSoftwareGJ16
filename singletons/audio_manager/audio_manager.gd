@@ -44,8 +44,8 @@ func end_slime_saw_audio() -> void:
 	$saw_audio.stop()
 	
 	
-func play_slime__audio() -> void:
-	$_audio.pitch_scale = _randomize_pitch()
-	$_audio.play()
+func play_hurt_audio() -> void:
+	$hurt_audio.pitch_scale = _randomize_pitch()
+	$hurt_audio.play()
 	
 	

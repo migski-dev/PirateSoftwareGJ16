@@ -5,6 +5,7 @@ class_name enemy
 @onready var visuals = $Visuals
 @onready var velocity_component = $VelocityComponent
 @onready var hitbox_component = $CollisionShape2D
+@onready var hit_flash_anim_player: AnimationPlayer = $Visuals/HitflashAnimationPlayer
 enum attack_types {MELEE, RANGED, SPECIAL}
 
 @export_category("Enemy Config")
@@ -15,6 +16,7 @@ enum attack_types {MELEE, RANGED, SPECIAL}
 @export var attack_damage : int = 5
 @export var bullet_scene: PackedScene
 @export var mid_point: Marker2D
+var slime_drop_scene: PackedScene = preload("res://scenes/game_objects/slime_drops/slime_drop.tscn")
 
 var player : CharacterBody2D
 
@@ -34,8 +36,10 @@ func _physics_process(delta: float) -> void:
 		visuals.scale = Vector2(move_sign, 1)
 	pass
 
-func on_hit():
-	pass
+func on_hit() -> void:
+	AudioManager.play_hurt_audio()
+	if $HealthComponent.current_health > 0:
+		hit_flash_anim_player.play("hit_flash")
 	#print_debug('I GOT HIT')
 	
 func on_attack():
@@ -51,3 +55,9 @@ func on_ranged_attack():
 	bullet.travel(target_direction * 100)
 	get_tree().root.add_child(bullet)
 	
+
+
+func _on_health_component_died():
+	var slime_drop: SlimeDrop = slime_drop_scene.instantiate()
+	slime_drop.slime_restore = 15
+	slime_drop.global_position = global_position

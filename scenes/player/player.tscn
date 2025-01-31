@@ -935,7 +935,7 @@ smallThreshold = 30.0
 mediumThreshold = 50.0
 largeThreshold = 75.0
 XLThreshold = 90.0
-max_health = 200.0
+max_health = 50.0
 
 [node name="SizeStates" type="Node" parent="."]
 

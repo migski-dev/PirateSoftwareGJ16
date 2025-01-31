@@ -70,8 +70,6 @@ func handle_special(delta: float) -> void:
 	
 #	TODO: Test this
 	elif player.ceiling_raycast.is_colliding() and player.ceiling_raycast.get_collider() is TileMapLayer and not player.floor_raycast.is_colliding():
-		if player.saw_raycast.is_colliding():
-			print('FUCKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK')
 		if player.saw_raycast.is_colliding() and player.saw_raycast.get_collider() is TileMapLayer:
 			print_debug('AFJHASDKFHAKSDHFASKDJHFKLAJHFKJSDHKHFJA')
 			if direction == Vector2.RIGHT:
@@ -82,9 +80,9 @@ func handle_special(delta: float) -> void:
 				saw_move(Vector2(speed_multiplier * player.max_speed, speed_multiplier * -player.max_speed), delta)
 		else:
 			if direction == Vector2.RIGHT:
-				saw_move(Vector2(speed_multiplier * -player.max_speed, 0), delta)
+				saw_move(Vector2(speed_multiplier * -player.max_speed, speed_multiplier * -player.max_speed), delta)
 			else:
-				saw_move(Vector2(speed_multiplier * player.max_speed, 0), delta)
+				saw_move(Vector2(speed_multiplier * player.max_speed, speed_multiplier * -player.max_speed), delta)
 			
 	# Case: No raycasts colliding
 	elif not player.floor_raycast.is_colliding() and not player.saw_raycast.is_colliding() and not player.ceiling_raycast.is_colliding():

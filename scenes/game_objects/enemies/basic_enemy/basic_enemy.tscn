@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://fxytc2rpov6n"]
+[gd_scene load_steps=24 format=3 uid="uid://fxytc2rpov6n"]
 
 [ext_resource type="Script" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.gd" id="1_ot6om"]
 [ext_resource type="PackedScene" uid="uid://lmhixy5cxi5k" path="res://scenes/components/health_component/health_component.tscn" id="2_4h36a"]
@@ -236,6 +236,43 @@ _data = {
 "walk": SubResource("Animation_8p62y")
 }
 
+[sub_resource type="Animation" id="Animation_d34el"]
+resource_name = "hit_flash"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(100, 100, 100, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iubgi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v0u0a"]
+_data = {
+"RESET": SubResource("Animation_iubgi"),
+"hit_flash": SubResource("Animation_d34el")
+}
+
 [node name="BasicEnemy" type="CharacterBody2D" node_paths=PackedStringArray("mid_point")]
 collision_layer = 4
 script = ExtResource("1_ot6om")
@@ -282,6 +319,11 @@ libraries = {
 "": SubResource("AnimationLibrary_wxteb")
 }
 
+[node name="HitflashAnimationPlayer" type="AnimationPlayer" parent="Visuals"]
+libraries = {
+"": SubResource("AnimationLibrary_v0u0a")
+}
+
 [node name="VelocityComponent" parent="." instance=ExtResource("4_sjq06")]
 max_speed = 100
 acceleration = 10.0
@@ -305,3 +347,5 @@ enemy = NodePath("../..")
 
 [node name="Center" type="Marker2D" parent="."]
 position = Vector2(0, -6)
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

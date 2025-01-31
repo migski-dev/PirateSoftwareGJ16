@@ -10,8 +10,7 @@ func _on_quit_pressed() -> void:
 
 
 func _on_return_to_main_menu_pressed():
-	print('asdfasdf')
-	var main_menu_scene: Node2D = main_menu.instantiate()
+	var main_menu_scene = main_menu.instantiate()
 	get_tree().root.add_child(main_menu_scene)
 	get_tree().current_scene = main_menu_scene
 	get_tree().root.remove_child(self)
