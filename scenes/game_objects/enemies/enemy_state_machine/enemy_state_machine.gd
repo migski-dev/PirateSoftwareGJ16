@@ -1,10 +1,10 @@
 extends Node
 
-@onready var enemy: Enemy = get_parent()
+@onready var enemy: enemy = get_parent()
 @onready var anim_player: AnimationPlayer = enemy.get_node("Visuals/AnimationPlayer")
+@export var initial_state : enemy_state
 
-@export var initial_state : EnemyState
-var current_state : EnemyState
+var current_state : enemy_state
 var current_state_name : String
 var states : Dictionary = {}
 
@@ -12,7 +12,7 @@ var is_player_dead: bool = false
 
 func _ready():
 	for child in get_children():
-		if child is EnemyState:
+		if child is enemy_state:
 			states[child.name.to_lower()] = child
 			child.Transitioned.connect(on_child_transition)
 	
@@ -50,7 +50,5 @@ func on_child_transition(state, new_state_name):
 	new_state.enter()
 	current_state = new_state
 
-
 func _on_player_death() -> void:
 	on_child_transition(current_state, 'enemyidle')
-	

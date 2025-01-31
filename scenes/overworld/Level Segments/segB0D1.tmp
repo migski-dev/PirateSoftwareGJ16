@@ -1,13 +1,12 @@
-[gd_scene load_steps=19 format=4 uid="uid://df7i7bdii488l"]
+[gd_scene load_steps=18 format=4 uid="uid://df7i7bdii488l"]
 
 [ext_resource type="Script" path="res://scenes/overworld/Level Segments/segment.gd" id="1_jgxvy"]
 [ext_resource type="Texture2D" uid="uid://dt8j0dghbl00" path="res://assets/Skybox/Surface_Skybox_Full.png" id="1_kdlb8"]
 [ext_resource type="Texture2D" uid="uid://b4hixoj3ri6v5" path="res://assets/Surface/Surface_TilesetV1.png" id="2_4dpg1"]
 [ext_resource type="PackedScene" uid="uid://ci28x63s0dr5g" path="res://scenes/player/player.tscn" id="3_k47xv"]
-[ext_resource type="Script" path="res://scenes/components/scripts/camera_shake.gd" id="4_ufwsj"]
 [ext_resource type="PackedScene" uid="uid://dntjg5d6mv0sw" path="res://scenes/game_objects/Level Objects/breakable_crate.tscn" id="5_sf8tv"]
-[ext_resource type="PackedScene" uid="uid://cyh7srm5eqybv" path="res://scenes/game_objects/Level Objects/deathzone.tscn" id="7_b8bdq"]
 [ext_resource type="PackedScene" uid="uid://fxytc2rpov6n" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.tscn" id="7_e4yse"]
+[ext_resource type="PackedScene" uid="uid://bhp4b8r5ivrc3" path="res://scenes/game_objects/Level Objects/death_zone.tscn" id="7_twftu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tdpws"]
 texture = ExtResource("1_kdlb8")
@@ -138,7 +137,6 @@ tile_set = SubResource("TileSet_vlppu")
 [node name="SegmentCamera" type="Camera2D" parent="."]
 position = Vector2(346, 503)
 zoom = Vector2(2.5, 2.5)
-script = ExtResource("4_ufwsj")
 
 [node name="SegmentBoundaries" type="StaticBody2D" parent="."]
 collision_layer = 64
@@ -161,7 +159,7 @@ position = Vector2(587, 412.5)
 shape = SubResource("RectangleShape2D_nyx3e")
 
 [node name="Crate Obstacle" type="Node2D" parent="."]
-position = Vector2(-4, 4)
+position = Vector2(2, 6)
 
 [node name="breakable_crate" parent="Crate Obstacle" instance=ExtResource("5_sf8tv")]
 position = Vector2(536, 586)
@@ -191,6 +189,7 @@ position = Vector2(135, 580)
 position = Vector2(365, 599)
 attack_damage = 100
 
-[node name="Deathzone" parent="." instance=ExtResource("7_b8bdq")]
-position = Vector2(310, 639)
-scale = Vector2(2.5, 3)
+[node name="HitboxComponent" parent="." instance=ExtResource("7_twftu")]
+position = Vector2(298, 597)
+collision_layer = 0
+collision_mask = 6

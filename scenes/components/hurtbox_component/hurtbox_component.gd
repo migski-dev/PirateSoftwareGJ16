@@ -16,6 +16,7 @@ func on_area_entered(other_area: Area2D) -> void:
 	if not other_area is HitboxComponent:
 		return
 	
+	print("what the fuck")
 	var hitbox_component = other_area as HitboxComponent
 	health_component.damage(hitbox_component.damage)
 	

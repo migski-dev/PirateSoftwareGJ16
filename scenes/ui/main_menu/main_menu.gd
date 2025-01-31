@@ -5,7 +5,7 @@ extends Node2D
 @onready var controls_button: Button = $MenuLayer/CenterContainer/VBoxContainer/ControlsButton
 @onready var quit_button: Button = $MenuLayer/CenterContainer/VBoxContainer/ExitButton
 
-@onready var start_scene: PackedScene = preload("res://scenes/LevelController/level_controller.tscn")
+@onready var start_scene: PackedScene = preload("res://scenes/overworld/LevelController/level_controller.tscn")
 
 @export var spring: float = 1500.0
 @export var damp: float = 10.0
