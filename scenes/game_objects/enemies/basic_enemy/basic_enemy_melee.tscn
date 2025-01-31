@@ -1,15 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://fxytc2rpov6n"]
+[gd_scene load_steps=21 format=3 uid="uid://d0c5cmn5hweex"]
 
-[ext_resource type="Script" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.gd" id="1_ot6om"]
-[ext_resource type="PackedScene" uid="uid://lmhixy5cxi5k" path="res://scenes/components/health_component/health_component.tscn" id="2_4h36a"]
-[ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="2_tnpqn"]
-[ext_resource type="PackedScene" uid="uid://dqkdttegghfgw" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="4_3xqcv"]
-[ext_resource type="PackedScene" uid="uid://duhsb0rtxau21" path="res://scenes/components/velocity_component/velocity_component.tscn" id="4_sjq06"]
-[ext_resource type="Texture2D" uid="uid://dhg0kdi4dvo70" path="res://assets/temp_goblin/goblin_spritesheet.png" id="4_tywyq"]
-[ext_resource type="PackedScene" uid="uid://bgtiosl14i45e" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_state_machine.tscn" id="7_686cj"]
-[ext_resource type="Script" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_states/enemy_idle.gd" id="8_wtwa8"]
-[ext_resource type="Script" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_states/enemy_follow.gd" id="9_d7wql"]
-[ext_resource type="Script" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_states/enemy_attack.gd" id="10_cqkd6"]
+[ext_resource type="Script" path="res://scenes/game_objects/enemies/basic_enemy/basic_enemy.gd" id="1_ypccm"]
+[ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="2_ciwbp"]
+[ext_resource type="PackedScene" uid="uid://dqkdttegghfgw" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="3_orrcb"]
+[ext_resource type="Texture2D" uid="uid://dhg0kdi4dvo70" path="res://assets/temp_goblin/goblin_spritesheet.png" id="4_8tf03"]
+[ext_resource type="PackedScene" uid="uid://duhsb0rtxau21" path="res://scenes/components/velocity_component/velocity_component.tscn" id="5_o5j7u"]
+[ext_resource type="PackedScene" uid="uid://lmhixy5cxi5k" path="res://scenes/components/health_component/health_component.tscn" id="6_vvalk"]
+[ext_resource type="PackedScene" uid="uid://bgtiosl14i45e" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_state_machine.tscn" id="7_0xaq8"]
+[ext_resource type="Script" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_states/enemy_idle.gd" id="8_r654x"]
+[ext_resource type="Script" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_states/enemy_follow.gd" id="9_4rl1u"]
+[ext_resource type="Script" path="res://scenes/game_objects/enemies/enemy_state_machine/enemy_states/enemy_attack.gd" id="10_fynsf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wc2b2"]
 radius = 11.5697
@@ -103,6 +103,8 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_t85pg"]
 resource_name = "idle"
+length = 0.8
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -114,6 +116,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
 }
 
 [sub_resource type="Animation" id="Animation_nl5d2"]
@@ -236,9 +250,11 @@ _data = {
 "walk": SubResource("Animation_8p62y")
 }
 
-[node name="BasicEnemy" type="CharacterBody2D" node_paths=PackedStringArray("mid_point")]
+[node name="BasicEnemy-Melee" type="CharacterBody2D" node_paths=PackedStringArray("initial_state", "mid_point")]
 collision_layer = 4
-script = ExtResource("1_ot6om")
+script = ExtResource("1_ypccm")
+initial_state = NodePath("EnemyStateMachine/EnemyIdle")
+attack_range = 25
 mid_point = NodePath("Center")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -247,7 +263,7 @@ position = Vector2(0, -8)
 scale = Vector2(0.66947, 0.605027)
 shape = SubResource("CapsuleShape2D_wc2b2")
 
-[node name="HitboxComponent" parent="." instance=ExtResource("2_tnpqn")]
+[node name="HitboxComponent" parent="." instance=ExtResource("2_ciwbp")]
 collision_layer = 4
 collision_mask = 2
 monitoring = false
@@ -257,7 +273,7 @@ position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_gmjdt")
 disabled = true
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_3xqcv")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_orrcb")]
 collision_layer = 4
 collision_mask = 2
 health_component = NodePath("../HealthComponent")
@@ -271,7 +287,7 @@ shape = SubResource("CircleShape2D_bsjko")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 position = Vector2(0, -10)
-texture = ExtResource("4_tywyq")
+texture = ExtResource("4_8tf03")
 centered = false
 offset = Vector2(-8, -6)
 hframes = 6
@@ -282,25 +298,25 @@ libraries = {
 "": SubResource("AnimationLibrary_wxteb")
 }
 
-[node name="VelocityComponent" parent="." instance=ExtResource("4_sjq06")]
+[node name="VelocityComponent" parent="." instance=ExtResource("5_o5j7u")]
 max_speed = 100
 acceleration = 10.0
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_4h36a")]
+[node name="HealthComponent" parent="." instance=ExtResource("6_vvalk")]
 
-[node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_686cj")]
+[node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("7_0xaq8")]
 initial_state = NodePath("EnemyIdle")
 
 [node name="EnemyIdle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
-script = ExtResource("8_wtwa8")
+script = ExtResource("8_r654x")
 enemy = NodePath("../..")
 
 [node name="EnemyFollow" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
-script = ExtResource("9_d7wql")
+script = ExtResource("9_4rl1u")
 enemy = NodePath("../..")
 
 [node name="EnemyAttack" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
-script = ExtResource("10_cqkd6")
+script = ExtResource("10_fynsf")
 enemy = NodePath("../..")
 
 [node name="Center" type="Marker2D" parent="."]

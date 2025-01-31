@@ -89,7 +89,7 @@ func _ready() -> void:
 	$Visuals/MeleeRanges/MediumMeleeHitbox/CollisionShape2D.disabled = true
 	
 	# Is the default state medium or large?
-	_on_transition_to_large()
+	_on_transition_to_small()
 	
 	GameEvents.on_transition_to_XL.connect(_on_transition_to_large) # TODO: CREATE XL STATE
 	GameEvents.on_transition_to_large.connect(_on_transition_to_large)
@@ -270,10 +270,6 @@ func _on_transition_to_medium() -> void:
 	
 	#visuals.scale = Vector2(1,1)
 	scale = Vector2(1,1)
-
-	
-	
-	
 	
 func _on_transition_to_small() -> void:
 	#TODO: ADD LOGIC FOR SIZE STATE CHANGE

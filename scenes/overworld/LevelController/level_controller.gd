@@ -20,23 +20,28 @@ func _ready() -> void:
 	for child in get_children():
 		if child is Segment:
 			segments[child.ID] = child
-			for subchild in child.get_children():
-				if subchild is SegmentSwitch:
-					subchild.connect("switch_segments", Callable(self,"_on_switch_segments"))
-					subchild.connect("on_switch_enable", _on_switch_enable)
+		if child is SegmentSwitch:
+			child.connect("switch_segments", Callable(self,"_on_switch_segments"))
+			child.connect("on_switch_enable", Callable(self,"_on_switch_enable"))
 	
 	current_segment = segments[initial_segment_number]
 	current_segment.segment_camera.make_current()
 
 
 func _on_switch_segments(from: int, to: int):
-	if not is_able_to_transition:
+	if is_able_to_transition == false:
 		return
+		
 	is_able_to_transition = false
 
-	if not segments[to].segment_camera.is_current():
-		var to_segment: Segment = segments[to]
-		to_segment.segment_camera.make_current()
+	if segments[to].segment_camera.is_current():
+		print("To Segment " + str(to) + "----------------------------------------------------------------------------")
+		segments[from].segment_camera.make_current()
+	elif segments[from].segment_camera.is_current():
+		segments[to].segment_camera.make_current()
+		print("To Segment " + str(to) + "----------------------------------------------------------------------------")
+	else:
+		print("THEN WHAT'S IT GONNA BE?")
 	
 func _on_switch_enable() -> void:
 	is_able_to_transition = true
@@ -44,4 +49,3 @@ func _on_switch_enable() -> void:
 func _on_player_death() -> void:
 	var game_over_ui: Control = $UICanvasLayer/GameOverUi
 	game_over_ui.visible = true
-	

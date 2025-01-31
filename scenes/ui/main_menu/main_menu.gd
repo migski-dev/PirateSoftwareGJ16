@@ -5,7 +5,7 @@ extends Node2D
 @onready var controls_button: Button = $MenuLayer/CenterContainer/VBoxContainer/ControlsButton
 @onready var quit_button: Button = $MenuLayer/CenterContainer/VBoxContainer/ExitButton
 
-@onready var start_scene: PackedScene = preload("res://scenes/LevelController/level_controller.tscn")
+@onready var start_scene: PackedScene = preload("res://scenes/overworld/LevelController/level_controller.tscn")
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

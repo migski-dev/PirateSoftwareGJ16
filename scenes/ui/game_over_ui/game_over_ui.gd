@@ -1,7 +1,7 @@
 extends Control
 
 
-@onready var start_scene: PackedScene = preload("res://scenes/LevelController/level_controller.tscn")
+@onready var start_scene: PackedScene = preload("res://scenes/overworld/LevelController/level_controller.tscn")
 @onready var main_menu: PackedScene = preload("res://scenes/ui/main_menu/main_menu.tscn")
 
 

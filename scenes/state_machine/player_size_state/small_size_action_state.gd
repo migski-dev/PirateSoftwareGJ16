@@ -10,7 +10,6 @@ func _melee_attack() -> void:
 	player.action_anim_player.play("med_melee_attack")
 	AudioManager.play_slime_melee_audio()
 	
-
 # Projectile Attack	
 func _range_attack(target_position: Vector2) -> void:
 	GameEvents.on_range_start.emit(range_cost)
