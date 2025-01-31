@@ -1,25 +1,18 @@
 [gd_scene load_steps=9 format=3 uid="uid://s34l87xwtgy5"]
 
-[ext_resource type="Texture2D" uid="uid://15mjldppohv" path="res://assets/sprite_sheets/projectile_temp/spritesheet.png" id="1_4rspy"]
+[ext_resource type="Texture2D" uid="uid://dqjbma2845gd4" path="res://assets/sprite_sheets/player/Slime_Animation_Sheetv3.png" id="1_supfu"]
 [ext_resource type="Script" path="res://scenes/game_objects/projectiles/projectile.gd" id="2_ieno5"]
 [ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="3_rmxpw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lxber"]
-atlas = ExtResource("1_4rspy")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tt4hu"]
-atlas = ExtResource("1_4rspy")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fb35x"]
+atlas = ExtResource("1_supfu")
+region = Rect2(48, 192, 48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n12nr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lxber")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tt4hu")
+"texture": SubResource("AtlasTexture_fb35x")
 }],
 "loop": true,
 "name": &"default",
@@ -29,10 +22,20 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_tg2dx"]
 radius = 2.0
 
+[sub_resource type="Animation" id="Animation_h2mra"]
+resource_name = "shot"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_veamc"]
+_data = {
+"shot": SubResource("Animation_h2mra")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_xswpt"]
 radius = 3.0
 
 [node name="Bullet" type="AnimatedSprite2D" node_paths=PackedStringArray("terrain_catch")]
+position = Vector2(0, -32)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_n12nr")
 frame_progress = 0.785932
 offset = Vector2(0.5, -0.5)
@@ -40,10 +43,16 @@ script = ExtResource("2_ieno5")
 terrain_catch = NodePath("Area2D")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_rmxpw")]
-collision_mask = 5
+position = Vector2(0, 16)
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_tg2dx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_veamc")
+}
 
 [node name="Area2D" type="Area2D" parent="."]
 

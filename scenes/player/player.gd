@@ -66,13 +66,16 @@ var range_tap: bool = false
 var special_tap: bool = false
 
 @onready var action_anim_player: AnimationPlayer = $ActionAnimationPlayer
+@onready var hitflash_anim_player: AnimationPlayer = $HitFlashAnimationPlayer
 @onready var player_action_fsm: PlayerActionStateMachine = $PlayerActionStateMachine
 @onready var visuals: Node2D = $Visuals
 @onready var mid_point: Marker2D = $Center
 @onready var med_melee_hitbox: HitboxComponent = $Visuals/MeleeRanges/MediumMeleeHitbox
 @onready var saw_hitbox: HitboxComponent = $Visuals/MeleeRanges/SawHitboxComponent
 @onready var swallow_hitbox: SwallowHurtboxComponent = $Visuals/MeleeRanges/SwallowHurtboxComponent
-
+@onready var sling_sprite: Sprite2D = $Visuals/SlimeSling
+@onready var sling_hitbox_collision: CollisionShape2D = $Visuals/MeleeRanges/SlingHurtboxComponent/CollisionShape2D
+@onready var player_sprite: Sprite2D = $Visuals/Sprite2D
 @onready var slime_health: SlimeComponent = $SlimeComponent
 @onready var saw_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/SawRayCast2D
 @onready var floor_raycast: RayCast2D = $Visuals/MeleeRanges/SawHitboxComponent/FloorRayCast2D
@@ -229,6 +232,7 @@ func _coyote_time() -> void:
 
 func _jump() -> void:
 	if jump_count > 0:
+		AudioManager.play_slime_jump_audio()
 		velocity.y = -jump_magnitude
 		jump_count += -1
 		jump_was_pressed = false
@@ -310,9 +314,9 @@ func _disable_action(timer_amount: float) -> void:
 
 func _invulnerable(timer_amount: float) -> void:
 	is_invulnerable = true
-	$HurtboxComponent/CollisionShape2D.set_deferred("disabled", true)
+	$Visuals/HurtboxComponent/CollisionShape2D.set_deferred("disabled", true)
 	await get_tree().create_timer(timer_amount).timeout
-	$HurtboxComponent/CollisionShape2D.set_deferred("disabled", false)
+	$Visuals/HurtboxComponent/CollisionShape2D.set_deferred("disabled", false)
 	is_invulnerable = false
 
 func _disable_gravity(timer_amount: float) -> void:
@@ -331,3 +335,11 @@ func _on_transition_start() -> void:
 func _on_player_death() -> void:
 	is_dead = true
 	
+func shake_camera(shake_amount: float) -> void:
+	GameEvents.on_shake_camera.emit(shake_amount)
+	
+func play_hit_flash() -> void:
+	hitflash_anim_player.play("hitflash")
+	
+func _disable_saw_collision() -> void:
+	$Visuals/MeleeRanges/SawHitboxComponent/CollisionShape2D.set_deferred("disabled", true)

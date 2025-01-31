@@ -4,7 +4,7 @@ class_name Projectile
 @onready var hitbox: HitboxComponent = $HitboxComponent
 @export var is_player_projectile: bool = true
 
-@export var bullet_speed: float = 5.0
+@export var bullet_speed: float = 1.0
 @export var bullet_dmg: float = 5.0
 @export var terrain_catch : Area2D
 var direction: Vector2 = Vector2.ZERO

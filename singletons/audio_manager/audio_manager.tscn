@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://brtom5887g4im"]
+
+[ext_resource type="Script" path="res://singletons/audio_manager/audio_manager.gd" id="1_lsic3"]
+[ext_resource type="AudioStream" uid="uid://cij826ppdtfdk" path="res://assets/sfx/Hurt.wav" id="3_7bxfo"]
+[ext_resource type="AudioStream" uid="uid://hko6h87mxf0j" path="res://assets/sfx/SlimeWalk.mp3" id="3_216qo"]
+[ext_resource type="AudioStream" uid="uid://bg0pnve0ys4tv" path="res://assets/sfx/Suck 1.wav" id="3_ccmvb"]
+[ext_resource type="AudioStream" uid="uid://dkx04uk17kut7" path="res://assets/sfx/SlimeJump.mp3" id="4_llt1j"]
+[ext_resource type="AudioStream" uid="uid://2slrbd0l45hj" path="res://assets/sfx/SlimeAttack.mp3" id="5_8hhvk"]
+[ext_resource type="AudioStream" uid="uid://bylac0cmp7txa" path="res://assets/sfx/SlimeRange.mp3" id="6_82jy0"]
+[ext_resource type="AudioStream" uid="uid://bs44js51shugi" path="res://assets/sfx/SlimeSaw.mp3" id="8_msoch"]
+[ext_resource type="AudioStream" uid="uid://k47veogdbfjd" path="res://assets/bgm/Green Slime Guy gameplay -- loop.ogg" id="9_gjltw"]
+
+[node name="AudioManager" type="Node2D"]
+script = ExtResource("1_lsic3")
+
+[node name="hurt_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7bxfo")
+bus = &"SFX"
+
+[node name="walk_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_216qo")
+volume_db = -30.0
+bus = &"SFX"
+
+[node name="jump_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_llt1j")
+bus = &"SFX"
+
+[node name="melee_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8hhvk")
+bus = &"SFX"
+
+[node name="range_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_82jy0")
+bus = &"SFX"
+
+[node name="swallow_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ccmvb")
+bus = &"SFX"
+
+[node name="saw_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_msoch")
+bus = &"SFX"
+
+[node name="bgm_audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_gjltw")
+bus = &"SFX"
