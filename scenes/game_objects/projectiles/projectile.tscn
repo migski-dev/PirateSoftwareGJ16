@@ -29,7 +29,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_tg2dx"]
 radius = 2.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8tly8"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xswpt"]
 radius = 3.0
 
 [node name="Bullet" type="AnimatedSprite2D" node_paths=PackedStringArray("terrain_catch")]
@@ -40,13 +40,14 @@ script = ExtResource("2_ieno5")
 terrain_catch = NodePath("Area2D")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_rmxpw")]
-collision_mask = 4
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_tg2dx")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_8tly8")
+shape = SubResource("CircleShape2D_xswpt")
+
+[connection signal="body_entered" from="HitboxComponent" to="HitboxComponent" method="_on_body_entered"]

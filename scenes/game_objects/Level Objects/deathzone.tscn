@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyh7srm5eqybv"]
+
+[ext_resource type="Script" path="res://scenes/game_objects/Level Objects/deathzone.gd" id="1_0aboy"]
+[ext_resource type="PackedScene" uid="uid://dcmj60s18tobv" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="1_qlmab"]
+[ext_resource type="Texture2D" uid="uid://b5rrn4vikhuo1" path="res://assets/sprite_sheets/temp-deathzone.png" id="3_vy323"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqt71"]
+size = Vector2(25, 5)
+
+[node name="Deathzone" type="Area2D"]
+collision_layer = 0
+collision_mask = 255
+script = ExtResource("1_0aboy")
+
+[node name="UselessAhAhCollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uqt71")
+one_way_collision_margin = 0.0
+
+[node name="HitboxComponent" parent="." instance=ExtResource("1_qlmab")]
+collision_layer = 6
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_uqt71")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(1.5, 0.25)
+texture = ExtResource("3_vy323")

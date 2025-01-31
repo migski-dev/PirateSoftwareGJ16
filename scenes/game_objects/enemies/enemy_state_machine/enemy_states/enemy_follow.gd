@@ -1,7 +1,7 @@
-extends EnemyState
+extends enemy_state
 class_name EnemyFollow
 
-@export var enemy: Enemy
+@export var enemy: enemy
 var player: CharacterBody2D
 
 func _ready() -> void:

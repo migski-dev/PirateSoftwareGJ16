@@ -266,10 +266,6 @@ func _on_transition_to_medium() -> void:
 	
 	#visuals.scale = Vector2(1,1)
 	scale = Vector2(1,1)
-
-	
-	
-	
 	
 func _on_transition_to_small() -> void:
 	#TODO: ADD LOGIC FOR SIZE STATE CHANGE

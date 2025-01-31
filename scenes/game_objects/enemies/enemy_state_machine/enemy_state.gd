@@ -1,5 +1,5 @@
 extends Node
-class_name EnemyState
+class_name enemy_state
 
 signal Transitioned
 

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwljrfuy6vdyv"]
+
+[ext_resource type="Script" path="res://scenes/overworld/LevelController/level_controller.gd" id="1_3k3cd"]
+[ext_resource type="PackedScene" uid="uid://df7i7bdii488l" path="res://scenes/overworld/Level Segments/segment_1.tscn" id="2_innyt"]
+[ext_resource type="PackedScene" uid="uid://buxjbtcr71nqi" path="res://scenes/overworld/Level Segments/segment_2.tscn" id="3_uf2aw"]
+[ext_resource type="PackedScene" uid="uid://pj0mxgk1rsrm" path="res://scenes/ui/game_over_ui/game_over_ui.tscn" id="4_ovsk0"]
+
+[node name="LevelController" type="Node2D" groups=["foreground_layer"]]
+script = ExtResource("1_3k3cd")
+
+[node name="Segment-2" parent="." instance=ExtResource("3_uf2aw")]
+position = Vector2(535, 164)
+
+[node name="Segment-1" parent="." groups=["segment_group"] instance=ExtResource("2_innyt")]
+position = Vector2(71, 1)
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverUi" parent="UICanvasLayer" instance=ExtResource("4_ovsk0")]
+visible = false

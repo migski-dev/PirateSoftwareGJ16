@@ -1,25 +1,25 @@
-extends EnemyState
+extends enemy_state
 class_name EnemyIdle
 
-@export var enemy: Enemy
-
-var move_direction : Vector2
-var anim_player : AnimationPlayer
+@export var enemy: enemy
 var player: CharacterBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var anim_player: AnimationPlayer = enemy.get_node("Visuals/AnimationPlayer") 	
-	anim_player.play("idle")
-	pass # Replace with function body.
+	player = get_tree().get_first_node_in_group("player")
 
 func enter():
-	pass
-	
+	var anim_player: AnimationPlayer = enemy.get_node("Visuals/AnimationPlayer")
+	anim_player.play("idle")
 
 func physics_update(delta: float):
-	enemy.velocity_component.apply_gravity(enemy, delta)
+	var direction = player.global_position - enemy.global_position
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	#adjust to take state machine parameter.
+	if direction.length() > enemy.enemy_detection_radius:
+		Transitioned.emit(self,"EnemyIdle")
+		enemy.velocity_component.move(enemy)
+		enemy.velocity_component.apply_gravity(enemy, delta)
+	#enemy.velocity_component.move(enemy)
+	else:
+		Transitioned.emit(self,"EnemyFollow")

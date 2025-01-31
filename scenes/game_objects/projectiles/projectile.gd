@@ -29,8 +29,8 @@ func _process(delta):
 	#if not is_player_projectile: 
 	#	pass
 	position += direction * bullet_speed * delta
-	if not is_on_screen():
-		queue_free()
+	#if not is_on_screen():
+	#	queue_free()
 	
 func travel(target_direction: Vector2):
 	# Set up code in case we want to be able to aim (not just left and right)	

@@ -239,13 +239,14 @@ _data = {
 "walk": SubResource("Animation_8p62y")
 }
 
-[node name="BasicEnemy-Ranged" type="CharacterBody2D" node_paths=PackedStringArray("mid_point")]
+[node name="BasicEnemy-Ranged" type="CharacterBody2D" node_paths=PackedStringArray("initial_state", "mid_point")]
 collision_layer = 4
 script = ExtResource("1_qcvxm")
-mid_point = NodePath("Center")
+initial_state = NodePath("EnemyStateMachine/EnemyIdle")
 enemy_attack_type = 1
+attack_range = 150
 bullet_scene = ExtResource("2_xrtlo")
-attack_range = 250
+mid_point = NodePath("Center")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

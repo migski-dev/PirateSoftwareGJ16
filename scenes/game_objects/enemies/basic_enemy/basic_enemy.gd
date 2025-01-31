@@ -1,20 +1,20 @@
 extends CharacterBody2D
-class_name Enemy
+class_name enemy
 
 #Component Decorators
 @onready var visuals = $Visuals
 @onready var velocity_component = $VelocityComponent
 @onready var hitbox_component = $CollisionShape2D
-@export var mid_point: Marker2D
+enum attack_types {MELEE, RANGED, SPECIAL}
 
-@export_category("ATTACK TYPE")
-enum attack_types {MELEE, RANGED}
-
-@export_category("Enemy Attack")
+@export_category("Enemy Config")
+@export var initial_state : enemy_state
 @export var enemy_attack_type : attack_types = attack_types.MELEE
-@export var bullet_scene: PackedScene
-@export var attack_damage : int = 5
+@export var enemy_detection_radius = 100
 @export var attack_range : int = 35
+@export var attack_damage : int = 5
+@export var bullet_scene: PackedScene
+@export var mid_point: Marker2D
 
 var player : CharacterBody2D
 
@@ -22,14 +22,12 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	$HitboxComponent.damage = attack_damage
 	$HurtboxComponent.hit.connect(on_hit)
-	
 	apply_floor_snap()
 	
 func _process(delta):
 	pass
 		
 func _physics_process(delta: float) -> void:
-
 	#make enemy face direction methinks?
 	var move_sign = sign(velocity.x)
 	if move_sign != 0:
