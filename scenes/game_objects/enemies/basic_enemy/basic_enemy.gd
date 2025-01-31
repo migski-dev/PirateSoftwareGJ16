@@ -35,10 +35,12 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func on_hit():
-	print_debug('I GOT HIT')
+	pass
+	#print_debug('I GOT HIT')
 	
 func on_attack():
-	print_debug('I HIT SOMETHING')
+	pass
+	#print_debug('I HIT SOMETHING')
 	
 func on_ranged_attack():
 	var target_direction = (player.global_position- self.global_position).normalized()
@@ -48,4 +50,4 @@ func on_ranged_attack():
 	bullet.global_position = mid_point.global_position
 	bullet.travel(target_direction * 100)
 	get_tree().root.add_child(bullet)
-	print_debug('I SHOOT SOMETHING')
+	

@@ -148,6 +148,8 @@ func can_range_attack() -> bool:
 	#TODO: Implement logic; 
 	# Player can range attack if not in melee/special/range state AND has enough 
 	# slime AND not on range CD
+	if is_specialing:
+		return false
 	if state == states.none and has_enough_slime() and not is_on_bullet_cooldown: 
 		return true 
 	else: 
@@ -227,6 +229,7 @@ func emit_on_range_end() -> void:
 func emit_on_special_end() -> void:
 	GameEvents.on_special_end.emit()
 	_reset_action()
+	
 
 
 func _on_slime_component_on_damage_shrink():
@@ -249,12 +252,23 @@ func _disable_sling_collision():
 	player.sling_hitbox_collision.disabled = true
 	
 func _on_sling_hurtbox_component_body_entered(body):
+	if not player.current_size_state == player.small_size_state:
+		return
+	if not state == states.special_attack:
+		return 
 	is_flying = false
 	call_deferred("_disable_sling_collision")
+	player._enable_layer_collision()
 	#player.player_sprite.offset = Vector2.ZERO
+	#await get_tree().create_timer(.1).timeout
+	
+	player.enabled_action = true
+	player._disable_sling_hitbox()
+	
+	emit_on_special_end()
+	#if not body is CharacterBody2D:
+		#player.enabled_action = true
+		#emit_on_special_end()
 
-	if not body is CharacterBody2D:
-		print('asdfasdfsa')
-		emit_on_special_end()
 	# TODO: Add splat on impact?
 	

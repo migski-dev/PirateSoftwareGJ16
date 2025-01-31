@@ -62,7 +62,7 @@ func handle_special(delta: float) -> void:
 				saw_move(Vector2(speed_multiplier * -player.max_speed, speed_multiplier * -player.max_speed), delta)
 				
 #	Go up if on a wall 			
-	elif player.saw_raycast.is_colliding() and player.saw_raycast.get_collider() is TileMapLayer:
+	elif player.saw_raycast.is_colliding() and player.saw_raycast.get_collider() is TileMapLayer and not (player.ceiling_raycast.is_colliding()):
 		if direction == Vector2.RIGHT:
 			saw_move(Vector2(speed_multiplier * player.max_speed, speed_multiplier * -player.max_speed), delta)
 		else:
@@ -70,10 +70,21 @@ func handle_special(delta: float) -> void:
 	
 #	TODO: Test this
 	elif player.ceiling_raycast.is_colliding() and player.ceiling_raycast.get_collider() is TileMapLayer and not player.floor_raycast.is_colliding():
-		if direction == Vector2.RIGHT:
-			saw_move(Vector2(speed_multiplier * -player.max_speed, 0), delta)
+		if player.saw_raycast.is_colliding():
+			print('FUCKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK')
+		if player.saw_raycast.is_colliding() and player.saw_raycast.get_collider() is TileMapLayer:
+			print_debug('AFJHASDKFHAKSDHFASKDJHFKLAJHFKJSDHKHFJA')
+			if direction == Vector2.RIGHT:
+				#print('asdlkfjasldkflasdkjfl;asdjfl;asdjfl;jasdkl;fjal;sdjfl;asjkfl')
+				saw_move(Vector2(speed_multiplier * -player.max_speed, speed_multiplier * -player.max_speed), delta)
+			else:
+				#print('asdlkfjasldkflasdkjfl;asdjfl;asdjfl;jasdkl;fjal;sdjfl;asjkfl')
+				saw_move(Vector2(speed_multiplier * player.max_speed, speed_multiplier * -player.max_speed), delta)
 		else:
-			saw_move(Vector2(speed_multiplier * player.max_speed, 0), delta)
+			if direction == Vector2.RIGHT:
+				saw_move(Vector2(speed_multiplier * -player.max_speed, 0), delta)
+			else:
+				saw_move(Vector2(speed_multiplier * player.max_speed, 0), delta)
 			
 	# Case: No raycasts colliding
 	elif not player.floor_raycast.is_colliding() and not player.saw_raycast.is_colliding() and not player.ceiling_raycast.is_colliding():
